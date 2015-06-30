@@ -4,27 +4,28 @@
  * @author R. S. Doiel, <rsdoiel@gmail.com>
  * copyright (c) 2015 all rights reserved.
  * Released under the BSD 2-Clause license.
+ * See: http://opensource.org/licenses/BSD-2-Clause
  */
 package main
 
 import (
+	"../../shorthand"
+	"bufio"
 	"errors"
+	"flag"
 	"fmt"
 	"os"
-	"flag"
-    "bufio"
-	"../../shorthand"
 )
 
 type expressionList []string
 
 var (
-    help bool
-    expression expressionList
+	help       bool
+	expression expressionList
 )
 
 var usage = func(exit_code int, msg string) {
-    var fh = os.Stderr
+	var fh = os.Stderr
 	if exit_code == 0 {
 		fh = os.Stdout
 	}
@@ -76,13 +77,12 @@ OPTIONS
 	fmt.Fprintf(fh, `
 copyright (c) 2015 all rights reserved.
 Released under the Simplified BSD License
-See: http://opensource.org/licenses/bsd-license.php
+See: http://opensource.org/licenses/BSD-2-Clause
 `)
 	os.Exit(exit_code)
 }
 
-
-func (e *expressionList) String () string {
+func (e *expressionList) String() string {
 	return fmt.Sprintf("%s", *e)
 }
 
@@ -94,35 +94,34 @@ func (e *expressionList) Set(value string) error {
 	return nil
 }
 
-
 func init() {
 	const (
 		expressionUsage = "The shorthand notation(s) you wish at add."
 		helpUsage       = "Display this help document."
 	)
 
-    flag.Var(&expression, "e", expressionUsage)
+	flag.Var(&expression, "e", expressionUsage)
 	flag.BoolVar(&help, "help", help, helpUsage)
 	flag.BoolVar(&help, "h", help, helpUsage)
 }
 
 func main() {
-    flag.Parse()
-    if help == true {
-        usage(0, "")
-    }
+	flag.Parse()
+	if help == true {
+		usage(0, "")
+	}
 
-    reader := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 
-    for {
-        line, err := reader.ReadString('\n')
-        if err != nil {
-            break
-        }
-        if shorthand.IsAssignment(line) {
-            shorthand.Assign(line)
-        } else {
-            fmt.Print(shorthand.Expand(line))
-        }
-    }
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		if shorthand.IsAssignment(line) {
+			shorthand.Assign(line)
+		} else {
+			fmt.Print(shorthand.Expand(line))
+		}
+	}
 }

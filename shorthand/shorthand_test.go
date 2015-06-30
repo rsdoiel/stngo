@@ -7,77 +7,76 @@
 package shorthand
 
 import (
-    "testing"
+	"testing"
 )
-
 
 // Test IsAssignment
 func TestIsAssignment(t *testing.T) {
-    validAssignments := []string{
-        "@now := $(date)",
-        "this := a valid assignment",
-        "this; := is a valid assignment",
-        "now; := $(date +\"%H:%M\");",
-    }
+	validAssignments := []string{
+		"@now := $(date)",
+		"this := a valid assignment",
+		"this; := is a valid assignment",
+		"now; := $(date +\"%H:%M\");",
+	}
 
-    invalidAssignments := []string{
-        "This is not an assignment",
-        "this:=  is not a valid assignment",
-        "nor :=is this a valid assignment",
-    }
+	invalidAssignments := []string{
+		"This is not an assignment",
+		"this:=  is not a valid assignment",
+		"nor :=is this a valid assignment",
+	}
 
-    for i := range validAssignments {
-        if IsAssignment(validAssignments[i]) == false {
-            t.Fatalf(validAssignments[i] + " should be a valid assignment.")
-        }
-    }
+	for i := range validAssignments {
+		if IsAssignment(validAssignments[i]) == false {
+			t.Fatalf(validAssignments[i] + " should be a valid assignment.")
+		}
+	}
 
-    for i := range invalidAssignments {
-        if IsAssignment(invalidAssignments[i]) == true {
-            t.Fatalf(invalidAssignments[i] + " should be an invalid assignment.")
-        }
-    }
+	for i := range invalidAssignments {
+		if IsAssignment(invalidAssignments[i]) == true {
+			t.Fatalf(invalidAssignments[i] + " should be an invalid assignment.")
+		}
+	}
 }
 
 // Test Assign
 func TestAssign(t *testing.T) {
-    Clear()
-    validAssignments := []string{
-        "@now := $(date)",
-        "this := a valid assignment",
-        "this; := is a valid assignment",
-        "now; := $(date +\"%H:%M\");",
-        "@new := Fred\n",
-    }
-    expectedMap := map[string]string{
-        "@now" : "$(date)",
-        "this": "a valid assignment",
-        "this;": "is a valid assignment",
-        "now;": "$(date +\"%H:%M\");",
-        "@new": "Fred",
-    }
+	Clear()
+	validAssignments := []string{
+		"@now := $(date)",
+		"this := a valid assignment",
+		"this; := is a valid assignment",
+		"now; := $(date +\"%H:%M\");",
+		"@new := Fred\n",
+	}
+	expectedMap := map[string]string{
+		"@now":  "$(date)",
+		"this":  "a valid assignment",
+		"this;": "is a valid assignment",
+		"now;":  "$(date +\"%H:%M\");",
+		"@new":  "Fred",
+	}
 
-    for i := range validAssignments {
-        if Assign(validAssignments[i]) == false {
-            t.Fatalf(validAssignments[i] + " should be assigned.")
-        }
-    }
+	for i := range validAssignments {
+		if Assign(validAssignments[i]) == false {
+			t.Fatalf(validAssignments[i] + " should be assigned.")
+		}
+	}
 
-    for key, value := range expectedMap {
-        expected, ok := Abbreviations[key]
-        if !ok {
-            t.Fatalf("Could not find the shorthand for " + key)
-        }
-        if expected != value {
-            t.Fatalf("[" + expected + "] != [" + value + "]")
-        }
-    }
+	for key, value := range expectedMap {
+		expected, ok := Abbreviations[key]
+		if !ok {
+			t.Fatalf("Could not find the shorthand for " + key)
+		}
+		if expected != value {
+			t.Fatalf("[" + expected + "] != [" + value + "]")
+		}
+	}
 }
 
 // Test Expand
-func TestExpand(t * testing.T) {
-    Clear()
-    text := `
+func TestExpand(t *testing.T) {
+	Clear()
+	text := `
 @me
 
 This is some line that should not change.
@@ -86,7 +85,7 @@ This is some line that should not change.
 
 This "now" should not change. This "me" should not change.`
 
-    expected := `
+	expected := `
 Fred
 
 This is some line that should not change.
@@ -95,12 +94,11 @@ This is some line that should not change.
 
 This "now" should not change. This "me" should not change.`
 
-    Assign("@me := Fred\n")
-    Assign("@now := 9:00")
-    result := Expand(text)
-    if result != expected {
-        t.Fatalf("Expected:\n\n" + expected + "\n\nReceived:\n\n" + result)
-    }
-
+	Assign("@me := Fred\n")
+	Assign("@now := 9:00")
+	result := Expand(text)
+	if result != expected {
+		t.Fatalf("Expected:\n\n" + expected + "\n\nReceived:\n\n" + result)
+	}
 
 }
