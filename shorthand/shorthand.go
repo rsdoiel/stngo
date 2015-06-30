@@ -3,6 +3,7 @@
  * @author R. S. Doiel, <rsdoiel@gmail.com>
  * copyright (c) 2015 all rights reserved.
  * Released under the BSD 2-Clause license
+ * See:
  */
 
 // Package shorthand provides shorthand storage and expantion for stngo project.
