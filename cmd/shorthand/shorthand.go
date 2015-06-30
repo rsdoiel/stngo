@@ -1,6 +1,7 @@
 /**
- * stnshorthand.go - A command line utility to process an shorthand definitions
- * and render the resulting file with the transformed text and without any shorthand definitions.
+ * shorthand.go - command line utility to process shorthand definitions
+ * and render output with the transformed text and without any
+ * shorthand definitions.
  * @author R. S. Doiel, <rsdoiel@gmail.com>
  * copyright (c) 2015 all rights reserved.
  * Released under the BSD 2-Clause license.
@@ -9,7 +10,7 @@
 package main
 
 import (
-	"../../shorthand"
+	"../../stn/shorthand"
 	"bufio"
 	"errors"
 	"flag"
@@ -29,15 +30,15 @@ var usage = func(exit_code int, msg string) {
 	if exit_code == 0 {
 		fh = os.Stdout
 	}
+	cmdName := os.Args[0]
+
 	fmt.Fprintf(fh, `%s
-USAGE stnshorthand [options]
+USAGE %s [options]
 
-stnshorthand reads from standard in and writes to standard out.
-
-Shorthands are defined by a label followed by a space, followed by a colon,
-equal sign and another space followed by a value and end of line. The
-shorthand is the label, it is replaced by the value (not including the
-end of line).
+%s is a command line utility to process shorthand definitions
+and render output with the transformed text and without the
+shorthand definitions themselves. It reads from standard input
+and writes to standard output. The form is
 
     LABEL := VALUE
 
@@ -48,27 +49,27 @@ would be done with the following line
     ACME := the point at which someone or something is best
 
 Now each time the shorthand "ACME" is encountered the phrase
-"the point at which someone or something is best" will replace it. This the
-text
+"the point at which someone or something is best" will replace it. Thus
 
     My, ACME, will come
 
-Would become
+would become
 
     My, the point at which someone or something is best, will come
 
 Normally you would use shorthands for things like long project names,
-passing dynamic values (like the current time or date).
-
+passing dynamic values (like the current time or date) via the command line.
 
 EXAMPLE
 
-    stnshorthand -e "@now := $(date +%%H:%%M)" \
-	   -e "@today := $(date +%%Y-%%m-%%d)" < myfile.txt > output.txt
+Pass the current date and time as shorthands transform the file "input.txt"
+into "output.txt" with shorthands converted.
 
+    %s -e "@now := $(date +%%H:%%M)" \
+	   -e "@today := $(date +%%Y-%%m-%%d)" < input.txt > output.txt
 
 OPTIONS
-`, msg)
+`, msg, cmdName, cmdName, cmdName)
 
 	flag.VisitAll(func(f *flag.Flag) {
 		fmt.Fprintf(fh, "\t-%s\t\t%s\n", f.Name, f.Usage)
@@ -94,18 +95,9 @@ func (e *expressionList) Set(value string) error {
 	return nil
 }
 
-func init() {
-	const (
-		expressionUsage = "The shorthand notation(s) you wish at add."
-		helpUsage       = "Display this help document."
-	)
-
-	flag.Var(&expression, "e", expressionUsage)
-	flag.BoolVar(&help, "help", help, helpUsage)
-	flag.BoolVar(&help, "h", help, helpUsage)
-}
-
 func main() {
+	flag.Var(&expression, "e", "The shorthand notation(s) you wish at add.")
+	flag.BoolVar(&help, "h", help, "Display this help document.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")

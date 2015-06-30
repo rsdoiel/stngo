@@ -4,7 +4,8 @@
 
 @today
 
-9:00 - @now; this is a test of shorthand processing with stnshorthand.
+9:00 - @now; this is a test of shorthand processing with *shorthand* from the stngo package.
 
 What should results is just a simple timesheet entry for July 4th, 2015
 9:00 until 5:00.
+
