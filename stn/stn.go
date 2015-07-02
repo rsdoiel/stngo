@@ -11,7 +11,6 @@ package stn
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -63,7 +62,6 @@ func splitCells(line string) []string {
 
 func splitRange(line string) (time.Time, time.Time, error) {
 	parts := strings.SplitN(line, " - ", 2)
-	fmt.Println("DEBUG parts -> " + parts[0] + ", " + parts[1])
 	start, err1 := time.Parse("15:04", parts[0])
 	end, err2 := time.Parse("15:04", parts[1])
 	if err1 != nil {
@@ -104,14 +102,6 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 		End:        end,
 		Notations:  []string{"DEBUG notations"},
 	}
-	/*
-	   entry.Occurrence = occurrence
-	   entry.Start = start
-	   entry.End = end
-	   entry.Notations = []string{"DEBUG Notations"}
-	*/
 
-	fmt.Printf("DEBUG %s, start: %s, end: %s\n", occurrence.Format("2006-01-02"), start.Format("15:04"), end.Format("15:04"))
-	//return &Entry{Occurrence: occurrence, Start: start, End: end, Notations: []string{"DEBUG values"}}, nil
 	return entry, nil
 }
