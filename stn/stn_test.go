@@ -159,7 +159,7 @@ func TestParseEntry(t *testing.T) {
 	text = "08:00 - 9:30; misc; email and what not."
 	entry, err := ParseEntry(activeDate, text)
 	ok(t, err == nil, fmt.Sprintf("%s  is Valid, got error: %q", text, err))
-	ok(t, entry.Start.Hour() == 8, "should start at hoir of 8")
+	ok(t, entry.Start.Hour() == 8, "should start at hour of 8")
 	ok(t, entry.Start.Minute() == 0, "should have start minute 0")
 	ok(t, entry.End.Hour() == 9, "should end at hour of 9")
 	ok(t, entry.End.Minute() == 30, "should have end minute 30")
@@ -168,6 +168,14 @@ func TestParseEntry(t *testing.T) {
 		ok(t, entry.Annotations[0] == "misc", "first cell should be 'misc': [" + entry.Annotations[0] + "]")
 		ok(t, entry.Annotations[1] == "email and what not.", "first cell should be 'email and what not.': [" + entry.Annotations[1] + "]")
 	}
+
+	jsonString := entry.JSON()
+	expectedString := `{"Start":"2015-07-04T08:00:00Z","End":"2015-07-04T09:30:00Z","Annotations":["misc","email and what not."]}`
+	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
+
+	text = entry.String()
+	expectedString = "2015-07-04T08:00:00Z\t2015-07-04T09:30:00Z\tmisc\temail and what not."
+	ok(t, text == expectedString, "entry.String(): " + text)
 
 	// This is an empty line, not a DateLine
 	text = ""

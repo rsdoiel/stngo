@@ -10,6 +10,7 @@
 package stn
 
 import (
+	"encoding/json"
 	"errors"
 	"regexp"
 	"strings"
@@ -20,6 +21,9 @@ var (
 	dateLineRE  = regexp.MustCompile("^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$")
 	entryLineRE = regexp.MustCompile("^([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]) - ([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]);")
 )
+
+//FIXME: need to decide how to set timezone offset, assume local unless +/- single time
+// referenence found? +8:00, +12:00, -4:00
 
 // Entry is the basic data element generated when parsing a file contactining
 // Simple Timesheet Notation. It is designed to easily turning to JSON, CSV
@@ -68,6 +72,8 @@ func splitRangeElements(timeRange string) (string, string, error) {
 }
 
 func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
+	//FIXME: need to handle the case where someone has entered an end time range
+	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm)
 	startTime, err1 := time.Parse("2006-01-02 15:04", start)
 	endTime, err2 := time.Parse("2006-01-02 15:04", end)
 	if err1 != nil {
@@ -114,4 +120,14 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 		Annotations:  cells[1:],
 	}
 	return entry, nil
+}
+
+func (e *Entry) JSON() string {
+	src, _ := json.Marshal(e)
+	return string(src)
+}
+
+func (e *Entry) String() string {
+	return e.Start.Format(time.RFC3339) + "\t" + e.End.Format(time.RFC3339) +
+		"\t" + strings.Join(e.Annotations[:], "\t")
 }
