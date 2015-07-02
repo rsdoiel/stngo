@@ -22,9 +22,6 @@ var (
 	entryLineRE = regexp.MustCompile("^([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]) - ([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]);")
 )
 
-//FIXME: need to decide how to set timezone offset, assume local unless +/- single time
-// referenence found? +8:00, +12:00, -4:00
-
 // Entry is the basic data element generated when parsing a file contactining
 // Simple Timesheet Notation. It is designed to easily turning to JSON, CSV
 // or other useful formats.
@@ -73,9 +70,9 @@ func splitRangeElements(timeRange string) (string, string, error) {
 
 func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
 	//FIXME: need to handle the case where someone has entered an end time range
-	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm)
-	startTime, err1 := time.Parse("2006-01-02 15:04", start)
-	endTime, err2 := time.Parse("2006-01-02 15:04", end)
+	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
+	startTime, err1 := time.Parse("2006-01-02 15:04 MST", start)
+	endTime, err2 := time.Parse("2006-01-02 15:04 MST", end)
 	if err1 != nil {
 		return startTime, endTime, err1
 	}
@@ -104,7 +101,12 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 		return nil, err
 	}
 
-	start, end, err := parseRangeElements(activeDate + " " + s, activeDate + " " + e)
+	// NOTE: for now I am assume timesheets are in local time.
+	// Need to think about supporting other timezone for things like
+	// timesheets during event travel.
+	zone, _ := time.Now().Zone()
+	start, end, err := parseRangeElements(activeDate + " " + s + " " + zone,
+		activeDate + " " + e + " " + zone)
 	if err != nil {
 		return nil, err
 	}

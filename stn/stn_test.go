@@ -170,11 +170,11 @@ func TestParseEntry(t *testing.T) {
 	}
 
 	jsonString := entry.JSON()
-	expectedString := `{"Start":"2015-07-04T08:00:00Z","End":"2015-07-04T09:30:00Z","Annotations":["misc","email and what not."]}`
+	expectedString := `{"Start":"2015-07-04T08:00:00-07:00","End":"2015-07-04T09:30:00-07:00","Annotations":["misc","email and what not."]}`
 	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
 
 	text = entry.String()
-	expectedString = "2015-07-04T08:00:00Z\t2015-07-04T09:30:00Z\tmisc\temail and what not."
+	expectedString = "2015-07-04T08:00:00-07:00\t2015-07-04T09:30:00-07:00\tmisc\temail and what not."
 	ok(t, text == expectedString, "entry.String(): " + text)
 
 	// This is an empty line, not a DateLine
