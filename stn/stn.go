@@ -25,10 +25,9 @@ var (
 // Simple Timesheet Notation. It is designed to easily turning to JSON, CSV
 // or other useful formats.
 type Entry struct {
-	Occurrence time.Time
 	Start      time.Time
 	End        time.Time
-	Notations  []string // cells of contextual data (e.g. project, activity, notes)
+	Annotations  []string // cells of contextual data (e.g. project, activity, notes)
 }
 
 // IsDateLine validates a line as appropriate to pass to ParseDateLine.
@@ -60,29 +59,31 @@ func splitCells(line string) []string {
 	return strings.Split(line, ";")
 }
 
-func splitRange(line string) (time.Time, time.Time, error) {
-	parts := strings.SplitN(line, " - ", 2)
-	start, err1 := time.Parse("15:04", parts[0])
-	end, err2 := time.Parse("15:04", parts[1])
+func splitRangeElements(timeRange string) (string, string, error) {
+	if strings.Index(timeRange, " - ") != -1 {
+		parts := strings.SplitN(timeRange, " - ", 2)
+		return parts[0], parts[1], nil
+	}
+	return "", "", errors.New("[" + timeRange + "] is not a valid time range string. ")
+}
+
+func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
+	startTime, err1 := time.Parse("2006-01-02 15:04", start)
+	endTime, err2 := time.Parse("2006-01-02 15:04", end)
 	if err1 != nil {
-		return start, end, err1
+		return startTime, endTime, err1
 	}
 	if err2 != nil {
-		return start, end, err2
+		return startTime, endTime, err2
 	}
-	return start, end, nil
+	return startTime, endTime, nil
 }
 
 // ParseEntry takes a string and the active date as a string and
 // returns a Entry structure and error value.
 func ParseEntry(activeDate string, line string) (*Entry, error) {
-
 	if IsDateLine(activeDate) == false {
 		return nil, errors.New("active date misformatted.")
-	}
-	occurrence, err := time.Parse("2006-01-02", activeDate)
-	if err != nil {
-		return nil, errors.New("Problem parsing active date: " + err.Error())
 	}
 	if IsEntry(line) == false {
 		return nil, errors.New("entry line misformatted.")
@@ -91,17 +92,26 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 	if len(cells) < 2 {
 		return nil, errors.New("entry line missing cells")
 	}
-	start, end, err := splitRange(cells[0])
+
+	s, e, err := splitRangeElements(cells[0])
 	if err != nil {
 		return nil, err
 	}
-	var entry *Entry
-	entry = &Entry{
-		Occurrence: occurrence,
-		Start:      start,
-		End:        end,
-		Notations:  []string{"DEBUG notations"},
+
+	start, end, err := parseRangeElements(activeDate + " " + s, activeDate + " " + e)
+	if err != nil {
+		return nil, err
 	}
 
+	for i := 1; i < len(cells); i += 1 {
+		cells[i] = strings.TrimSpace(cells[i])
+	}
+
+	var entry *Entry
+	entry = &Entry{
+		Start:      start,
+		End:        end,
+		Annotations:  cells[1:],
+	}
 	return entry, nil
 }

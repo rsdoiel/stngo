@@ -160,9 +160,14 @@ func TestParseEntry(t *testing.T) {
 	entry, err := ParseEntry(activeDate, text)
 	ok(t, err == nil, fmt.Sprintf("%s  is Valid, got error: %q", text, err))
 	ok(t, entry.Start.Hour() == 8, "should start at hoir of 8")
-	ok(t, entry.Start.Minute() == 0, "should have start minute zero")
-	ok(t, entry.End.Hour() == 9, "should end at hour of 8")
-	ok(t, entry.End.Minute() == 30, "should have end minute thirty")
+	ok(t, entry.Start.Minute() == 0, "should have start minute 0")
+	ok(t, entry.End.Hour() == 9, "should end at hour of 9")
+	ok(t, entry.End.Minute() == 30, "should have end minute 30")
+	ok(t, len(entry.Annotations) == 2, "Should have two annoations")
+	if len(entry.Annotations) == 2 {
+		ok(t, entry.Annotations[0] == "misc", "first cell should be 'misc': [" + entry.Annotations[0] + "]")
+		ok(t, entry.Annotations[1] == "email and what not.", "first cell should be 'email and what not.': [" + entry.Annotations[1] + "]")
+	}
 
 	// This is an empty line, not a DateLine
 	text = ""
