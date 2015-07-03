@@ -26,9 +26,9 @@ var (
 // Simple Timesheet Notation. It is designed to easily turning to JSON, CSV
 // or other useful formats.
 type Entry struct {
-	Start      time.Time
-	End        time.Time
-	Annotations  []string // cells of contextual data (e.g. project, activity, notes)
+	Start       time.Time
+	End         time.Time
+	Annotations []string // cells of contextual data (e.g. project, activity, notes)
 }
 
 // IsDateLine validates a line as appropriate to pass to ParseDateLine.
@@ -109,8 +109,8 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 	// Need to think about supporting other timezone for things like
 	// timesheets during event travel.
 	zone, _ := time.Now().Zone()
-	start, end, err := parseRangeElements(activeDate + " " + s + " " + zone,
-		activeDate + " " + e + " " + zone)
+	start, end, err := parseRangeElements(activeDate+" "+s+" "+zone,
+		activeDate+" "+e+" "+zone)
 	if err != nil {
 		return nil, err
 	}
@@ -121,9 +121,9 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 
 	var entry *Entry
 	entry = &Entry{
-		Start:      start,
-		End:        end,
-		Annotations:  cells[1:],
+		Start:       start,
+		End:         end,
+		Annotations: cells[1:],
 	}
 	return entry, nil
 }

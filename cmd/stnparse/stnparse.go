@@ -8,9 +8,8 @@
 package main
 
 import (
-	"../../stn/stn"
+	"../../stn"
 	"bufio"
-	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -18,7 +17,8 @@ import (
 )
 
 var (
-	help bool
+	asJSON bool
+	help   bool
 )
 
 var usage = func(exit_code int, msg string) {
@@ -47,13 +47,14 @@ OPTIONS
 
 	fmt.Fprintf(fh, `
 copyright (c) 2015 all rights reserved.
-Released under the Simplified BSD License
+Released under the BSD 2-Clause license.
 See: http://opensource.org/licenses/BSD-2-Clause
 `)
 	os.Exit(exit_code)
 }
 
 func main() {
+	flag.BoolVar(&asJSON, "json", asJSON, "Output as JSON format.")
 	flag.BoolVar(&help, "h", help, "Display this help document.")
 	flag.Parse()
 	if help == true {
@@ -70,15 +71,14 @@ func main() {
 			break
 		}
 		if stn.IsDateLine(line) == true {
-			activeDate, _ := stn.ParseDateLine(line)
+			activeDate = stn.ParseDateLine(line)
 		} else if stn.IsEntry(line) {
-			entry, _ := stn.ParseEntry(line)
-		}
-
-		if shorthand.IsAssignment(line) {
-			shorthand.Assign(line)
-		} else {
-			fmt.Print(shorthand.Expand(line))
+			entry, _ := stn.ParseEntry(activeDate, line)
+			if asJSON == true {
+				fmt.Println(entry.JSON())
+			} else {
+				fmt.Println(entry.String())
+			}
 		}
 	}
 }
