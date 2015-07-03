@@ -159,10 +159,33 @@ func TestParseEntry(t *testing.T) {
 	text = "08:00 - 9:30; misc; email and what not."
 	entry, err := ParseEntry(activeDate, text)
 	ok(t, err == nil, fmt.Sprintf("%s  is Valid, got error: %q", text, err))
-	ok(t, entry.Start.Hour() == 8, "should start at hoir of 8")
-	ok(t, entry.Start.Minute() == 0, "should have start minute zero")
-	ok(t, entry.End.Hour() == 9, "should end at hour of 8")
-	ok(t, entry.End.Minute() == 30, "should have end minute thirty")
+	ok(t, entry.Start.Hour() == 8, "should start at hour of 8")
+	ok(t, entry.Start.Minute() == 0, "should have start minute 0")
+	ok(t, entry.End.Hour() == 9, "should end at hour of 9")
+	ok(t, entry.End.Minute() == 30, "should have end minute 30")
+	ok(t, len(entry.Annotations) == 2, "Should have two annoations")
+	if len(entry.Annotations) == 2 {
+		ok(t, entry.Annotations[0] == "misc", "first cell should be 'misc': [" + entry.Annotations[0] + "]")
+		ok(t, entry.Annotations[1] == "email and what not.", "first cell should be 'email and what not.': [" + entry.Annotations[1] + "]")
+	}
+
+	jsonString := entry.JSON()
+	expectedString := `{"Start":"2015-07-04T08:00:00-07:00","End":"2015-07-04T09:30:00-07:00","Annotations":["misc","email and what not."]}`
+	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
+
+	text = entry.String()
+	expectedString = "2015-07-04T08:00:00-07:00\t2015-07-04T09:30:00-07:00\tmisc\temail and what not."
+	ok(t, text == expectedString, "entry.String(): " + text)
+
+	text = "08:22 - 1:34; afternoon; email and what not."
+	entry, err = ParseEntry(activeDate, text)
+	jsonString = entry.JSON()
+	expectedString = `{"Start":"2015-07-04T08:22:00-07:00","End":"2015-07-04T13:34:00-07:00","Annotations":["afternoon","email and what not."]}`
+	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
+	text = entry.String()
+	expectedString = "2015-07-04T08:22:00-07:00\t2015-07-04T13:34:00-07:00\tafternoon\temail and what not."
+	ok(t, text == expectedString, "entry.String(): " + text)
+
 
 	// This is an empty line, not a DateLine
 	text = ""

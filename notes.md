@@ -8,7 +8,7 @@ Random notes on what this Golang package should look like.
 
 Tokens
 
-+ *ShorthandDefinitionMarker* - space colon equals ("#mything := this is my things", "#mything" is the symbol, "this is my things" is the value) 
++ *ShorthandDefinitionMarker* - space colon equals ("#mything := this is my things", "#mything" is the symbol, "this is my things" is the value)
 + *EntryMarker* - entry marker is to new line characters
 + *CellMarker* - a semi-colon
 + *RangeMarker* - space dash space, separates two times (do I need to suppoert date ranges?)
@@ -27,9 +27,12 @@ Commands
 
 # Todo
 
-+ merge Entry.Occurrence with Start and End
++ Figure out how to handle timezone offset (e.g. assume local, allow of explicit timezone, etc)
 
-
-
-
-
+```go
+    // Example getting local timezone
+    now := time.Now();
+    location := now.Location()
+    timezone := now.Zone()
+    fmt.Printf("Now: %v, Location: %v, Timezone: %v\n", now, location, timezone)
+```
