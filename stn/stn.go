@@ -12,6 +12,7 @@ package stn
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -136,4 +137,17 @@ func (e *Entry) JSON() string {
 func (e *Entry) String() string {
 	return e.Start.Format(time.RFC3339) + "\t" + e.End.Format(time.RFC3339) +
 		"\t" + strings.Join(e.Annotations[:], "\t")
+}
+
+func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
+	t1 := e.Start.Unix()
+	if t1 >= start.Unix() && t1 <= end.Unix() {
+		return true
+	}
+	return false
+}
+
+func (e *Entry) IsMatch(columns []int, match string) bool {
+	fmt.Println("IsMatch() not implemented.")
+	return false
 }

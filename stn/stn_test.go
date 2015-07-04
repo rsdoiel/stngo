@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func ok(t *testing.T, expected bool, msg string) {
@@ -195,4 +196,31 @@ func TestParseEntry(t *testing.T) {
 	text = "This is just some random text, not a DateLine"
 	_, err = ParseEntry(activeDate, text)
 	ok(t, err != nil, text+" produced error on ParseEntry().")
+}
+
+func TestFilter(t *testing.T) {
+	start, _ := time.Parse("2006-01-02", "2015-07-01")
+	end, _ := time.Parse("2006-01-02", "2015-07-31")
+	s, _ := time.Parse("2006-01-02 15:04", "2015-07-04 08:38")
+	e, _ := time.Parse("2006-01-02 15:04", "2015-07-04 13:34")
+	t1 := Entry{
+		Start:       s,
+		End:         e,
+		Annotations: []string{"one", "two"},
+	}
+	expected := true
+	result := t1.IsInRange(start, end)
+	ok(t, expected == result,
+		t1.String()+" is between "+start.String()+" and "+end.String())
+
+	s, _ = time.Parse("2006-01-02 15:04", "2015-06-04 08:38")
+	e, _ = time.Parse("2006-01-02 15:04", "2015-06-04 13:34")
+	t1.Start = s
+	t1.End = e
+	expected = false
+	result = t1.IsInRange(start, end)
+	ok(t, expected == result,
+		t1.String()+" not is between "+start.String()+" and "+end.String())
+
+	//FIXME  need test for IsMatch
 }

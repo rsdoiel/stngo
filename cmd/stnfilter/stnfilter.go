@@ -12,6 +12,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"time"
 )
@@ -59,6 +60,12 @@ See: http://opensource.org/licenses/BSD-2-Clause
 }
 
 func main() {
+	var (
+		showLine  = true
+		startTime = time.Time
+		endTime   = time.Time
+	)
+
 	flag.Var(&start, "start", start, "start date range.")
 	flag.Var(&end, "end", end, "end, inclusive, date range.")
 	flag.VarInt(&column, "column", column, "by annotation column.")
@@ -70,18 +77,45 @@ func main() {
 		usage(0, "")
 	}
 
-	activeDate := time.Now().Format("2006-07-15")
+	activeDate := time.Now().Format("2006-01-02")
+	if start != "" {
+		startTime, err = time.Parse("2006-01-02", start)
+		if err != nil {
+			log.Fatalf("Start date error: %s\n", err)
+			os.Exit(1)
+		}
+		if end == "" {
+			endTime = activeDate
+		} else {
+			endTime, err = time.Parse("2006-01-02", end)
+			if err != nil {
+				log.Fatalf("End date error: %s\n", err)
+				os.Exit(1)
+			}
+		}
+	}
 
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
+		showLine = true
 		line, err := reader.ReadString('\n')
 		if err != nil {
 			break
 		}
-		//FIXME if tab delemited parse lines into Entry
-		//FIXME else if json unmarshal into Entry
-		//FIXME filter functions go here
-		fmt.Printf("DEBUG: %s", line)
+		entry, err := stn.ParseTab(line)
+		if err != nil {
+			log.Fatalf("%s\n", err)
+			os.Exit(1)
+		}
+		if showLine == true && match != "" {
+			showLine = IsMatch(entry, column, match)
+		}
+		if showLine == true && start != "" && end != "" {
+			showLine = IsInRange(entry, startTime, endTime)
+		}
+		if sbowLine == true {
+			fmt.Printf("%s\n", line)
+		}
 	}
 }
