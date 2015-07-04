@@ -222,9 +222,29 @@ func TestFilter(t *testing.T) {
 	ok(t, expected == result,
 		t1.String()+" not is between "+start.String()+" and "+end.String())
 
-	//FIXME  need test for IsMatch
+	//FIXME: need test where start is in the afternoon and great than end
+
 	expected = true
-	result = t1.IsMatch(0, "one")
+	result = t1.IsMatch("one")
 	ok(t, expected == result, "one is an annotation")
+
+	expected = true
+	result = t1.IsMatch("two")
+	ok(t, expected == result, "one is an annotation")
+
+	expected = false
+	result = t1.IsMatch("three")
+	ok(t, expected == result, "one is an annotation")
+
+	t2 := new(Entry)
+	ok(t, t2.FromString(t1.String()) == true, "FromString should work")
+	ok(t, t1.Start == t2.Start, "Start should match")
+	ok(t, t1.End == t2.End, "End should match")
+	for i := 0; i < len(t1.Annotations); i += 1 {
+		ok(t, t1.Annotations[i] == t2.Annotations[i],
+			fmt.Sprintf("%s == %s failed\n",
+				t1.Annotations[i], t2.Annotations[i]))
+
+	}
 
 }

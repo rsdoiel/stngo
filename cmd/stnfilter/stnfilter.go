@@ -61,23 +61,25 @@ See: http://opensource.org/licenses/BSD-2-Clause
 
 func main() {
 	var (
-		showLine  = true
-		startTime = time.Time
-		endTime   = time.Time
+		showLine   = true
+		startTime  time.Time
+		endTime    time.Time
+		activeDate time.Time
+		err        error
 	)
 
-	flag.Var(&start, "start", start, "start date range.")
-	flag.Var(&end, "end", end, "end, inclusive, date range.")
-	flag.VarInt(&column, "column", column, "by annotation column.")
-	flag.Var(&match, "match", match, "column value should match.")
-	flag.BoolVar(&asJSON, "json", asJSON, "Output as JSON format.")
-	flag.BoolVar(&help, "h", help, "Display this help document.")
+	flag.StringVar(&start, "start", "", "start date range.")
+	flag.StringVar(&end, "end", "", "end, inclusive, date range.")
+	flag.StringVar(&match, "match", "", "column value should match.")
+	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
+	flag.BoolVar(&help, "h", false, "Display this help document.")
+	flag.BoolVar(&help, "help", false, "Display this help document.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")
 	}
 
-	activeDate := time.Now().Format("2006-01-02")
+	activeDate = time.Now()
 	if start != "" {
 		startTime, err = time.Parse("2006-01-02", start)
 		if err != nil {
@@ -97,24 +99,26 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
+	entry := new(stn.Entry)
+	line_no := 0
 	for {
 		showLine = true
 		line, err := reader.ReadString('\n')
 		if err != nil {
 			break
 		}
-		entry, err := stn.ParseTab(line)
-		if err != nil {
-			log.Fatalf("%s\n", err)
+		line_no += 1
+		if entry.FromString(line) != true {
+			log.Fatalf("line no. %d: can't filter [%s]\n", line_no, line)
 			os.Exit(1)
 		}
+		if start != "" {
+			showLine = entry.IsInRange(startTime, endTime)
+		}
 		if showLine == true && match != "" {
-			showLine = IsMatch(entry, column, match)
+			showLine = entry.IsMatch(match)
 		}
-		if showLine == true && start != "" && end != "" {
-			showLine = IsInRange(entry, startTime, endTime)
-		}
-		if sbowLine == true {
+		if showLine == true {
 			fmt.Printf("%s\n", line)
 		}
 	}

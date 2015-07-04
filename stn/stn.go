@@ -12,7 +12,6 @@ package stn
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -70,11 +69,12 @@ func splitRangeElements(timeRange string) (string, string, error) {
 }
 
 func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
-	//FIXME: need to handle the case where someone has entered an end time range
-	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	startTime, err1 := time.Parse("2006-01-02 15:04 MST", start)
 	endTime, err2 := time.Parse("2006-01-02 15:04 MST", end)
+	//NOTE: need to handle the case where someone has entered an end time ran
+	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	if startTime.Unix() > endTime.Unix() {
+		//FIXME: do not add twelve hours if startTime in afternoon.
 		plus12hr, _ := time.ParseDuration("+12h")
 		endTime = endTime.Add(plus12hr)
 	}
@@ -139,6 +139,24 @@ func (e *Entry) String() string {
 		"\t" + strings.Join(e.Annotations[:], "\t")
 }
 
+func (e *Entry) FromString(line string) bool {
+	var err error
+	parts := strings.Split(line, "\t")
+	if len(parts) < 3 {
+		return false
+	}
+	e.Start, err = time.Parse(time.RFC3339, parts[0])
+	if err != nil {
+		return false
+	}
+	e.End, err = time.Parse(time.RFC3339, parts[1])
+	if err != nil {
+		return false
+	}
+	e.Annotations = parts[2:]
+	return true
+}
+
 func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
 	t1 := e.Start.Unix()
 	if t1 >= start.Unix() && t1 <= end.Unix() {
@@ -147,7 +165,14 @@ func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
 	return false
 }
 
-func (e *Entry) IsMatch(columns int, match string) bool {
-	fmt.Println("IsMatch() not implemented.")
-	return false
+func (e *Entry) IsMatch(match string) bool {
+	matched := false
+	//NOTE: search all columns
+	for i := 0; i < len(e.Annotations); i += 1 {
+		if strings.Contains(e.Annotations[i], match) == true {
+			matched = true
+			break
+		}
+	}
+	return matched
 }
