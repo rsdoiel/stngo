@@ -223,4 +223,8 @@ func TestFilter(t *testing.T) {
 		t1.String()+" not is between "+start.String()+" and "+end.String())
 
 	//FIXME  need test for IsMatch
+	expected = true
+	result = t1.IsMatch(0, "one")
+	ok(t, expected == result, "one is an annotation")
+
 }

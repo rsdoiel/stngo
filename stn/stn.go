@@ -147,7 +147,7 @@ func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
 	return false
 }
 
-func (e *Entry) IsMatch(columns []int, match string) bool {
+func (e *Entry) IsMatch(columns int, match string) bool {
 	fmt.Println("IsMatch() not implemented.")
 	return false
 }
