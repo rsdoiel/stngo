@@ -36,3 +36,18 @@ Commands
     timezone := now.Zone()
     fmt.Printf("Now: %v, Location: %v, Timezone: %v\n", now, location, timezone)
 ```
+
+
+## shorthand ideas
+
++ text substitutions defined with LABEL := STRING
++ file inclusion defined with LABEL :< PATH TO FILE TO INCLUDE
++ support middle of file exstraction negative index refers to lines from end of file
+	+ creat a buffer the size of the last index to end of file, stream file through buffer
+	+ middle 6,-10 would mean the buffer size would be ten lines and when you hit eof the buf wil be discarded.
+	+ LABEL :< #,# PATH TO FILE FRAGMENT TO INCLUDE
+
+
+
+
+
