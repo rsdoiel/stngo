@@ -74,7 +74,6 @@ func parseRangeElements(start string, end string) (time.Time, time.Time, error) 
 	//NOTE: need to handle the case where someone has entered an end time ran
 	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	if startTime.Unix() > endTime.Unix() {
-		//FIXME: do not add twelve hours if startTime in afternoon.
 		plus12hr, _ := time.ParseDuration("+12h")
 		endTime = endTime.Add(plus12hr)
 	}
