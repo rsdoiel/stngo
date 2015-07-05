@@ -54,8 +54,9 @@ See: http://opensource.org/licenses/BSD-2-Clause
 }
 
 func main() {
-	flag.BoolVar(&asJSON, "json", asJSON, "Output as JSON format.")
-	flag.BoolVar(&help, "h", help, "Display this help document.")
+	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
+	flag.BoolVar(&help, "h", false, "Display this help document.")
+	flag.BoolVar(&help, "help", false, "Display this help document.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")

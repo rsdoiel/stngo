@@ -20,7 +20,6 @@ import (
 var (
 	start  string
 	end    string
-	column string
 	match  string
 	asJSON bool
 	help   bool
