@@ -69,10 +69,10 @@ func splitRangeElements(timeRange string) (string, string, error) {
 }
 
 func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
-	//FIXME: need to handle the case where someone has entered an end time range
-	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	startTime, err1 := time.Parse("2006-01-02 15:04 MST", start)
 	endTime, err2 := time.Parse("2006-01-02 15:04 MST", end)
+	// NOTE: handle the case where someone has entered an end time range
+	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	if startTime.Unix() > endTime.Unix() {
 		plus12hr, _ := time.ParseDuration("+12h")
 		endTime = endTime.Add(plus12hr)

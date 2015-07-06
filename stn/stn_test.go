@@ -186,7 +186,6 @@ func TestParseEntry(t *testing.T) {
 	expectedString = "2015-07-04T08:22:00-07:00\t2015-07-04T13:34:00-07:00\tafternoon\temail and what not."
 	ok(t, text == expectedString, "entry.String(): " + text)
 
-
 	// This is an empty line, not a DateLine
 	text = ""
 	_, err = ParseEntry(activeDate, text)
