@@ -238,11 +238,10 @@ func TestFilter(t *testing.T) {
 	ok(t, t2.FromString(t1.String()) == true, "FromString should work")
 	ok(t, t1.Start == t2.Start, "Start should match")
 	ok(t, t1.End == t2.End, "End should match")
-	for i := 0; i < len(t1.Annotations); i += 1 {
+	for i := 0; i < len(t1.Annotations); i++ {
 		ok(t, t1.Annotations[i] == t2.Annotations[i],
 			fmt.Sprintf("%s == %s failed\n",
 				t1.Annotations[i], t2.Annotations[i]))
 
 	}
-
 }

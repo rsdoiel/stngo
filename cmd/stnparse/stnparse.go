@@ -36,7 +36,7 @@ EXAMPLE
 
 Parse TimeSheet.txt and render a stream of JSON blobs.
 
-    %s -json < timeSheet.txt 
+    %s -json < timeSheet.txt
 
 
 OPTIONS
@@ -67,7 +67,7 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
-	line_no := 1
+	lineNo := 1
 	for {
 		line, err := reader.ReadString('\n')
 		if err != nil {
@@ -76,9 +76,9 @@ func main() {
 		if stn.IsDateLine(line) == true {
 			activeDate = stn.ParseDateLine(line)
 		} else if stn.IsEntry(line) {
-			entry, perr:= stn.ParseEntry(activeDate, line)
+			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
-				log.Fatalf("line %d: %v\n", line_no, perr)
+				log.Fatalf("line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
 				fmt.Println(entry.JSON())
@@ -86,6 +86,6 @@ func main() {
 				fmt.Println(entry.String())
 			}
 		}
-		line_no += 1
+		lineNo++
 	}
 }

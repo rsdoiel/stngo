@@ -21,7 +21,7 @@ import (
 type expressionList []string
 
 var (
-	help bool
+	help       bool
 	expression expressionList
 )
 

@@ -93,7 +93,7 @@ func main() {
 
 	activeDate = time.Now()
 	if start != "" {
-		startTime, err = time.Parse("2006-01-02 15:04:05", start + " 00:00:00")
+		startTime, err = time.Parse("2006-01-02 15:04:05", start+" 00:00:00")
 		if err != nil {
 			log.Fatalf("Start date error: %s\n", err)
 			os.Exit(1)
@@ -101,7 +101,7 @@ func main() {
 		if end == "" {
 			endTime = activeDate
 		} else {
-			endTime, err = time.Parse("2006-01-02 15:04:05", end + " 23:59:59")
+			endTime, err = time.Parse("2006-01-02 15:04:05", end+" 23:59:59")
 			if err != nil {
 				log.Fatalf("End date error: %s\n", err)
 				os.Exit(1)
@@ -112,16 +112,16 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	entry := new(stn.Entry)
-	line_no := 0
+	lineNo := 0
 	for {
 		showLine = true
 		line, err := reader.ReadString('\n')
 		if err != nil {
 			break
 		}
-		line_no += 1
+		lineNo++
 		if entry.FromString(line) != true {
-			log.Fatalf("line no. %d: can't filter [%s]\n", line_no, line)
+			log.Fatalf("line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		}
 		if start != "" {

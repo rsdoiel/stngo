@@ -130,6 +130,6 @@ Did it work?
 	ok(t, results == expected, "Should have @README assignment")
 	resultText := Expand(text)
 	l := len(text)
-	ok(t, len(resultText) > l, "Should have more results: " + resultText)
-	ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in " + resultText)
+	ok(t, len(resultText) > l, "Should have more results: "+resultText)
+	ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in "+resultText)
 }

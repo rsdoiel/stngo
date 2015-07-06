@@ -44,7 +44,7 @@ var usage = func(exit_code int, msg string) {
  The Monday in week containing 2015-02-06: %s --from=2015-02-06 Monday
 
  Time increments are a positive or negative integer. Time unit can be
- either day(s), week(s), month(s), or year(s). Weekday names and are
+ either day(s), week(s), month(s), or year(s). Weekday names are
  case insentive (e.g. Monday and monday). They can be abbreviated
  to the first three letters of the name, e.g. Sunday can be Sun, Monday
  can be Mon, Tuesday can be Tue, Wednesday can be Wed, Thursday can

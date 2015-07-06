@@ -90,10 +90,10 @@ func parseRangeElements(start string, end string) (time.Time, time.Time, error) 
 // returns a Entry structure and error value.
 func ParseEntry(activeDate string, line string) (*Entry, error) {
 	if IsDateLine(activeDate) == false {
-		return nil, errors.New("active date misformatted.")
+		return nil, errors.New("invalid format for active date")
 	}
 	if IsEntry(line) == false {
-		return nil, errors.New("entry line misformatted.")
+		return nil, errors.New("invalid format for entry")
 	}
 	cells := splitCells(line)
 	if len(cells) < 2 {
@@ -115,7 +115,7 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 		return nil, err
 	}
 
-	for i := 1; i < len(cells); i += 1 {
+	for i := 1; i < len(cells); i++ {
 		cells[i] = strings.TrimSpace(cells[i])
 	}
 
@@ -128,16 +128,19 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 	return entry, nil
 }
 
+// JSON converts an Entry struct to JSON notation.
 func (e *Entry) JSON() string {
 	src, _ := json.Marshal(e)
 	return string(src)
 }
 
+// String converts an Entry struct to a tab delimited string.
 func (e *Entry) String() string {
 	return e.Start.Format(time.RFC3339) + "\t" + e.End.Format(time.RFC3339) +
 		"\t" + strings.Join(e.Annotations[:], "\t")
 }
 
+// FromString reads a tab delimited string formatted with Stringback into a Entry struct
 func (e *Entry) FromString(line string) bool {
 	var err error
 	parts := strings.Split(line, "\t")
@@ -156,6 +159,7 @@ func (e *Entry) FromString(line string) bool {
 	return true
 }
 
+// IsInRange checks the start and end times of an Entry structure to see if it is in the time range
 func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
 	t1 := e.Start.Unix()
 	if t1 >= start.Unix() && t1 <= end.Unix() {
@@ -164,10 +168,11 @@ func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
 	return false
 }
 
+// IsMatch checks the Entry struct Annotations for matching substring
 func (e *Entry) IsMatch(match string) bool {
 	matched := false
 	//NOTE: search all columns
-	for i := 0; i < len(e.Annotations); i += 1 {
+	for i := 0; i < len(e.Annotations); i++ {
 		if strings.Contains(e.Annotations[i], match) == true {
 			matched = true
 			break
