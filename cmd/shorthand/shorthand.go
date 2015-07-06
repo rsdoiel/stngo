@@ -60,6 +60,13 @@ would become
 Normally you would use shorthands for things like long project names,
 passing dynamic values (like the current time or date) via the command line.
 
+Additionally you can include a file with the colon less than sign.
+
+    LABEL :< PATH_TO_FILE_TO_INCLUDE
+
+This included file, once read, is processed the same as other label assignments.
+
+
 EXAMPLE
 
 Pass the current date and time as shorthands transform the file "input.txt"

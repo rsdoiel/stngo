@@ -35,16 +35,29 @@ var usage = func(exit_code int, msg string) {
 	fmt.Fprintf(fh, `%s
 USAGE %s [options]
 
+Filter the output from stnparse based on date and/or matching text string.
+
 EXAMPLE
 
 Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
 and render a stream of JSON blobs.
 
-    %s -start 2015-07-04 -end 2015-07-14 -json < timeSheet.tab 
+    %s -start 2015-07-04 -end 2015-07-14 -json < TimeSheet.tab
 
+To render the same in a tab delimited output
+
+    %s -start 2015-07-04 -end 2015-07-14 < TimeSheet.tab
+
+Typical usage would be in a pipeline with Unix cat and stnparse
+
+   cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010
+
+Matching a project name "Fred" for the same week would look like
+
+    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
 
 OPTIONS
-`, msg, cmdName, cmdName)
+`, msg, cmdName, cmdName, cmdName, cmdName, cmdName)
 
 	flag.VisitAll(func(f *flag.Flag) {
 		fmt.Fprintf(fh, "\t-%s\t\t%s\n", f.Name, f.Usage)
@@ -67,12 +80,12 @@ func main() {
 		err        error
 	)
 
-	flag.StringVar(&start, "start", "", "start date range.")
-	flag.StringVar(&end, "end", "", "end, inclusive, date range.")
-	flag.StringVar(&match, "match", "", "column value should match.")
-	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
-	flag.BoolVar(&help, "h", false, "Display this help document.")
+	flag.StringVar(&match, "match", "", "Match text in annotations.")
+	flag.StringVar(&start, "start", "", "Start of inclusive date range.")
+	flag.StringVar(&end, "end", "", "End of inclusive date range.")
+	flag.BoolVar(&asJSON, "json", false, "Output in JSON format.")
 	flag.BoolVar(&help, "help", false, "Display this help document.")
+	flag.BoolVar(&help, "h", false, "Display this help document.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")
@@ -80,7 +93,7 @@ func main() {
 
 	activeDate = time.Now()
 	if start != "" {
-		startTime, err = time.Parse("2006-01-02", start)
+		startTime, err = time.Parse("2006-01-02 15:04:05", start + " 00:00:00")
 		if err != nil {
 			log.Fatalf("Start date error: %s\n", err)
 			os.Exit(1)
@@ -88,7 +101,7 @@ func main() {
 		if end == "" {
 			endTime = activeDate
 		} else {
-			endTime, err = time.Parse("2006-01-02", end)
+			endTime, err = time.Parse("2006-01-02 15:04:05", end + " 23:59:59")
 			if err != nil {
 				log.Fatalf("End date error: %s\n", err)
 				os.Exit(1)

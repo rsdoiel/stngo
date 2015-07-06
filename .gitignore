@@ -22,7 +22,11 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Project excludes
+.DS_Store
 shorthand
 stnparse
 stnfilter
 stnreport
+reldate

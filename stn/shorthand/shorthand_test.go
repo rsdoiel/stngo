@@ -7,8 +7,15 @@
 package shorthand
 
 import (
+	"strings"
 	"testing"
 )
+
+func ok(t *testing.T, expected bool, msg string) {
+	if expected != true {
+		t.Fatalf("Failed: " + msg)
+	}
+}
 
 // Test IsAssignment
 func TestIsAssignment(t *testing.T) {
@@ -17,6 +24,7 @@ func TestIsAssignment(t *testing.T) {
 		"this := a valid assignment",
 		"this; := is a valid assignment",
 		"now; := $(date +\"%H:%M\");",
+		"@here :< ./README.md",
 	}
 
 	invalidAssignments := []string{
@@ -100,5 +108,28 @@ This "now" should not change. This "me" should not change.`
 	if result != expected {
 		t.Fatalf("Expected:\n\n" + expected + "\n\nReceived:\n\n" + result)
 	}
+}
 
+// Test include file
+func TestInclude(t *testing.T) {
+	text := `
+Today is @NOW.
+
+Now add the README.md to this.
+-------------------------------
+@README
+-------------------------------
+Did it work?
+`
+	Assign("@NOW := 2015-07-04")
+	expected := true
+	results := HasAssignment("@NOW")
+	ok(t, results == expected, "Should have @NOW assignment")
+	Assign("@README :< ../../README.md")
+	results = HasAssignment("@README")
+	ok(t, results == expected, "Should have @README assignment")
+	resultText := Expand(text)
+	l := len(text)
+	ok(t, len(resultText) > l, "Should have more results: " + resultText)
+	ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in " + resultText)
 }
