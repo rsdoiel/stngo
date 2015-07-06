@@ -12,6 +12,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"time"
 )
@@ -66,6 +67,7 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
+	line_no := 1
 	for {
 		line, err := reader.ReadString('\n')
 		if err != nil {
@@ -74,12 +76,16 @@ func main() {
 		if stn.IsDateLine(line) == true {
 			activeDate = stn.ParseDateLine(line)
 		} else if stn.IsEntry(line) {
-			entry, _ := stn.ParseEntry(activeDate, line)
+			entry, perr:= stn.ParseEntry(activeDate, line)
+			if perr != nil {
+				log.Fatalf("line %d: %v\n", line_no, perr)
+			}
 			if asJSON == true {
 				fmt.Println(entry.JSON())
 			} else {
 				fmt.Println(entry.String())
 			}
 		}
+		line_no += 1
 	}
 }

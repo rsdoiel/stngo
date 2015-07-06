@@ -18,7 +18,7 @@ Tokens
 
 Commands
 
-+ stnshorthand - Takes an Simple timesheet notation file and expands all the shorthand found.
++ shorthand - Takes an Simple timesheet notation file and expands all the shorthand found.
 + stnparse - generates a steam of syntax elements encountered and their values as JSON blobs
 + stnfilter - filters syntax stream by date rand returning a JSON blobs
 + stnreport - report generator that renders the JSON blobs into a userful format (e.e.g plain text summary, comma separated value file)
@@ -46,8 +46,14 @@ Commands
 	+ creat a buffer the size of the last index to end of file, stream file through buffer
 	+ middle 6,-10 would mean the buffer size would be ten lines and when you hit eof the buf wil be discarded.
 	+ LABEL :< #,# PATH TO FILE FRAGMENT TO INCLUDE
++ support secondary output :> #,# PATH TO WRITE
 
 
+## date lines
 
+Older STN files used a MM/DD/YYYY format. What is the best way to handle those files?
+
++ a dedicated covertion tool?
++ add support for multiple date formats?
 
 
