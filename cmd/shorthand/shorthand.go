@@ -21,7 +21,7 @@ import (
 type expressionList []string
 
 var (
-	help       bool
+	help bool
 	expression expressionList
 )
 
@@ -77,7 +77,7 @@ OPTIONS
 
 	fmt.Fprintf(fh, `
 copyright (c) 2015 all rights reserved.
-Released under the Simplified BSD License
+Released under the BSD 2-Clause license.
 See: http://opensource.org/licenses/BSD-2-Clause
 `)
 	os.Exit(exit_code)
@@ -97,7 +97,8 @@ func (e *expressionList) Set(value string) error {
 
 func main() {
 	flag.Var(&expression, "e", "The shorthand notation(s) you wish at add.")
-	flag.BoolVar(&help, "h", help, "Display this help document.")
+	flag.BoolVar(&help, "h", false, "Display this help document.")
+	flag.BoolVar(&help, "help", false, "Display this help document.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")

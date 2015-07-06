@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func ok(t *testing.T, expected bool, msg string) {
@@ -165,26 +166,26 @@ func TestParseEntry(t *testing.T) {
 	ok(t, entry.End.Minute() == 30, "should have end minute 30")
 	ok(t, len(entry.Annotations) == 2, "Should have two annoations")
 	if len(entry.Annotations) == 2 {
-		ok(t, entry.Annotations[0] == "misc", "first cell should be 'misc': [" + entry.Annotations[0] + "]")
-		ok(t, entry.Annotations[1] == "email and what not.", "first cell should be 'email and what not.': [" + entry.Annotations[1] + "]")
+		ok(t, entry.Annotations[0] == "misc", "first cell should be 'misc': ["+entry.Annotations[0]+"]")
+		ok(t, entry.Annotations[1] == "email and what not.", "first cell should be 'email and what not.': ["+entry.Annotations[1]+"]")
 	}
 
 	jsonString := entry.JSON()
 	expectedString := `{"Start":"2015-07-04T08:00:00-07:00","End":"2015-07-04T09:30:00-07:00","Annotations":["misc","email and what not."]}`
-	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
+	ok(t, jsonString == expectedString, "entry.toJSON(): "+jsonString)
 
 	text = entry.String()
 	expectedString = "2015-07-04T08:00:00-07:00\t2015-07-04T09:30:00-07:00\tmisc\temail and what not."
-	ok(t, text == expectedString, "entry.String(): " + text)
+	ok(t, text == expectedString, "entry.String(): "+text)
 
 	text = "08:22 - 1:34; afternoon; email and what not."
 	entry, err = ParseEntry(activeDate, text)
 	jsonString = entry.JSON()
 	expectedString = `{"Start":"2015-07-04T08:22:00-07:00","End":"2015-07-04T13:34:00-07:00","Annotations":["afternoon","email and what not."]}`
-	ok(t, jsonString == expectedString, "entry.toJSON(): " + jsonString)
+	ok(t, jsonString == expectedString, "entry.toJSON(): "+jsonString)
 	text = entry.String()
 	expectedString = "2015-07-04T08:22:00-07:00\t2015-07-04T13:34:00-07:00\tafternoon\temail and what not."
-	ok(t, text == expectedString, "entry.String(): " + text)
+	ok(t, text == expectedString, "entry.String(): "+text)
 
 	// This is an empty line, not a DateLine
 	text = ""
@@ -195,4 +196,53 @@ func TestParseEntry(t *testing.T) {
 	text = "This is just some random text, not a DateLine"
 	_, err = ParseEntry(activeDate, text)
 	ok(t, err != nil, text+" produced error on ParseEntry().")
+}
+
+func TestFilter(t *testing.T) {
+	start, _ := time.Parse("2006-01-02", "2015-07-01")
+	end, _ := time.Parse("2006-01-02", "2015-07-31")
+	s, _ := time.Parse("2006-01-02 15:04", "2015-07-04 08:38")
+	e, _ := time.Parse("2006-01-02 15:04", "2015-07-04 13:34")
+	t1 := Entry{
+		Start:       s,
+		End:         e,
+		Annotations: []string{"one", "two"},
+	}
+	expected := true
+	result := t1.IsInRange(start, end)
+	ok(t, expected == result,
+		t1.String()+" is between "+start.String()+" and "+end.String())
+
+	s, _ = time.Parse("2006-01-02 15:04", "2015-06-04 08:38")
+	e, _ = time.Parse("2006-01-02 15:04", "2015-06-04 13:34")
+	t1.Start = s
+	t1.End = e
+	expected = false
+	result = t1.IsInRange(start, end)
+	ok(t, expected == result,
+		t1.String()+" not is between "+start.String()+" and "+end.String())
+
+	expected = true
+	result = t1.IsMatch("one")
+	ok(t, expected == result, "one is an annotation")
+
+	expected = true
+	result = t1.IsMatch("two")
+	ok(t, expected == result, "one is an annotation")
+
+	expected = false
+	result = t1.IsMatch("three")
+	ok(t, expected == result, "one is an annotation")
+
+	t2 := new(Entry)
+	ok(t, t2.FromString(t1.String()) == true, "FromString should work")
+	ok(t, t1.Start == t2.Start, "Start should match")
+	ok(t, t1.End == t2.End, "End should match")
+	for i := 0; i < len(t1.Annotations); i += 1 {
+		ok(t, t1.Annotations[i] == t2.Annotations[i],
+			fmt.Sprintf("%s == %s failed\n",
+				t1.Annotations[i], t2.Annotations[i]))
+
+	}
+
 }

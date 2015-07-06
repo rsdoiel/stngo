@@ -26,9 +26,9 @@ var (
 // Simple Timesheet Notation. It is designed to easily turning to JSON, CSV
 // or other useful formats.
 type Entry struct {
-	Start      time.Time
-	End        time.Time
-	Annotations  []string // cells of contextual data (e.g. project, activity, notes)
+	Start       time.Time
+	End         time.Time
+	Annotations []string // cells of contextual data (e.g. project, activity, notes)
 }
 
 // IsDateLine validates a line as appropriate to pass to ParseDateLine.
@@ -71,7 +71,7 @@ func splitRangeElements(timeRange string) (string, string, error) {
 func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
 	startTime, err1 := time.Parse("2006-01-02 15:04 MST", start)
 	endTime, err2 := time.Parse("2006-01-02 15:04 MST", end)
-	// NOTE: handle the case where someone has entered an end time range
+	//NOTE: need to handle the case where someone has entered an end time ran
 	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
 	if startTime.Unix() > endTime.Unix() {
 		plus12hr, _ := time.ParseDuration("+12h")
@@ -109,8 +109,8 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 	// Need to think about supporting other timezone for things like
 	// timesheets during event travel.
 	zone, _ := time.Now().Zone()
-	start, end, err := parseRangeElements(activeDate + " " + s + " " + zone,
-		activeDate + " " + e + " " + zone)
+	start, end, err := parseRangeElements(activeDate+" "+s+" "+zone,
+		activeDate+" "+e+" "+zone)
 	if err != nil {
 		return nil, err
 	}
@@ -121,9 +121,9 @@ func ParseEntry(activeDate string, line string) (*Entry, error) {
 
 	var entry *Entry
 	entry = &Entry{
-		Start:      start,
-		End:        end,
-		Annotations:  cells[1:],
+		Start:       start,
+		End:         end,
+		Annotations: cells[1:],
 	}
 	return entry, nil
 }
@@ -136,4 +136,42 @@ func (e *Entry) JSON() string {
 func (e *Entry) String() string {
 	return e.Start.Format(time.RFC3339) + "\t" + e.End.Format(time.RFC3339) +
 		"\t" + strings.Join(e.Annotations[:], "\t")
+}
+
+func (e *Entry) FromString(line string) bool {
+	var err error
+	parts := strings.Split(line, "\t")
+	if len(parts) < 3 {
+		return false
+	}
+	e.Start, err = time.Parse(time.RFC3339, parts[0])
+	if err != nil {
+		return false
+	}
+	e.End, err = time.Parse(time.RFC3339, parts[1])
+	if err != nil {
+		return false
+	}
+	e.Annotations = parts[2:]
+	return true
+}
+
+func (e *Entry) IsInRange(start time.Time, end time.Time) bool {
+	t1 := e.Start.Unix()
+	if t1 >= start.Unix() && t1 <= end.Unix() {
+		return true
+	}
+	return false
+}
+
+func (e *Entry) IsMatch(match string) bool {
+	matched := false
+	//NOTE: search all columns
+	for i := 0; i < len(e.Annotations); i += 1 {
+		if strings.Contains(e.Annotations[i], match) == true {
+			matched = true
+			break
+		}
+	}
+	return matched
 }
