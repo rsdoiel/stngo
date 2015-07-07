@@ -51,8 +51,13 @@ func (e *EntryAggregation) Summarize() string {
 		}
 	}
 	outText = append(outText, "Hours\tProject")
+	total := 0.0
 	for k, v := range summary {
+		total += v
 		outText = append(outText, fmt.Sprintf("%5.2f\t%s", v, k))
 	}
+	outText = append(outText, "")
+	outText = append(outText, fmt.Sprintf("%5.2f\tTotal Hours", total))
+	outText = append(outText, "")
 	return strings.Join(outText, "\n")
 }
