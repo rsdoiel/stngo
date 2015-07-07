@@ -49,5 +49,5 @@ func TestAggregator(t *testing.T) {
 	}
 	outText := aggregation.Summarize()
 	outLines := strings.Split(outText, "\n")
-	ok(t, len(outLines) == 4, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
+	ok(t, len(outLines) == 8, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
 }

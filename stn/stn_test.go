@@ -28,6 +28,12 @@ func TestIsDateLine(t *testing.T) {
 	result := IsDateLine(text)
 	ok(t, expected == result, text+" is valid.")
 
+	// Simple text expected the dates in MM/DD/YYYY
+	text = `07/04/2015`
+	expected = true
+	result = IsDateLine(text)
+	ok(t, expected == result, text+" is valid.")
+
 	// IsDateLine expects dates in YYYYY-MM-DD format.
 	text = `January 20th, 2015`
 	expected = false

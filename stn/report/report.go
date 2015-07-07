@@ -12,20 +12,20 @@ package report
 import (
 	"../../stn"
 	"fmt"
-	"strings"
 	"sort"
+	"strings"
 )
 
-// EntryAggregation
+// EntryAggregation - a structure to hold the aggregated entries.
 type EntryAggregation struct {
 	Entries []stn.Entry
 }
 
 // Aggregate - add an entry to the EntryAggregate
-func (a *EntryAggregation) Aggregate(entry *stn.Entry) bool {
-	i := len(a.Entries)
-	a.Entries = append(a.Entries, *entry)
-	if len(a.Entries) == (i + 1) {
+func (e *EntryAggregation) Aggregate(entry *stn.Entry) bool {
+	i := len(e.Entries)
+	e.Entries = append(e.Entries, *entry)
+	if len(e.Entries) == (i + 1) {
 		return true
 	}
 	return false

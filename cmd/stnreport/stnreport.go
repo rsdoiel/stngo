@@ -9,12 +9,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"../../stn"
 	"../../stn/report"
 	"bufio"
+	"fmt"
 	"log"
+	"os"
 )
 
 func main() {

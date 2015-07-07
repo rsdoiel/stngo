@@ -12,14 +12,16 @@ package stn
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 	"time"
 )
 
 var (
-	dateLineRE  = regexp.MustCompile("^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$")
-	entryLineRE = regexp.MustCompile("^([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]) - ([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]);")
+	dateLineRE       = regexp.MustCompile("^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$")
+	legacyDateLineRE = regexp.MustCompile("^[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]$")
+	entryLineRE      = regexp.MustCompile("^([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]) - ([0-2][0-9]:[0-6][0-9]|[0-9]:[0-6][0-9]);")
 )
 
 // Entry is the basic data element generated when parsing a file contactining
@@ -36,14 +38,21 @@ func IsDateLine(line string) bool {
 	if dateLineRE.MatchString(strings.TrimSpace(line)) {
 		return true
 	}
+	if legacyDateLineRE.MatchString(strings.TrimSpace(line)) {
+		return true
+	}
 	return false
 }
 
 // ParseDateLine sets the current date context when parsing Simple Timesheet Notation
 // elements. It is what is recorded in Occurrence field of an Entry.
 func ParseDateLine(line string) string {
-	if IsDateLine(line) {
+	if dateLineRE.MatchString(strings.TrimSpace(line)) {
 		return strings.TrimSpace(line)
+	}
+	if legacyDateLineRE.MatchString(strings.TrimSpace(line)) {
+		parts := strings.SplitN(strings.TrimSpace(line), "/", 3)
+		return fmt.Sprintf("%s-%s-%s", parts[2], parts[0], parts[1])
 	}
 	return ""
 }
