@@ -10,9 +10,10 @@ package report
 
 import (
 	"../../stn"
+	"fmt"
 	"log"
-	"testing"
 	"strings"
+	"testing"
 )
 
 func ok(t *testing.T, expected bool, msg string) {
@@ -35,16 +36,18 @@ func TestAggregator(t *testing.T) {
 	aggregation := new(EntryAggregation)
 	entry := new(stn.Entry)
 	lines := strings.Split(text, "\n")
+	linesTotal := 0
 	for i, line := range lines {
 		if entry.FromString(line) == true {
 			if aggregation.Aggregate(entry) != true {
 				log.Fatalf("Can't aggregate entry %d: %v", i, entry)
 			}
+			linesTotal++
 		} else {
 			log.Fatalf("Can't read line no. %d: [%s]\n", i, line)
 		}
 	}
 	outText := aggregation.Summarize()
 	outLines := strings.Split(outText, "\n")
-	ok(t, len(outLines) > len(lines), "Report should have more lines than source: [" + outText + "]")
- }
+	ok(t, len(outLines) == 4, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
+}
