@@ -15,11 +15,16 @@ import (
 )
 
 // EntryAggregation
-type EntryAggregation []stn.Entry
-
+type EntryAggregation struct {
+    Entries []stn.Entry
+}
 // Aggregate - add an entry to the EntryAggregate
 func (a *EntryAggregation) Aggregate(entry *stn.Entry) bool {
-    log.Fatal("EntryAggregation.Aggregate() not implemented.")
+    i := len(a.Entries)
+    a.Entries = append(a.Entries, *entry)
+    if len(a.Entries) == (i + 1) {
+        return true
+    }
     return false;
 }
 
