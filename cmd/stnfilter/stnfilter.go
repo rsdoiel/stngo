@@ -131,7 +131,7 @@ func main() {
 			showLine = entry.IsMatch(match)
 		}
 		if showLine == true {
-			fmt.Printf("%s\n", line)
+			fmt.Printf("%s", line)
 		}
 	}
 }

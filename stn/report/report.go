@@ -50,20 +50,9 @@ func (e *EntryAggregation) Summarize() string {
 			summary[key] = duration.Hours()
 		}
 	}
+	outText = append(outText, "Hours\tProject")
 	for k, v := range summary {
-		s := fmt.Sprintf("%f\t%s", v, k)
-		outText = append(outText, s)
+		outText = append(outText, fmt.Sprintf("%5.2f\t%s", v, k))
 	}
 	return strings.Join(outText, "\n")
-}
-
-// Detail - given the output of stnparse or stnfilter aggregate the
-// results by the first annotation preserving each second to N annotations as a narrative.
-func (e *EntryAggregation) Detail() string {
-	return ""
-}
-
-// TotalDuration - given the output of stnfilter or stnparse calculate the total durration.
-func (e *EntryAggregation) TotalDuration() string {
-	return ""
 }
