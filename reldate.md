@@ -76,6 +76,21 @@ will yeild
 As that is the Monday of the week containing 2015-02-10. Weekday names case insensitive and can be the first three letters
 of the English names or full English names (e.g. Monday, monday, Mon, mon).
 
+## Length of Month
+
+Working in month ranges it is helpful to quickly yeild the last day of month (e.g. 28, 29, 30 or 31). *reldate* provides with this
+the --end-of-month option.
+
+```
+    reldate --from=2012-02-10 --end-of-month
+```
+
+Will yield
+
+```
+    2015-02-29
+```
+
 
 ## License
 

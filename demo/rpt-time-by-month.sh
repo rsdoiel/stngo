@@ -9,13 +9,11 @@ elif [ "$1" != "" ]; then
 fi
 
 function startMonth {
-	# Assumes BSD date
-	date -v1d -jf "%Y-%m-%d" "$1-01" "+%Y-%m-%d"
+    echo "$FOR_DATE-01"
 }
 
 function endMonth {
-	# Assumes BSD date
-	date -v-1d -v+1m -jf "%Y-%m-%d" "$1-01" "+%Y-%m-%d"
+	reldate --from="$FOR_DATE-01" --end-of-month
 }
 
 echo "Report for $(startMonth $FOR_DATE) through $(endMonth $FOR_DATE)"

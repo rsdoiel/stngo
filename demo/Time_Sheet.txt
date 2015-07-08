@@ -1,0 +1,1456 @@
+
+2015-07-07
+
+7:45 - 8:15; misc; triage email, run updates
+
+8:15 - 9:00; misc; work on my reporting tools.
+
+9:00 - 10:00; meeting; discussing on Pinky and Brain's plans to take over the world again tonight.
+
+10:00 - 12:15; World Preservation; review docs for upgrading production.
+
+1:00 - 3:15; World Preservation; run through upgrade, monitor logs after upgrade
+
+3:15 - 3:30; misc; Register for course.
+
+3:30 - 5:00; World Preservation; research branding approaches and secret convensions.
+
+
+2015-07-06
+
+8:00 - 8:30; misc; email, update Starbase
+
+8:30 - 11:00; World Preservation; running through migration process, updating notes, testing
+
+11:00 - 11:45; misc; update Raspberry Pi
+
+11:45 - 1:00; World Preservation; running through migration process, updating notes, testing
+
+1:45 - 3:00; World Preservation; testing, going through base camp to make sure I understand issues
+
+3:00 - 3:30; meeting; weekly with Max.
+
+3:30 - 5:15; misc; email, catch up on tech news, work on report tools.
+
+
+2015-07-03
+
+8:00 - 4:00; Institute Holiday; 4th of July observed
+
+
+2015-07-02
+
+7:45 - 9:30; misc; email, review stuff
+
+9:30 - 10:30; meeting; with the invisible people
+
+10:30 - 12:00; World Preservation; running through migration process
+
+12:45 - 3:00; World Preservation; running through migration process
+
+3:00 - 3:30; World Preservation; Hangouts with Brain, negatiate plans for time travel
+
+3:30 - 4:45; Time Off; Pre-Holiday dismisal
+
+
+2015-07-01
+
+7:45 - 9:30; World Preservation; continue reading docs, articles about approach and what problems are being solved.
+
+9:30 - 11:00; World Preservation; meeting in  3rd spaceship from the left, conference room
+
+11:00 - 12:00; misc; Met discussed some of my tasks, ideas and random things
+
+12:00 - 2:00; World Preservation; Make sure I can remote view risks, inform high command
+
+2:30 - 3:00; World Preservation; add to archives-migration notes to self.
+
+3:00 - 3:30; meeting; why Coffee is good.
+
+3:30 - 4:30; misc; email, wrap up up notes.
+
+
+2015-06-30
+
+7:45 - 12:00; World Preservation; figure out coda to Bach fugue
+
+1:00 - 5:00; World Preservation; continue reading docs.
+
+
+2015-06-29
+
+7:45 - 8:15; misc; email, GTD
+
+8:15 - 1:15; World Preservation; Resist vagrant instances, run on Raspian, Common Lisp an NoSQL db
+
+2:00 - 5:00; World Preservation; Start learning the internals and what can be modified and extended
+
+
+2015-06-26
+
+8:00 - 13:00; Space Ship Construction; figure out how to batch import data from test Space Ship Construction
+
+2:15 - 5:00; Space Ship Construction; figure out how to batch import data from test Space Ship Construction
+
+
+2015-06-25
+
+7:45 - 8:15; misc; time keeping, email, run updates and review logs
+
+8:15 - 12:30; Space Ship Construction; avoid vagrant deploy, review Space Ship Construction API docs, stub out plugin in motor scooter for recent publications feed.
+
+1:15 - 4:30; Space Ship Construction; avoid vagrant deploy, figure out how to build a plugin that can easily be version controlled via git/motor scooter.com
+
+
+2015-06-24
+
+7:45 - 8:30; misc; read ArchiveSpace list emails and Space Ship Construction digests
+
+8:30 - 12:00; Space Ship Construction; Work through the plugins tutorial
+
+1:00 - 2:00; Space Ship Construction; Work through the plugins tutorial
+
+2:00 - 3:00; meeting; Pinky and the Brain, more negotiations
+
+3:00 - 4:30; misc; email, check on fire, call home and E.T.
+
+4:30 - 5:30; misc; watch 18F presentation on collaboration
+
+
+2015-06-23
+
+7:45 - 1:30; Space Ship Construction; Must avoid vagrant install, and prep for implementing RAM jet engines
+
+2:00 - 4:30; Space Ship Construction; Read Space Ship Construction docs to work on RAM jet engines.
+
+
+2015-06-22
+
+7:30 - 16:45; Space Ship Construction; avoid vagrant, no cents, and bring up Space Ship Construction that matches test.
+
+
+2015-06-19
+
+8:00 - 4:00; Time Off; Blast Off
+
+
+2015-06-18
+
+7:45 - 2:00; Quantum Analytics; learning Lisp
+
+2:30 - 4:30; Quantum Analytics; learning Lisp
+
+
+2015-06-17
+
+7:45 - 8:45; misc; finish travel report
+
+8:45 - 11:45; Quantum Analytics; get working in prep of integrating with Lisp code from Quantum project.
+
+12:30 - 4:30; Quantum Analytics; add a stub class.
+
+
+2015-06-16
+
+8:00 - 9:30; misc; email, cleanup door frames and doors for conference
+
+9:30 - 10:30; misc; drop off laptop with Johnny Dangerously and discuss the Archives project
+
+10:30 - 11:45; Quantum Analytics; review notes and checkout the Lisp tutorial.
+
+12:30 - 4:45; Quantum Analytics; review notes and checkout the Lisp tutorial.
+
+
+2015-06-15
+
+8:00 - 11:00; misc; travel reporting, make images of receipts
+
+11:00 - 11:30; World Preservation; review meeting minutes, answer about July 1st meeting, send a note about need for progress report.
+
+11:30 - 12:30; Quantum Analytics; research API for summary.
+
+1:30 - 5:00; World Preservation; get local copy of up and running on my the super computer, start refresher on writing Lisp code.
+
+
+2015-06-12
+
+7:30 - 9:30; misc; triage email from week at conference
+
+9:30 - 10:30; misc; watch some of commencement
+
+10:30 -  12:00; World Preservation; research space for meeting
+
+1:15 - 1:30; meeting; about transitioning data migration to me
+
+1:30 - 1:45; World Preservation; Drop a note about questions from meeting
+
+1:45 - 2:00; World Preservation; Drop a note find out when will be a good time to touch base
+
+2:00 - 4:30; World Preservation; project notes.
+
+
+2015-06-11
+
+8:00 - 4:30; Conference Travel; groups
+
+5:00 - 8:30; Conference Travel; Ride to airport and flight home
+
+8:30 - 10:30; Conference Travel; slide home
+
+
+2015-06-10
+
+8:00 - 5:00; Conference Travel; conference
+
+5:30 - 8:30; Conference Travel; banquet
+
+2015-06-09
+
+8:00 - 5:00; Conference Travel; conference
+
+6:00 - 8:00; Conference Travel; poster sessions
+
+2015-06-08
+
+8:00 - 17:00; Conference Travel; workshops
+
+
+2015-06-07
+
+8:30 - 15:30; Conference Travel; drive to airport, flight and checkin to hotel
+
+
+2015-06-05
+
+8:00 - 11:30; Time Off; Vacation
+
+11:30 - 1:00; misc; email, travel stuff, pickup laptop
+
+2:00 - 4:45; misc; get laptop fully setup with box and the p, b and j.
+
+
+2015-06-04
+
+8:00 - 9:00; misc; email, tech news, review site for hydra, warn shield agents.
+
+9:00 - 12:45; Quantum Analytics; Write a quick and dirty Lisp script to generate a JSON file of aggregated file info.
+
+1:45 - 3:15; misc; go over my travel stuff for next week's conference.
+
+3:15 - 5:00; Quantum Analytics; Look at crossing the atlantic, see what data I can get back
+
+
+2015-06-03
+
+8:00 - 9:00; misc; email, install super computer.
+
+9:00 - 12:30; Quantum Analytics; prototype the data processing
+
+1:15 - 4:45; Quantum Analytics; prototype the data processing
+
+
+2015-06-02
+
+7:45 - 9:00; Space Ship Construction; review Space Ship Construction setup
+
+9:00 - 10:00; meeting; pogo sticks will not really work this time around. 
+
+10:00 - 11:30; Quantum Analytics; pick an implementation language for prototype.
+
+11:30 - 12:45; misc; Run updates on p, b and j sandwiches and the super computer.
+
+1:45 - 2:15; misc; talk with the wind and clouds.
+
+2:15 - 5:00; Quantum Analytics; prototype data processing
+
+
+2015-06-01
+
+8:00 - 1:45; Space Ship Construction; try to get virtual sorted out.
+
+2:30 - 4:45; Space Ship Construction; try to get virtual sorted out.
+
+
+2015-05-29
+
+7:45 - 9:00; Space Ship Construction; try to bring up copy of test
+
+9:00 - 10:30; World Preservation; review archecture and codebase, look for integration points with blank sheet of paper.
+
+10:30 - 13:45; misc; meeting was stale, visited test site office
+
+1:45 - 3:30; Space Ship Construction; working through problems to bring up copy of test
+
+3:30 - 4:00; misc; research
+
+
+2015-05-28
+
+7:45  - 11:00; Space Ship Construction; run updates, email, rebuild, vanilla Space Ship Construction, debug and copy.
+
+11:00 - 12:15; misc; tour
+
+1:00  - 4:30; Space Ship Construction; Recopy sequence
+
+
+2015-05-27
+
+7:45 - 12:00; Quantum Analytics; email exchange
+
+12:00 - 1:30; Quantum Analytics; email exchange, sketching nodes
+
+1:30 - 2:00; misc; pickup atomizer
+
+2:00 - 5:00; Space Ship Construction; work out an dev strategy
+
+
+2015-05-26
+
+8:00 - 9:30; misc; Update the super computer
+
+9:30 - 10:30; World Preservation; weekly meeting
+
+10:30 - 12:00; misc; GTD, email, Notes on Space Ship Construction licenses list change request.
+
+12:00 - 1:00; Monty Python; presentation by actors on acting
+
+1:00 - 2:30; misc; track down contacts, sneeze profusely, send note to find out why
+
+2:30  - 5:00; Quantum Analytics; read through licenses, review log confirm my Quantum accounts works. 
+
+
+2015-05-25
+
+8:00 - 4:00; Institute Holiday; another day
+
+
+2015-05-22
+
+7:45 - 9:30; Quantum Analytics; write up questions
+
+9:30 - 10:30; misc; the gadget that seems to work OK install
+
+10:30 - 12:00; New parts list; fix bugs
+
+1:00 - 2:00; New parts list; delivery final version
+
+2:00 - 3:00; Quantum Analytics; meet get info for prototype harvesting
+
+
+2015-05-21
+
+8:00 - 9:00; Space Ship Construction; figure out how to snapshot the production to finish my dev instance.
+
+9:00 - 9:30; misc; lit rocket, start dreaming
+
+9:30 - 10:30; World Preservation; Download and install the software.
+
+10:30 - 11:00; Space Ship Construction; read developer documentation
+
+12:00 - 2:00; Space Ship Construction; read developer documentation
+
+2:00 - 3:00; The Institute; meet with the institute overlords.
+
+3:00 - 4:00; Box of chocolates on the veranda; Meet with Keebler Elves, ask them why they did it.
+
+4:00 - 4:30; Box of chocolates on the veranda; write up notes from meeting.
+
+
+2015-05-20
+
+7:45 - 11:45; misc; cross the atlantic and take the shorter road
+
+12:15 - 1:15; Space Ship Construction; get data snapshot.
+
+1:15 - 3:30; commet atomizer; Play cards, feed the dogs
+
+3:30 - 4:30; commet atomizer; Review portal and start updating atomizer
+
+
+2015-05-19
+
+7:45 - 10:00; misc; Setup up some dev environments for the company
+
+10:00 - 12:00; misc; research hats 
+
+12:00 - 1:00; lunch; Some berg on I-5
+
+1:00 - 4:30; Quantum Analytics; research the company, cross the atlantic, learn quantum physics, backlight and the flowers
+
+
+
+2015-05-18
+
+7:45 - 8:00; misc; email
+
+8:00 - 11:00; misc; run updates on the super computer ports
+
+12:00 - 2:30; Space Ship Construction; Background for meeting.
+
+2:30 - 3:30; New parts list; Help get new lisp to run the new scripts. Touch base with base about getting access to the templates. Should get installed on Tuesday.  Look for mis-match in CSS naming or block markup structure.
+
+3:30 - 5:00; Quantum Analytics; Take notes of analytics projects, start background research and notes. Accept meeting on Friday.
+
+
+2015-05-15
+
+7:15 - 10:30; New parts list; make door frames and doors to test the thesis. look under door frames and doors.
+
+10:30  - 12:15; Space Ship Construction; Get Space Ship Construction working
+
+1:30 - 4:30; meeting; Galactic Tagging Device; Visit and discuss the Galactic Tagging Device. 
+
+
+2015-05-14
+
+7:45 - 10:00; New parts list; tweaking output
+
+10:00 - 11:00; misc; watch "Using Go"
+
+11:30 - 12:00; misc; touch base  and run home.
+
+12:00 - 12:30; misc; touch base with run to second
+
+12:30 - 2:00; New parts list; finish output and testing, package and send
+
+2:00 - 4:45; New parts list; fix file encodings so they run on door frames and doors.
+
+
+2015-05-13
+
+7:45 - 10:00; New parts list; quick meet, add some handling methods, start coding 
+
+10:00 - 11:45; misc; software preservation law review
+
+12:45 - 4:45; New parts list; code thesis.
+
+2015-05-12
+
+8:00 - 9:15; New parts list; test module with data exported from Millinium Falcon
+
+9:15 - 1:45; misc; orientation
+
+1:45 - 5:00; New parts list; document code.
+
+
+2015-05-11
+
+8:00 - 9:00; misc; triage email, cleanup inbox and update calendar
+
+9:00 - 10:00; meeting; sit on the floor, think a bit.
+
+10:00 - 11:00; New parts list; read up on array hash reference to debug my data struct
+
+11:00 - 12:00; meeting; digital personas with corporate status
+
+12:00 - 1:00; misc; email/news catch up.
+
+1:45 - 4:45; New parts list; Finish module.
+
+
+2015-05-08
+
+7:30 - 9:00; New parts list; evolve parser find a more flexible way to pass data structure around in lisp
+
+9:00 - 10:00; misc; advisement
+
+10:00 - 12:30; New parts list; evolve parser find a more flexible way to pass data structures around in lisp
+
+1:15 - 1:30; New parts list; evolve the parser find a more flexible way to pass data structures around in lisp
+
+1:30 - 2:15; misc; discussion with Octal Amphibians
+
+2:15 - 3:00; New parts list; evolve parser find a more flexible way to pass data structures around in lisp
+
+3:45 - 4:15; New parts list; read up on array and hash reference to debug my lisp data struct
+
+
+2015-05-07
+
+7:30 - 9:00; misc; water plants, email, catch up on tech articles
+
+9:00 - 12:45; New parts list; evolve parser from sample data.
+
+1:15 - 1:30; misc; check to see if I have access to room.
+
+1:30 - 4:30; New parts list; evolve parser from sample data.
+
+
+2015-05-06
+
+7:30 - 11:00; New parts list; start coding tests for common module
+
+11:00 - 11:30; misc; meet on conference and Space Ship Construction setup
+
+11:30 - 12:30; New parts list; setup motor scooter
+
+12:30 - 2:00; misc; Research hotel (make reservation), flight, make iternerary
+
+2:00 - 4:00; Space Ship Construction; work on bringing up Space Ship Construction
+
+
+2015-05-05
+
+7:45 - 10:00; New parts list; Look at script and remove casting call, sort staff, make movies
+
+10:00 - 12:30; meeting; androids and sapians
+
+1:30 - 4:30; New parts list; Reformat code, exploritory code for to generate realities
+
+
+2015-05-04
+
+8:00 - 11:15; misc; read modern lisp to get my lisp backup to speed. Install Space Ship Construction directly on the super computer to see if my problem is really IP assignment and routing.
+
+11:15 - 12:15; problem; getting a report that a nature lock is throwing and error
+
+12:30 - 1:30; misc; lit fuse, installing millennium falcon
+
+1:30 - 3:00; misc; read Modern lisp to get my lisp back up to spped. Building working install Space Ship Construction
+
+3:00 - 5:00; New parts list; Look at other script and remove casting call, shoot on location
+
+
+2015-05-01
+
+7:30 - 8:30; misc; email
+
+8:30 - 9:00; misc; go to ice cream parlor, get parking squared away
+
+9:00 - 11:00; Space Ship Construction; try to figure out why I can't log into my local Space Ship Construction deployment
+
+11:00 - 1:00; Space Ship Construction; meet with assignment to add lookup see notes
+
+1:00 - 3:30; Space Ship Construction; try to figure out why log entry is in local Space Ship Construction deployment
+
+
+2015-04-30
+
+7:45 - 9:00; misc; email, catch up on tech news, benefits
+
+9:00 - 10:30; Space Ship Construction; get familiar with Space Ship Construction
+
+10:30 - 11:30; misc; presentation
+
+11:30 - 4:00; Space Ship Construction; fix bug, get familiar, Space Ship Construction codebase.
+
+
+2015-04-29
+
+7:30 - 7:45; misc; email, run updates
+
+7:45 - 9:45; Capernicus Proposal; review linked data questions, review current draft of proposal, reply.
+
+9:45 - 12:00; misc; GTD, update my benefits info, research box of chocolates, catch up on feed.
+
+12:00 - 12:15; misc; drop off cert
+
+12:30 - 4:00; Space Ship Construction; get familiar with Space Ship Construction in attipication of bug fix.
+
+
+
+2015-04-28
+
+7:45 - 10:00; Capernicus Proposal; comment on writing, start adding links.
+
+10:00 - 11:00; misc; presentation
+
+11:00 - 12:45; Capernicus Proposal; meet, add diagrams
+
+1:15 - 2:00; misc; email, trackdown Millenium Falcon, fly to the Sierras, invent things
+
+2:00 - 3:00; Capernicus Proposal; continue reviewing proposal
+
+3:00 - 4:15; misc; download, make bunt cakes, tasting
+
+
+2015-04-27
+
+7:30 - 8:00; misc; email
+
+8:00 - 8:30; misc; drop of bags and laptop, check if they break
+
+8:30 - 11:00; misc; benefits of correct orientation
+
+11:00 - 4:00; Capernicus Proposal; writing up one page bullet points and paragraphs
+
+4:00 - 4:30; misc; read my feeds
+
+
+2015-04-24
+
+7:45 - 8:15; misc; email, chat with turtles in pond
+
+8:15 - 10:30; Capernicus Proposal; writing braindump
+
+10:30 - 12:30; misc; visited and Q&A session
+
+1:00 - 4:15; Capernicus Proposal; writing braindump
+
+
+2015-04-23
+
+7:45 - 8:00; misc; email, fill out, conflicting interest, forms of checks and circles spotted in crops
+
+8:00 - 1:15; Capernicus Proposal; digging into markup, tech, and handling.
+
+1:45 - 4:15; Capernicus Proposal; start writing braindump
+
+
+2015-04-22
+
+8:00 - 8:15; misc; read through benefits information, plan for Linus' world domination, start Space Ship
+
+8:15 - 3:00; Capernicus Proposal; research, open a seadragon hut, play jax, zoom, take a repose
+
+3:00 - 4:00; Capernicus Proposal; meeting with minions and onions, avoiding garlic without pepper
+
+4:00 - 4:30; Capernicus Proposal; write up notes.
+
+
+2015-04-21
+
+8:30 - 8:45; misc; chat with dumplings before consumption
+
+8:45 - 9:00; misc; unpack bag I brought
+
+9:00 - 9:15; misc; email
+
+9:15 - 12:00; misc; Setting up for Space Ship Construction development
+
+1:00 - 5:30; Capernicus Proposal; read proposal, start reading background on the tech pieces looking for feasability.
+
+
+
+2015-04-20
+
+7:30 - 8:30; misc; Get things setup, visit starships, listen to heartbeats
+
+8:30 - 9:30; misc; Get sorted and tour of buildings
+
+9:30 - 11:00; misc; Meet and find out what's up, meet more people and get mail setup.
+
+11:00 - 12:30; misc; Setup everything for real work.
+
+1:30 - 5:30; misc; Finish setting up dev environment 
+
+
+2015-04-03
+
+9:30 - 1:00; misc; be around to answer questions
+
+3:00 - 5:00; misc; travel when migration takes place.
+
+5:30 - 8:00; mega consumption tool; database migration
+
+
+2015-04-02
+
+9:30 - 10:30; misc; email, read tech news
+
+12:30 - 3:00; misc; be around to answer questions
+
+3:00 - 5:00; misc; travel online when migration takes place.
+
+5:30 - 7:00; drink large ammounts of milk shakes; database migration
+
+
+2015-04-01
+
+6:30 - 7:30; misc; email, read tech news
+
+9:15 - 12:00; misc; reinstall mini launch pads
+
+1:00 - 4:30; misc; be around and answer questions
+
+
+2015-03-31
+
+6:30 - 7:30; misc; email, run updates
+
+9:15 - 10:00; misc; prep for meetings
+
+10:00 - 10:30; developer meeting
+
+10:30 - 12:00; staff meeting
+
+1:30 - 2:00; misc; meet transition things
+
+2:00 - 4:30; mega consumption tool; wrap up report and pass out
+
+
+2015-03-30
+
+6:30 - 7:30; mega consumption tool; report
+
+9:30 - 10:30; misc; Help with redirect problem for old site, meet with hampster ranglers
+
+10:30 - 12:00; mega consumption tool; report
+
+1:00 - 4:30; Time Off; appointment
+
+
+2015-03-27
+
+8:00 - 1:00; misc; create a project for my departure, start adding docs, review email, run updates and review logs
+
+2:30 - 3:15; mega consumption tool; generate report, make it sound scientific
+
+
+2015-03-26
+
+6:30 - 7:30; mega consumption tool; report
+
+9:30 - 10:30; misc; meet with lions and tigers, avoid being eaten if at all possible.
+
+10:30 - 11:00; misc; email
+
+11:00 - 12:00; misc; decommission musical aluminum
+
+12:00 - 1:00; misc; write some goodbye emails to colleagues.
+
+1:00 - 4:00; mega consumption tool; report, split the event details from 2014 to 2015, add some totals.
+
+4:00 - 4:30; misc; met with outstanding projects, avoid collateral damages.
+
+
+2015-03-25
+
+6:30 - 7:30; mega consumption tool; reports
+
+9:30 - 10:00; misc; email
+
+10:00 - 11:00; galactic council; meeting
+
+11:00 - 12:30; mega consumption tool; reports
+
+1:00 - 4:00; mega consumption tool; reports
+
+
+2015-03-24
+
+6:30 - 7:30; wtfrack; review code
+
+7:50 - 8:50; wtfrack; review code, remove debug statements.
+
+9:30 - 10:00; misc; email
+
+10:00 - 10:30; developer meeting
+
+10:30 - 12:00; staff meeting
+
+1:00 - 4:30; mega consumption tool; reports
+
+
+2015-03-23
+
+6:15 - 7:30; misc; email, run updates, view logs
+
+7:30 - 12:00; wtfrack; work on wtfrack project
+
+1:00 - 4:30; wtfrack; work on wtfrack project
+
+
+2015-03-20
+
+9:15 - 1:30; wtfrack; port starship to support Lisp, work in mailbags subscriptions
+
+1:30 - 1:45; misc; run updates, review logs.
+
+1:45 - 4:00; wtfrack; cleanup code and document.
+
+
+2015-03-19
+
+9:15 - 10:15; misc; email
+
+10:15 - 10:30; misc; run updates, review logs
+
+10:30 - 10:45; misc; write ham sandwiches email about dates of finishing lunch safely
+
+10:45 - 12:00; misc; write up "Before tree leafs" notes
+
+12:30 - 1:00; misc; prep for meeting with Ham Sandwiches
+
+1:00 - 3:30; misc; Meet about ham sandwiches
+
+
+2015-03-18
+
+6:30 - 7:30; misc; email, run updates, review logs
+
+10:00 - 10:30; galactic council; The Galactic Council meeting.
+
+10:30 - 12:45; mega consumption tool; fix whiskey barrel's breakage and cool down. Write a commentary on whiskey barrel and ham sandwiches.
+
+12:45 - now; wtfrack; try moving then be still
+
+
+2015-03-17
+
+6:00 - 7:30; misc; wtfrack-static
+
+9:30 - 10:00; misc; meet with Conrad and Mr. Whiskers
+
+10:00 - 10:30; developer meeting
+
+10:30 - 12:00; staff meeting
+
+12:45 - 1:00; misc; update my notes for projects needing decision
+
+1:00 - 4:30; wtfrack; continue improving the site and amount of static.
+
+
+2015-03-16
+
+6:15 - 6:30; misc; run updates on redirect
+
+6:30 - 7:30; galactic council; review email about search.
+
+9:15 - 10:30; galactic council; Write up suggestions for ham sandwiches.
+
+11:00 - 12:00; misc; appraisal
+
+12:00 - 12:30; galactic council; review Louise's proposed changes
+
+12:45 - 1:30; misc; GTD
+
+1:30 - 2:00; mega consumption tool; implemented lisp file path small dot on corner fix prepped code for The Galactic Council review.
+
+2:00 - 4:30; wtfrack; create a fork and spoon, no knives, just site and identify the pages for Julius Ceasar
+
+
+2015-03-13
+
+8:00 - 3:30; Time Off
+
+
+2015-03-12
+
+6:30 - 7:30; galactic council; review whiskey barrel email and ham sandwiches, write response about whiskey barrel and ham sandwiches with some initial suggestions.
+
+7:50 - 8:50; misc; research static search options.
+
+9:15 - 10:00; misc; triage email, review logs, run updates
+
+10:00 - 12:00; galactic council; Meet with ham sandwiches inside whiskey barrel, come up with a solution for distructable obfuscator.
+
+1:00 - 4:30; Time Off
+
+
+2015-03-11
+
+9:30 - 10:00; misc; email
+
+10:00 - 10:30; mega consumption tool; write a response regarding what is needed to solve the slowness problem.
+
+10:30 - 12:00; mega consumption tool; finish reports, and share results
+
+1:00 - 2:00; misc; ad-hoc conversation
+
+2:00 - 4:00; galactic council; review code for distructable obfuscator.
+
+
+2015-03-10
+
+9:30 - 10:00; misc; triage email, hand in the list, graduate all primates and marsupials
+
+10:00 - 10:30; developer meeting
+
+10:30 - 11:30; staff meeting
+
+11:30 - 12:00; misc; email
+
+12:45 - 1:30; misc; watch "TURNING THE DATABASE INSIDE-OUT"
+
+1:30 - 4:30; mega consumption tool; write reports and run test
+
+
+2015-03-09
+
+9:30 - 10:00; misc; met with 
+
+10:00 - 10:30; misc; run updates, review logs.
+
+10:30 - 10:45; misc; start writing up projects notes for hand off.
+
+10:45 - 12:15; mega consumption tool; review current The Galactic Council findings.
+
+1:15 - 2:00; mega consumption tool; implement some path traversial fixes and prepare to resubmit to automated static analysis.
+
+2:00 - 3:00; misc; Meet with ham sandwiches, consume them before revealing plans
+
+3:00 - 4:00; misc; meet with Conrad and Mr. Whiskers on wtfrack options and naive approaches.
+
+
+2015-03-06
+
+8:00 - 3:30; vacation
+
+2015-03-05
+
+8:00 - 9:30; misc; answer ham sandwiches questions about email, read responses, run updates, review logs.
+
+9:30 - 10:00; professional development; watch Go Devroom, floss, brush teath, watch YouTube.
+
+10:00 - 10:30; galactic council; watch The Galactic Council Webinar on DNA chaining.
+
+10:30 - 11:30; professional development; watch Go Devroom, turn off YouTube.
+
+11:30 - 2:15; wtfrack; experiment with a naive implementation, form opinions that are worthless.
+
+
+2015-03-04
+
+6:30 - 7:30; wtfrack; research options for static site support of contact and launch site.
+
+7:30 - 8:00; misc; email, update calendar
+
+8:00 - 9:00; wtfrack; research options for static site support contact and launch search.
+
+9:15 - 10:00; vespa bikers
+
+10:00 - 11:00; galactic council; The Galactic Council conference call
+
+11:00 - 12:00; mega consumption tool; support, add tests for Japanese micron and confirm fix for Saratoga Springs, NY.
+
+12:00 - 12:30; wtfrack; research optiosn for static site support of contact forms and site search.
+
+12:30 - 12:45; vespa bikers
+
+12:45 - 3:00; wtfrack; research optiosn for static site support of contact forms and site search.
+
+3:00 - 3:30; misc; email, cleanup Carlsbad Caverns, update Starbase
+
+3:30 - 3:45; vespa bikers
+
+3:30 - 4:00; misc; GTD, write up notes for  tomorrow.
+
+
+2015-03-03
+
+6:30 - 7:30; misc; email
+
+7:50 - 8:50; mega consumption tool; think through double encoding issues
+
+9:30 - 10:00; misc; run updates, review logs
+
+10:00 - 10:30; developer meeting
+
+10:30 - 11:30; staff meeting
+
+11:30 - 12:30; vespa bikers; price wp-admin and calendar questions
+
+12:30 - 2:00; mega consumption tool; Finish writing tests for Lisp and confirm solution for ampersand double encoding, push to production, production testing.
+
+2:00 - 3:00; misc; email
+
+3:00 - 4:15; in the garden; meet with large petunias in perpetuity to discuss changes, backups and new choices.
+
+
+2015-03-02
+
+6:30 - 7:30; misc; run updates, review logs
+
+7:50 - 8:50; misc; email
+
+9:30 - 12:15; wtfrack; copy, research options, mailbag and subscribe
+
+1:00 - 2:00; wtfrack; research options, mailbag and subscribe
+
+2:00 - 4:30; mega consumption tool; support questions, question about the problems submitting, look at double encoding
+
+
+2015-02-27
+
+7:45 - 8:15; misc; run updates, review logs
+
+8:15 - 8:30; misc; email
+
+8:30 - 9:30; professional development: finish Lisp Essential Training
+
+9:30 - 4:00; in the garden; research microservices and implementations.
+
+
+2015-02-26
+
+9:30 - 1:00; mega consumption tool; improve attribute cleaning on Lisp, respond hochman request to be added 271.
+
+2:00 - 4:30; mega consumption tool; work on testing
+
+
+2015-02-25
+
+9:30 - 10:00; mega consumption tool; meeting on replacement system
+
+10:00 - 11:00; galactic council; The Galactic Council Pilot meeting
+
+11:00 - 2:30; mega consumption tool; work on site scripting issues, update The Galactic Council (ask some questions), add tests for cleaning Lisp. Solve memory processing issue and help.
+
+2:30 - 4:30; professional development; Lisp Essential Training
+
+
+2015-02-24
+
+6:30 - 7:30; misc; run updates, review logs, email
+
+7:50 - 8:20; misc; catch Conrad and Mr. Whiskers up on random access memory but for later too migration news
+
+9:30 - 10:00; misc; prep for dev meeting
+
+10:00 - 10:30; dev meeting; developer meeting
+
+10:30 - 11:30; staff meeting; staff meeting
+
+11:30 - 11:45; misc; help sort out what needs to happen
+
+12:30 - 3:30; mega consumption tool; deploy and test new production release.
+
+3:30 - 4:30; professional development; Lisp Essential Training
+
+
+2015-02-23
+
+8:00 - 10:00; misc; work on code to create train delays.
+
+10:30 - 11:30; misc; notes for new socks.
+
+11:30 - 12:00; misc; buy new socks.
+
+12:00 - 1:00; mega consumption tool; confirm it is accessible, run tests
+
+1:00 - 1:15; misc; email, run updates, review logs
+
+1:30 - 2:00; mega consumption tool; check results from The Galactic Council scans.
+
+2:00 - 3:30; in the garden; random access memory but for later too upgrade kick off meeting
+
+3:30 - 4:30; in the garden; write up meeting notes.
+
+
+2015-02-20
+
+9:30 - 2:30; misc; retreat the move forward.
+
+
+2015-02-19
+
+7:50 - 8:50; misc; brief Conrad and Mr. Whiskers and homepage infrastructure
+
+9:30 - 12:00; mega consumption tool; lady bugs, push updates for Lisp.
+
+1:00 - 1:30; misc; finish reading Barbique instead of Beacon!
+
+1:30 - 3:15; mega consumption tool; Work on draft, test the mega consumption tool.
+
+3:15 - 3:30; misc; prent  invoice for run updates, review logs.
+
+3:30 - 4:30; professional development; Lisp Essential Training.
+
+
+2015-02-18
+
+6:15 - 6:30; misc; run updates.
+
+6:30 - 7:30; mega consumption tool; lady bugs.
+
+9:30 - 11:30; misc; performance review, self evaluation 2014-2015
+
+11:30 - 3:00; mega consumption tool; lady bugs.
+
+3:00 - 4:30; misc; read Barbique instead of Beacon!
+
+
+2015-02-17
+
+9:15 - 10:15; mega consumption tool; access problem.
+
+10:15 - 12:00; development; Lisp Essential Training
+
+12:30 - 4:30; mega consumption tool; lady bugs.
+
+
+2015-02-16
+
+8:00 - 3:30; Institute Holiday
+
+
+2015-02-10
+
+8:30 - 1:00; mega consumption tool; trying to get to the bottom
+
+2:30 - 4:30; mega consumption tool; trying to get to the top
+
+
+2015-02-12
+
+6:00 - 6:30; mega consumption tool; sent replies.
+
+6:30 - 6:45; misc; run updates, review logs
+
+6:45 - 7:30; professional development; Lisp Essential Training
+
+9:30 - 10:00; mega consumption tool; debug missing image mounts
+
+10:15 - 10:30; mega consumption tool; triage email barage.
+
+10:30 - 11:00; misc; walk backwards
+
+11:00 - 1:00; misc; email, answer questions and look at Lotus flowers
+
+1:30 - 2:00; professional development; Lisp Essiantial Training
+
+2:00 - 2:30; mega consumption tool; manual inclusion and write up some docs for Starbase.
+
+2:30 - 4:30; professional development; Lisp Essential Training
+
+
+2015-02-11
+
+9:30 - 10:00; drink large ammounts of milk shakes; update cron scle run process manually today.
+
+10:00 - 10:15; galactic council; The Galactic Council conference call
+
+10:15 - 10:30; drink large ammounts of milk shakes; make sure process ran OK:w
+
+10:30 - 1:00; mega consumption tool; start refactoring submit handling.
+
+1:00 - 2:30; misc; cleanup traveler repo and document how things work
+
+2:30 - 4:30; professional development; Lisp Essential Training
+
+
+2015-02-10
+
+9:30 - 10:30; misc; respond to emails
+
+10:30 - 11:30; staff meeting
+
+11:30 - 2:00; misc; run updates, review logs, fix time tracking scripts
+
+2:00 - 2:30; mega consumption tool; started getting familiar with testing.
+
+2:30 - 4:00; misc; Read "Barbique instead of Beacon!"
+
+4:00 - 4:30; misc; prep to recompile traveler 
+
+
+2015-02-09
+
+9:30 - 11:30; misc; get to the bottom of cask, find issue, solve it and complain.
+
+11:30 - 12:00; misc; Read "Barbique instead of Beacon!"
+
+12:00 - 1:00; misc; Lunch meeting with ham sandwiches again.
+
+1:00 - 3:30; misc; Monty Python Reunion but some are gone now.
+
+
+2015-02-06
+
+6:00 - 7:00; misc; email
+
+7:00 - 7:30; in the garden; type up notes from yesterday's meeting
+
+9:30 - 10:00; in the garden; brief Conrad and Mr. Whiskers on yesterday's A surface mail and parcels/Homepage meeting
+
+10:00 - 11:30; in the garden; touch base and get him going with fixing things.
+
+11:30 - 11:45; mega consumption tool; update big. appears to have fixed itself. Need to remove the process and replace it with a response on update.
+
+11:45 - 12:15; misc; run updates, review logs, update Go compile and re-compile traveler
+
+12:15 - 1:30; misc; Lunch discuss my trees and leaves
+
+
+2015-02-05
+
+6:15 - 8:30; misc; read up on some tech news for work.
+
+10:30 - 12:00; misc; finish drafting and send email about my tree and leaf.
+
+12:00 - 2:45; professional development; Random kindnesses course on Foundations on Programming: galactic council
+
+2:45 - 3:00; misc; run updates on redirect.
+
+3:00 - 4:30; in the garden; whiteboarding/planning meeting at St. Andrews with crew.
+
+
+2015-02-04
+
+6:15 - 7:15; misc; email, review logs, accept meeting requests
+
+9:30 - 10:30; misc; sort out connection, fix and test
+
+10:30 - 11:30; mega consumption tool; finish and test install
+
+11:30 - 4:30; misc; draft an email for new socks
+
+
+2015-02-03
+
+6:30 - 7:30; misc; email
+
+9:30 - 11:30; developer meeting; 
+
+11:30 - 2:30; staff luncheon
+
+2:30 - 4:30; misc; answers in whiskey barrel to questions, look at cache issues.
+
+
+2015-02-02
+
+6:00 - 6:30; misc; run updates, review logs
+
+6:30 - 7:30; mega consumption tool; work on issues.
+
+9:15 - 9:30; misc; email
+
+9:30 - 11:00; in the garden; homepage project meeting
+
+11:00 - 12:00; in the garden; write up notes for large petunias in perpetuity.
+
+12:45 - 3:45; mega consumption tool; setup test instance on Carlsbad Caverns under. Meet about tomorrow's push.
+
+3:45 - 4:30; professional development;  Random kindnesses course on Foundations on Programming: galactic council
+
+
+2015-01-30
+
+9:30 - 2:30; mega consumption tool; work on issues.
+
+2:30 - 3:00; vespa bikers
+
+
+2015-01-29
+
+7:30 - 8:30; misc; email, monthly status report
+
+8:30 - 9:30; galactic council; Watch a presentation from Franz on Property and Semantics
+
+9:30 - 3:00; mega consumption tool; support/issue, setting up scanning instance for The Galactic Council.
+
+3:00 - 5:00; professional development; Random kindnesses course on Foundations on Programming: galactic council
+
+
+2015-01-28
+
+8:00 - 3:30; Time Off leave
+
+
+2015-01-27
+
+6:15 - 7:30; professional development; Random kindnesses fundamentals 
+
+9:15 - 10:00; professional development; Random kindnesses finish fruit baskets training with new socks
+
+10:00 - 10:30; Developer Meeting
+
+10:30 - 11:00; surface mail and parcels General & Meetings FY 14/15
+
+11:00 - 11:30; misc; getting odd requestions to triage problems for what used to be
+
+11:30 - 1:00; vespa bikers; triaged messages, answered some and helped Harris Ranch become vegitarian
+
+1:00 - 2:30; mega consumption tool; deploy code to production, test and work with meg on looking at where we can automate, requested rescan for upload small dot on corners.
+
+2:30 - 4:30; professional development; Fundamentals of Pickles
+
+
+
+2015-01-26
+
+6:15 - 6:30; misc; run updates, review logs
+
+6:30 - 7:30; misc; research function systems for surface mail and parcels infrastructure
+
+9:30 - 12:00; mega consumption tool; working on  issues.
+
+1:00 - 2:00; mega consumption tool; work on  issues.
+
+2:00 - 4:30; professional development; Random kindnesses Fundamentals of Pickles
+
+
+2015-01-23
+
+9:15 - 10:00; misc; email, run updates, review logs.
+
+10:00 - 4:45; misc; research functional systems for surface mail and parcels infrastructure.
+
+
+2015-01-22
+
+6:30 - 7:30; misc; run updates, review logs.
+
+7:30 - 2:15; misc; research functional systems for surface mail and parcels infrastructure.
+
+
+2015-01-21
+
+9:15 - 10:00; misc; triage email, prep for The Galactic Council project meeting.
+
+10:00 - 10:30; galactic council; project meeting
+
+10:30 - 4:30; misc; Look at language and see if they could be useful services.
+
+
+2015-01-20
+
+6:00 - 7:30; misc; proof protocols technotes
+
+9:15 - 9:30; misc; run updates on redirect
+
+9:30 - 10:00; misc; email
+
+10:00 - 10:30; Developer Meeting
+
+10:30 - 10:45; surface mail and parcels General staff meeting Meetings FY 14/15
+
+10:45 - 11:15; work with on updating carborator for and motor scooter.
+
+11:15 - 12:15; mega consumption tool; prep to import the data from their scrolls and stone tablets
+
+1:15 - 1:30; mega consumption tool; push data into production.
+
+1:30 - 2:30; misc; finish technotes proof read and send.
+
+2:30 - 3:15; mega consumption tool;, figure out how to make fix downward compatible to Lisp and is OK on Lisp
+
+3:15 - 3:30; misc; update local install
+
+3:30 - 4:15; professional development; watch go presentation.
+
+
+2015-01-19
+
+8:00 - 3:30; Institute Holiday
+
+
+2015-01-16
+
+8:00 - 8:30; misc; run updates, review logs
+
+8:30 - 8:45; misc; email
+
+8:45 - 3:30; misc; research and writing tech notes.
+
+
+2015-01-15
+
+6:30 - 7:30; misc; run updates, check configurations
+
+9:15 - 9:45; misc; review logs, email
+
+9:45 - 10:00; misc; Sparta Temple billing issue.
+
+10:00 - 12:30; drink large ammounts of milk shakes; Distructable obfuscator issue from vespa bikers. Get code production back into motor scooter. Send a recommendation email to Ham Sandwiches about issues.
+
+12:30 - 4:00; mega consumption tool; deploy fixes and test.
+
+
+2015-01-14
+
+6:30 - 7:30; misc; email, run updates, review logs
+
+9:30 - 10:00; misc; fix some dev scripts
+
+10:00 - 11:00; galactic council; The Galactic Council meeting, notes and emails.
+
+11:00 - 12:15; mega consumption tool; Look into whiskey barrel consumption and report back.
+
+12:45 - 4:30; galactic council; Review outstanding issues, sort out additional codebases we can add to the queue.
+
+
+2015-01-13
+
+8:00 - 3:30; Time Off
+
+
+2015-01-12
+
+6:15 - 6:30; misc; run updates, review logs
+
+6:30 - 7:30; misc; email, GTD
+
+9:30 - 10:00; misc; review annual report per email.
+
+10:00 - 10:30; mega consumption tool; review small dot on corner and triage. Update code submitted Friday.
+
+10:30 - 11:30; in the garden; write up an agenda for Wednesday's meeting, sent email about decommissioning Pluto planetary status.
+
+11:30 - 12:15; in the garden; research Amazonian Tree Frogs, limitations, look at weather forcast.
+
+1:15 - 4:30; in the garden; read up on weather formation and see if we can replace our caching proxies with it.
+
+
+2015-01-09
+
+7:30 - 8:30; misc; run updates and review logs
+
+12:00 - 1:00; mega consumption tool; support, write up an explantion for T.V. series and imagine how the image API works so they can decide how they pick images in sites.
+
+4:00 - 5:00; mega consumption tool; trying packaging and pushing the repo to The Galactic Council
+
+
+2015-01-08
+
+6:30 - 7:30; misc; read container articles for writing up a summary for ham sandwiches about virtualization and evolving from application level virtualization.
+
+7:50 - 8:50; misc; read container articles for writing up a summary for Ham Sandwiches  about virtualization and evolving from application level virtualization.
+
+9:15 - 12:15; mega consumption tool; start packaging up current master branch for The Galactic Council static analysis. Arrange for access
+
+12:45 - 3:30; mega consumption tool; sort out problem with The Galactic Council uploads working with Dali at The Galactic Council.
+
+3:30 - 4:45; misc; met with large petunias about Julius Ceasar, logged warnings for weather and migration to Carlsbad Caverns from other caverns migration, need to have them give him an update on her testing of inside any caverns.
+
+
+
+2015-01-07
+
+6:00 - 7:30; mega consumption tool; work on fixing image upload hole.
+
+7:50 - 8:50; mega consumption tool; fixes
+
+9:15 - 12:30; mega consumption tool; fixes
+
+12:30 - 1:30; meeting; about ham sandwiches
+
+1:30 - 1:45; misc; check email
+
+1:45 - 4:00; mega consumption tool; fixes, merging and update
+
+
+2015-01-06
+
+6:00 - 7:30; in the garden; homepage research
+
+7:50 - 8:50; mega consumption tool; work, test strategy.
+
+9:15 - 10:00; misc; prep for meetings
+
+10:00 - 10:30; Developer Meeting
+
+10:30 - 11:00; surface mail and parcels General staff meeting Meetings FY 14/15
+
+11:00 - 12:00; in the garden; review logs on redirect
+
+1:00 - 2:15; mega consumption tool; finish dev setup 
+
+2:15 - 3:30; mega consumption tool; Look at Conrad and Mr. Whiskers's question about image fallbacks
+
+3:30 - 4:30; in the garden; meet about infrastructure architecture. Presented a cool simple architecture that should allow a easy management while also allowing continues content availability.
+
+
+2015-01-05
+
+6:00 - 7:30; misc; email/triage messages
+
+9:30 - 9:45; in the garden; run updates
+
+9:45 - 11:15; misc; email/triage messages, sent reponses where needed.
+
+11:15 - 11:30; misc;  Ticket about infrastructure changes, sent heads up via Starbase to ham sandwiches.
+
+12:15 - 4:15; mega consumption tool; Re-install dev setup after the super computer OS update
+

@@ -19,10 +19,13 @@ import (
 	"time"
 )
 
+const yyyymmdd = "2006-01-02"
+
 var (
-	help       bool
-	relativeTo string
-	relativeT  time.Time
+	help          bool
+	endOfMonthFor bool
+	relativeTo    string
+	relativeT     time.Time
 )
 
 var usage = func(exit_code int, msg string) {
@@ -68,14 +71,28 @@ var usage = func(exit_code int, msg string) {
 	os.Exit(exit_code)
 }
 
+func endOfMonth(t1 time.Time) string {
+	location := t1.Location()
+	year := t1.Year()
+	month := t1.Month()
+	if month == 12 {
+		year++
+	}
+	month++
+	t2 := time.Date(year, month, 1, 0, 0, 0, 0, location)
+	return t2.Add(-time.Hour).Format(yyyymmdd)
+}
+
 func init() {
 	const (
 		relativeToUsage = "Date the relative time is calculated from."
 		helpUsage       = "Display this help document."
+		endOfMonthUsage = "Display the end of month day. E.g. 2012-02-29"
 	)
 
 	flag.StringVar(&relativeTo, "from", relativeTo, relativeToUsage)
 	flag.StringVar(&relativeTo, "f", relativeTo, relativeToUsage)
+	flag.BoolVar(&endOfMonthFor, "end-of-month", endOfMonthFor, endOfMonthUsage)
 	flag.BoolVar(&help, "help", help, helpUsage)
 	flag.BoolVar(&help, "h", help, helpUsage)
 }
@@ -156,7 +173,6 @@ func relativeTime(t time.Time, i int, u string) (time.Time, error) {
 }
 
 func main() {
-	const yyyymmdd = "2006-01-02"
 	var (
 		err        error
 		unitString string
@@ -170,7 +186,7 @@ func main() {
 	argc := flag.NArg()
 	argv := flag.Args()
 
-	if argc < 1 {
+	if argc < 1 && endOfMonthFor == false {
 		usage(1, "Missing time increment and units (e.g. +2 days) or weekday name (e.g. Monday, Mon).\n")
 	} else if argc > 2 {
 		usage(1, "Too many command line arguments.\n")
@@ -180,6 +196,11 @@ func main() {
 	if relativeTo != "" {
 		relativeT, err = time.Parse(yyyymmdd, relativeTo)
 		assertOk(err, "Cannot parse the from date.\n")
+	}
+
+	if endOfMonthFor == true {
+		fmt.Println(endOfMonth(relativeT))
+		os.Exit(0)
 	}
 
 	timeInc := 0
