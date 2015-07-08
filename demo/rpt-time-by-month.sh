@@ -5,17 +5,12 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
 	echo "    Without a date it reports the current week."
 	exit 1
 elif [ "$1" != "" ]; then
-	FOR_DATE=$1
+	FOR_DATE="$1-01"
 fi
 
-function startMonth {
-    echo "$FOR_DATE-01"
-}
+END_OF_MONTH=$(reldate --from $FOR_DATE --end-of-month)
 
-function endMonth {
-	reldate --from="$FOR_DATE-01" --end-of-month
-}
-
-echo "Report for $(startMonth $FOR_DATE) through $(endMonth $FOR_DATE)"
+# Now that we have date in the format needed, create a pipeline for the report.
+echo "Report for $FOR_DATE through $(reldate --from="$FOR_DATE" --end-of-month)"
 cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" | stnparse |\
-    stnfilter -start "$(startMonth $FOR_DATE)" -end "$(endMonth $FOR_DATE)" | stnreport
+    stnfilter -start "$FOR_DATE" -end "$END_OF_MONTH" | stnreport
