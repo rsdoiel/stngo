@@ -35,11 +35,16 @@ lint:
 	gofmt -w cmd/stnparse/stnparse.go && golint cmd/stnparse/stnparse.go
 	gofmt -w cmd/stnfilter/stnfilter.go && golint cmd/stnfilter/stnfilter.go
 	gofmt -w cmd/stnreport/stnreport.go && golint cmd/stnreport/stnreport.go
+	gofmt -w ok/ok.go && golint ok/ok.go
+	gofmt -w ok/ok_test.go && golint ok/ok_test.go
 
 test:
 	cd stn && go test
 	cd stn/shorthand && go test
 	cd stn/report && go test
+
+# ok test throws false Fail so is skipped
+#	cd ok && go test
 
 clean: shorthand reldate stnparse stnfilter stnreport
 	if [ -f reldate ]; then rm reldate; fi

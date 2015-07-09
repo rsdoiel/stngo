@@ -14,6 +14,7 @@ import (
 	"testing"
 )
 
+// Ok is similar to assert true, calls testing.T.Errorf if expression is false
 func Ok(t *testing.T, expression bool, message string) bool {
 	if expression == true {
 		return true
@@ -22,6 +23,7 @@ func Ok(t *testing.T, expression bool, message string) bool {
 	return false
 }
 
+// NotOk is similar to assert false, calls testing.T.Errorf if expression is true
 func NotOk(t *testing.T, expression bool, message string) bool {
 	if expression == false {
 		return true
