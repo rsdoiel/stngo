@@ -12,7 +12,7 @@ If today was 2014-08-03 and you wanted the date three days in the past try--
     reldate 3 days
 ```
 
-The output would be 
+The output would be
 
 ```
     2014-08-06
@@ -26,11 +26,11 @@ Supported time units are
 + week(s)
 + year(s)
 
-## Specifying a date to calucate from
+## Specifying a date to calculate from
 
 _reldate_ handles dates in the YYYY-MM-DD format (e.g. March 1, 2014 would be 2014-03-01).  By default _reldate_ uses today as
-the date to calculate relative time from.  If you use the *--from* option you can it will calculate the relative date from that 
-specific date. 
+the date to calculate relative time from.  If you use the *--from* option you can it will calculate the relative date from that
+specific date.
 
 ```
     reldate --from=2014-08-03 3 days
@@ -44,11 +44,11 @@ Will yield
 
 ## Negative increments
 
-Command line arguments traditionally start with a dash which we also use to denote a nagative number. To tell the command line
+Command line arguments traditionally start with a dash which we also use to denote a negative number. To tell the command line
 process that to not treat negative numbers as an "option" preceed your time increment and time unit with a double dash.
 
 ```
-   reldate --from=2014-08-03 -- -3 days 
+   reldate --from=2014-08-03 -- -3 days
 ```
 
 Will yield
@@ -59,8 +59,8 @@ Will yield
 
 ## Relative week days
 
-You can calculate a date from a weekday name (e.g. Saturday, Monday, Tuesday) knowning a day (e.g. 2015-02-10 or the current date of the
-week) occuring in a week.  A common case would be wanting to figure out the Monday date of a week containing 2015-02-10. The week is
+You can calculate a date from a weekday name (e.g. Saturday, Monday, Tuesday) knowing a day (e.g. 2015-02-10 or the current date of the
+week) occurring in a week.  A common case would be wanting to figure out the Monday date of a week containing 2015-02-10. The week is
 presumed to start on Sunday (i.e. 0) and finish with Saturday (e.g. 6).
 
 ```
@@ -78,7 +78,7 @@ of the English names or full English names (e.g. Monday, monday, Mon, mon).
 
 ## Length of Month
 
-Working in month ranges it is helpful to quickly yeild the last day of month (e.g. 28, 29, 30 or 31). *reldate* provides with this
+Working in month ranges it is helpful to quickly yield the last day of month (e.g. 28, 29, 30 or 31). *reldate* provides with this
 the --end-of-month option.
 
 ```

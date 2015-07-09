@@ -7,7 +7,7 @@
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
 
-all: shorthand reldate stnparse stnfilter stnreport
+build: shorthand reldate stnparse stnfilter stnreport
 
 shorthand: cmd/shorthand/shorthand.go stn/shorthand/shorthand.go
 	go build cmd/shorthand/shorthand.go
