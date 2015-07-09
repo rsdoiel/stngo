@@ -7,15 +7,10 @@
 package shorthand
 
 import (
+	"../../ok"
 	"strings"
 	"testing"
 )
-
-func ok(t *testing.T, expected bool, msg string) {
-	if expected != true {
-		t.Fatalf("Failed: " + msg)
-	}
-}
 
 // Test IsAssignment
 func TestIsAssignment(t *testing.T) {
@@ -71,8 +66,8 @@ func TestAssign(t *testing.T) {
 	}
 
 	for key, value := range expectedMap {
-		expected, ok := Abbreviations[key]
-		if !ok {
+		expected, OK := Abbreviations[key]
+		if !OK {
 			t.Fatalf("Could not find the shorthand for " + key)
 		}
 		if expected != value {
@@ -124,12 +119,12 @@ Did it work?
 	Assign("@NOW := 2015-07-04")
 	expected := true
 	results := HasAssignment("@NOW")
-	ok(t, results == expected, "Should have @NOW assignment")
+	ok.Ok(t, results == expected, "Should have @NOW assignment")
 	Assign("@README :< ../../README.md")
 	results = HasAssignment("@README")
-	ok(t, results == expected, "Should have @README assignment")
+	ok.Ok(t, results == expected, "Should have @README assignment")
 	resultText := Expand(text)
 	l := len(text)
-	ok(t, len(resultText) > l, "Should have more results: "+resultText)
-	ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in "+resultText)
+	ok.Ok(t, len(resultText) > l, "Should have more results: "+resultText)
+	ok.Ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in "+resultText)
 }

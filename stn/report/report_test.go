@@ -9,18 +9,13 @@
 package report
 
 import (
+	"../../ok"
 	"../../stn"
 	"fmt"
 	"log"
 	"strings"
 	"testing"
 )
-
-func ok(t *testing.T, expected bool, msg string) {
-	if expected != true {
-		t.Fatalf("Failed: " + msg)
-	}
-}
 
 func TestAggregator(t *testing.T) {
 	text := `2015-07-06T08:00:00-07:00	2015-07-06T08:30:00-07:00	misc	email, update basecamp
@@ -49,5 +44,5 @@ func TestAggregator(t *testing.T) {
 	}
 	outText := aggregation.Summarize()
 	outLines := strings.Split(outText, "\n")
-	ok(t, len(outLines) == 8, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
+	ok.Ok(t, len(outLines) == 8, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
 }
