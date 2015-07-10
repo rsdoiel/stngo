@@ -1,4 +1,8 @@
 
+2015-07-10
+
+8:00 - @now; misc; Just showing how shorthands work.
+
 2015-07-07
 
 7:45 - 8:15; misc; triage email, run updates
