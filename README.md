@@ -19,14 +19,20 @@ In this example we are filtering entries for a specific date.
 
 ```shell
     #!/bin/bash
+
+    # Get today in YYYY-MM-DD format
     DAY=$(date +"%Y-%m-%d")
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
     if [ "$1" = "" ]; then
         echo "USAGE: rpt-time-by-date.sh YYYY-MM-DD"
     else
         DAY="$1"
     fi
+
     # Now that we have date in the format needed, create a pipeline for the report.
-    cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" | stnparse |\
+    cat Time_Sheet.txt | shorthand -e "@now := $NOW" | stnparse |\
         stnfilter -start="$DAY" -end="$DAY" | stnreport
 ```
 
@@ -43,6 +49,9 @@ In this example we use the *reldate* utility from this package to capture the st
     FOR_DATE=$(date +"%Y-%m-%d")
     CUR_WEEK_DAY=$(date +%u)
 
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
     # Make sure we have reldate command available.
     if [ "$RELDATE" = "" ]; then
         echo "Missing reldate command. See https://github.com/rsdoiel/reldate"
@@ -58,48 +67,59 @@ In this example we use the *reldate* utility from this package to capture the st
         FOR_DATE=$(reldate --from=$1 0 days)
     fi
 
-    # Now that we have date in the format needed, create a pipeline for the report.
     START_WEEK=$(reldate --from="$FOR_DATE" Sunday)
     END_WEEK=$(reldate --from="$FOR_DATE" Saturday)
+
+    # Now that we have date in the format needed, create a pipeline for the report.
     echo "Report for $START_WEEK through $END_WEEK"
-    cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" |\
+    cat Time_Sheet.txt | shorthand -e "@now := $NOW" |\
         stnparse | stnfilter -start "$START_WEEK" -end "$END_WEEK" | stnreport
 ```
 
 ### Report durations of activities by month
 
 ```shell
-#!/bin/bash
-FOR_DATE=$(date +"%Y-%m")
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-    echo "USAGE: rpt-time-by-month.sh YYYY-MM"
-    echo "    Without a date it reports the current week."
-    exit 1
-elif [ "$1" != "" ]; then
-    FOR_DATE="$1"
-fi
+    #!/bin/bash
 
-START_OF_MONTH="${FOR_DATE:0:7}-01"
-END_OF_MONTH=$(reldate --from $START_OF_MONTH --end-of-month)
+    # Get the month/year in YYYY-MM format.
+    FOR_DATE=$(date +"%Y-%m")
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
 
-# Now that we have date in the format needed, create a pipeline for the report.
-echo "Report for $START_OF_MONTH through $END_OF_MONTH"
-cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" | stnparse |\
-    stnfilter -start "$START_OF_MONTH" -end "$END_OF_MONTH" | stnreport
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo "USAGE: rpt-time-by-month.sh YYYY-MM"
+        echo "    Without a date it reports the current week."
+        exit 1
+    elif [ "$1" != "" ]; then
+        FOR_DATE="$1"
+    fi
+
+    START_OF_MONTH="$FOR_DATE-01"
+    END_OF_MONTH=$(reldate --from $START_OF_MONTH --end-of-month)
+
+    # Now that we have date in the format needed, create a pipeline for the report.
+    echo "Report for $START_OF_MONTH through $END_OF_MONTH"
+    cat Time_Sheet.txt | shorthand -e "@now := $NOW" | stnparse |\
+        stnfilter -start "$START_OF_MONTH" -end "$END_OF_MONTH" | stnreport
 ```
 
 ### Report durations of activities by year
 
 ```shell
     #!/bin/bash
+
+    # Get the year in YYYY format.
     FOR_DATE=$(date +"%Y")
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-        echo "USAGE: rpt-time-by-week.sh YYYY"
+        echo "USAGE: rpt-time-by-week.sh YYYY-MM-DD"
         echo "    Without a date it reports the current week."
         exit 1
     elif [ "$1" != "" ]; then
         FOR_DATE=$1
-    fi
+    fi  
 
     function startYear {
         echo "$FOR_DATE-01-01"
@@ -111,6 +131,6 @@ cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" | stnparse |\
 
     # Now that we have date in the format needed, create a pipeline for the report.
     echo "Report for $(startYear $FOR_DATE) through $(endYear $FOR_DATE)"
-    cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" | stnparse |\
+    cat Time_Sheet.txt | shorthand -e "@now := $NOW" | stnparse |\
         stnfilter -start "$(startYear $FOR_DATE)" -end "$(endYear $FOR_DATE)" | stnreport
 ```

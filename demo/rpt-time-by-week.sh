@@ -5,6 +5,8 @@
 RELDATE=$(which reldate)
 FOR_DATE=$(date +"%Y-%m-%d")
 CUR_WEEK_DAY=$(date +%u)
+# If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+NOW=$(date +%I:%M)
 
 # Make sure we have reldate command available.
 if [ "$RELDATE" = "" ]; then
@@ -23,6 +25,7 @@ fi
 
 START_WEEK=$(reldate --from="$FOR_DATE" Sunday)
 END_WEEK=$(reldate --from="$FOR_DATE" Saturday)
+# Now that we have date in the format needed, create a pipeline for the report.
 echo "Report for $START_WEEK through $END_WEEK"
-cat Time_Sheet.txt | shorthand -e "@now := $(date +%H:%M)" |\
+cat Time_Sheet.txt | shorthand -e "@now := $NOW" |\
     stnparse | stnfilter -start "$START_WEEK" -end "$END_WEEK" | stnreport
