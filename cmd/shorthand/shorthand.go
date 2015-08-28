@@ -66,6 +66,10 @@ Additionally you can include a file with the colon less than sign.
 
 This included file, once read, is processed the same as other label assignments.
 
+Finally you can pipe the contents of a shell command into a label from within shorthand.
+
+	LABEL :! SHELL_COMMANDS
+
 
 EXAMPLE
 
@@ -74,6 +78,7 @@ into "output.txt" with shorthands converted.
 
     %s -e "@now := $(date +%%H:%%M)" \
 	   -e "@today := $(date +%%Y-%%m-%%d)" < input.txt > output.txt
+
 
 OPTIONS
 `, msg, cmdName, cmdName, cmdName)
