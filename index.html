@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>stngo</h1>
+
+<p>Golang implementation of Simple Timesheet Notation utilities and packages.</p>
+
+<ul>
+<li><em>shorthand</em> - a simple label/substition processor for text strings and file inclusion. Works with standard input and output.</li>
+<li><em>reldate</em> - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation</li>
+<li><em>stnparse</em> - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.</li>
+<li><em>stnfilter</em> - filters the output of <em>stnparse</em> by dates or text string</li>
+<li><em>stnreport</em> - summarizes the tab delimited output of <em>stnfilter</em> or <em>stnparse</em> yielding a simple table showing hours and first annotations</li>
+</ul>
+
+<p>This makes it easy to process and generate reports with Bash and common Unix utilities (e.g. <em>date</em>)</p>
+
+<p>For details of Simple Timesheet Notation see <a href="STN.md">STN.md</a> for detals. Short details of
+shorthand see <a href="SHORTHAND.md">SHORTHAND.md</a></p>
+
+<h2>Examples of using these utilities in a Unix pipeline</h2>
+
+<p>In this example we are filtering entries for a specific date.</p>
+
+<h3>Report durations of activities by day</h3>
+
+<pre><code class="language-shell">    #!/bin/bash
+
+    # Get today in YYYY-MM-DD format
+    DAY=$(date +&quot;%Y-%m-%d&quot;)
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
+    if [ &quot;$1&quot; = &quot;&quot; ]; then
+        echo &quot;USAGE: rpt-time-by-date.sh YYYY-MM-DD&quot;
+    else
+        DAY=&quot;$1&quot;
+    fi
+
+    # Now that we have date in the format needed, create a pipeline for the report.
+    cat Time_Sheet.txt | shorthand -e &quot;@now := $NOW&quot; | stnparse |\
+        stnfilter -start=&quot;$DAY&quot; -end=&quot;$DAY&quot; | stnreport
+</code></pre>
+
+<h3>Report durations of activities by week</h3>
+
+<p>In this example we use the <em>reldate</em> utility from this package to capture the start and end of the work week.</p>
+
+<pre><code class="language-shell">    #!/bin/bash
+    #
+    # Report time for current week of the requested week starting with $1.
+    #
+    RELDATE=$(which reldate)
+    FOR_DATE=$(date +&quot;%Y-%m-%d&quot;)
+    CUR_WEEK_DAY=$(date +%u)
+
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
+    # Make sure we have reldate command available.
+    if [ &quot;$RELDATE&quot; = &quot;&quot; ]; then
+        echo &quot;Missing reldate command. See https://github.com/rsdoiel/reldate&quot;
+        exit 1
+    fi
+
+    # See if we are asking for help
+    if [ &quot;$1&quot; = &quot;--help&quot; ] || [ &quot;$1&quot; = &quot;-h&quot; ]; then
+        echo &quot;USAGE: rpt-time-by-week.sh YYYY-MM-DD&quot;
+        echo &quot;    Without a date it reports the current week.&quot;
+        exit 1
+    elif [ &quot;$1&quot; != &quot;&quot; ]; then
+        FOR_DATE=$(reldate --from=$1 0 days)
+    fi
+
+    START_WEEK=$(reldate --from=&quot;$FOR_DATE&quot; Sunday)
+    END_WEEK=$(reldate --from=&quot;$FOR_DATE&quot; Saturday)
+
+    # Now that we have date in the format needed, create a pipeline for the report.
+    echo &quot;Report for $START_WEEK through $END_WEEK&quot;
+    cat Time_Sheet.txt | shorthand -e &quot;@now := $NOW&quot; |\
+        stnparse | stnfilter -start &quot;$START_WEEK&quot; -end &quot;$END_WEEK&quot; | stnreport
+</code></pre>
+
+<h3>Report durations of activities by month</h3>
+
+<pre><code class="language-shell">    #!/bin/bash
+
+    # Get the month/year in YYYY-MM format.
+    FOR_DATE=$(date +&quot;%Y-%m&quot;)
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
+    if [ &quot;$1&quot; = &quot;--help&quot; ] || [ &quot;$1&quot; = &quot;-h&quot; ]; then
+        echo &quot;USAGE: rpt-time-by-month.sh YYYY-MM&quot;
+        echo &quot;    Without a date it reports the current week.&quot;
+        exit 1
+    elif [ &quot;$1&quot; != &quot;&quot; ]; then
+        FOR_DATE=&quot;$1&quot;
+    fi
+
+    START_OF_MONTH=&quot;$FOR_DATE-01&quot;
+    END_OF_MONTH=$(reldate --from $START_OF_MONTH --end-of-month)
+
+    # Now that we have date in the format needed, create a pipeline for the report.
+    echo &quot;Report for $START_OF_MONTH through $END_OF_MONTH&quot;
+    cat Time_Sheet.txt | shorthand -e &quot;@now := $NOW&quot; | stnparse |\
+        stnfilter -start &quot;$START_OF_MONTH&quot; -end &quot;$END_OF_MONTH&quot; | stnreport
+</code></pre>
+
+<h3>Report durations of activities by year</h3>
+
+<pre><code class="language-shell">    #!/bin/bash
+
+    # Get the year in YYYY format.
+    FOR_DATE=$(date +&quot;%Y&quot;)
+    # If you normally use 12hr notation then use %I:%M otherwise for 23hr format use %H:M
+    NOW=$(date +%I:%M)
+
+    if [ &quot;$1&quot; = &quot;--help&quot; ] || [ &quot;$1&quot; = &quot;-h&quot; ]; then
+        echo &quot;USAGE: rpt-time-by-week.sh YYYY-MM-DD&quot;
+        echo &quot;    Without a date it reports the current week.&quot;
+        exit 1
+    elif [ &quot;$1&quot; != &quot;&quot; ]; then
+        FOR_DATE=$1
+    fi  
+
+    function startYear {
+        echo &quot;$FOR_DATE-01-01&quot;
+    }
+
+    function endYear {
+        echo &quot;$FOR_DATE-12-31&quot;
+    }
+
+    # Now that we have date in the format needed, create a pipeline for the report.
+    echo &quot;Report for $(startYear $FOR_DATE) through $(endYear $FOR_DATE)&quot;
+    cat Time_Sheet.txt | shorthand -e &quot;@now := $NOW&quot; | stnparse |\
+        stnfilter -start &quot;$(startYear $FOR_DATE)&quot; -end &quot;$(endYear $FOR_DATE)&quot; | stnreport
+</code></pre>
+</body>
+</html>
