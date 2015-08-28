@@ -17,6 +17,7 @@ The assignment statement is not output by the preprocessor.
     + support middle of file extraction negative index refers to lines from end of file
     + middle 6,-10 would mean the buffer size would be ten lines and when you hit eof the buf will be discarded.
     + LABEL :< #,# PATH TO FILE FRAGMENT TO INCLUDE
++ you can include the output of a shell command with LABEL :! SHELL_COMMAND
 
 
 The spaces surrounding ":=" and ":<" are required.
