@@ -1,17 +1,20 @@
 /**
- * shorthand.go - definition and expansion for stngo project.
+ * shorthand.go - A simple definition and expansion notation to use
+ * as shorthand when a template language is too much.
+ *
  * @author R. S. Doiel, <rsdoiel@gmail.com>
  * copyright (c) 2015 all rights reserved.
  * Released under the BSD 2-Clause license
  * See: http://opensource.org/licenses/BSD-2-Clause
  */
 
-// Package shorthand provides shorthand storage and expansion for stngo project.
+// Package shorthand provides shorthand definition and expansion for ws and stngo projects.
 package shorthand
 
 import (
 	"io/ioutil"
 	"log"
+	"os/exec"
 	"strings"
 )
 
@@ -20,7 +23,10 @@ var Abbreviations = make(map[string]string)
 
 // IsAssignment checks to see if a string contains an assignment (i.e. has a ' := ' in the string.)
 func IsAssignment(text string) bool {
-	if strings.Index(text, " := ") == -1 && strings.Index(text, " :< ") == -1 {
+	if strings.Index(text, " := ") == -1 &&
+		strings.Index(text, " :< ") == -1 &&
+		strings.Index(text, " :! ") == -1 &&
+		strings.Index(text, " :{ ") == -1 {
 		return false
 	}
 	return true
@@ -35,13 +41,23 @@ func HasAssignment(key string) bool {
 // Assign stores a shorthand and its expansion
 func Assign(s string) bool {
 	var parts []string
-	if strings.Index(s, " := ") != -1 {
+	if strings.Index(s, " :{ ") != -1 {
+		parts = strings.SplitN(strings.TrimSpace(s), " :{ ", 2)
+		parts[1] = Expand(parts[1])
+	} else if strings.Index(s, " := ") != -1 {
 		parts = strings.SplitN(strings.TrimSpace(s), " := ", 2)
 	} else if strings.Index(s, " :< ") != -1 {
 		parts = strings.SplitN(strings.TrimSpace(s), " :< ", 2)
 		buf, err := ioutil.ReadFile(parts[1])
 		if err != nil {
 			log.Fatalf("Cannot read %s: %v\n", parts[1], err)
+		}
+		parts[1] = string(buf)
+	} else if strings.Index(s, " :! ") != -1 {
+		parts = strings.SplitN(strings.TrimSpace(s), " :! ", 2)
+		buf, err := exec.Command("bash", "-c", parts[1]).Output()
+		if err != nil {
+			log.Fatal(err)
 		}
 		parts[1] = string(buf)
 	} else {

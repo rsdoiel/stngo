@@ -1,5 +1,7 @@
 /**
- * shorthand_test.go - tests for stngo package for handling shorthand definition and expansion.
+ * shorthand_test.go - tests for short package for handling shorthand
+ * definition and expansion.
+ *
  * @author R. S. Doiel, <rsdoiel@gmail.com>
  * copyright (c) 2015 all rights reserved.
  * Released under the BSD 2-Clause license
@@ -7,9 +9,11 @@
 package shorthand
 
 import (
-	"../../ok"
+	"../ok"
+	"fmt"
 	"strings"
 	"testing"
+	"time"
 )
 
 // Test IsAssignment
@@ -19,7 +23,7 @@ func TestIsAssignment(t *testing.T) {
 		"this := a valid assignment",
 		"this; := is a valid assignment",
 		"now; := $(date +\"%H:%M\");",
-		"@here :< ./README.md",
+		"@here :< ./testme.md",
 	}
 
 	invalidAssignments := []string{
@@ -110,9 +114,9 @@ func TestInclude(t *testing.T) {
 	text := `
 Today is @NOW.
 
-Now add the README.md to this.
+Now add the testme.md to this.
 -------------------------------
-@README
+@TESTME
 -------------------------------
 Did it work?
 `
@@ -120,11 +124,43 @@ Did it work?
 	expected := true
 	results := HasAssignment("@NOW")
 	ok.Ok(t, results == expected, "Should have @NOW assignment")
-	Assign("@README :< ../../README.md")
-	results = HasAssignment("@README")
-	ok.Ok(t, results == expected, "Should have @README assignment")
+	Assign("@TESTME :< ./testme.md")
+	results = HasAssignment("@TESTME")
+	ok.Ok(t, results == expected, "Should have @TESTME assignment")
 	resultText := Expand(text)
 	l := len(text)
 	ok.Ok(t, len(resultText) > l, "Should have more results: "+resultText)
-	ok.Ok(t, strings.Contains(resultText, "Simple Timesheet Notation"), "Should have 'Simple Timesheet Notation' in "+resultText)
+	ok.Ok(t, strings.Contains(resultText, "A nimble webserver"), "Should have 'A nimble webserver' in "+resultText)
+	ok.Ok(t, strings.Contains(resultText, "JSON"), "Should have 'JSON' in "+resultText)
+}
+
+func TestShellAssignment(t *testing.T) {
+	Assign("@ECHO :! echo 'Hello World!'")
+	expected := true
+	results := HasAssignment("@ECHO")
+	ok.Ok(t, results == expected, "Should have @ECHO assignment")
+	expectedText := "Hello World!"
+	resultText := Expand("@ECHO")
+	l := len(strings.Trim(resultText, "\n"))
+	ok.Ok(t, l == len(expectedText), "Should have expected length for @ECHO")
+	ok.Ok(t, strings.Contains(strings.Trim(resultText, "\n"), expectedText), "Should have matching text for @ECHO")
+}
+
+func TestExpandedAssignment(t *testing.T) {
+	dateFormat := "2006-01-02"
+	now := time.Now()
+	// Date will generate a LF so the text will also contain it. So we'll test against a Trim later.
+	Assign(`@now :! date +%Y-%m-%d`)
+	Assign("@title :{ This is a title with date: @now")
+	text := `@title`
+	expected := true
+	results := HasAssignment("@now")
+	ok.Ok(t, results == expected, "Should have @now")
+	results = HasAssignment("@title")
+	ok.Ok(t, results == expected, "Should have @title")
+	expectedText := fmt.Sprintf("This is a title with date: %s", now.Format(dateFormat))
+	resultText := Expand(text)
+	l := len(strings.Trim(resultText, "\n"))
+	ok.Ok(t, l == len(expectedText), "Should have expected length for @title")
+	ok.Ok(t, strings.Contains(strings.Trim(resultText, "\n"), expectedText), "Should have matching text for @title")
 }

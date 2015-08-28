@@ -25,8 +25,4 @@ _testmain.go
 
 # Project excludes
 .DS_Store
-shorthand
-stnparse
-stnfilter
-stnreport
-reldate
+bin/*
