@@ -66,6 +66,10 @@ Additionally you can include a file with the colon less than sign.
 
 This included file, once read, is processed the same as other label assignments.
 
+You can also evaluate labels on the right side of the expression and assign those results to a label with 
+
+	LABEL :{ SOME SHORT HAND EXPRESSION HERE
+
 Finally you can pipe the contents of a shell command into a label from within shorthand.
 
 	LABEL :! SHELL_COMMANDS

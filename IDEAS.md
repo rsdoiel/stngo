@@ -1,6 +1,5 @@
 
-While *shorthand* should remain exceptionally simple I have throught of two additions
-that might fix the project in spirit.
+While *shorthand* should remain exceptionally simple I have throught of two additions that might fix the project in spirit.
 
 + reading in a file, processing it with shorthand before assignment to a label
     + LABEL :{ some_included_file_with_shorthand.txt
