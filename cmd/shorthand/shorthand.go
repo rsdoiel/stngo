@@ -1,12 +1,13 @@
-/**
- * shorthand.go - command line utility to process shorthand definitions
- * and render output with the transformed text and without any
- * shorthand definitions.
- * @author R. S. Doiel, <rsdoiel@gmail.com>
- * copyright (c) 2015 all rights reserved.
- * Released under the BSD 2-Clause license.
- * See: http://opensource.org/licenses/BSD-2-Clause
- */
+//
+// shorthand.go - command line utility to process shorthand definitions
+// and render output with the transformed text and without any
+// shorthand definitions.
+//
+// @author R. S. Doiel, <rsdoiel@gmail.com>
+// copyright (c) 2015 all rights reserved.
+// Released under the BSD 2-Clause license.
+// See: http://opensource.org/licenses/BSD-2-Clause
+//
 package main
 
 import (
