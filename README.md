@@ -11,8 +11,8 @@ Golang implementation of Simple Timesheet Notation utilities and packages.
 
 This makes it easy to process and generate reports with Bash and common Unix utilities (e.g. *date*)
 
-For details of Simple Timesheet Notation see [STN.md](STN.md) for detals. Short details of
-shorthand see [SHORTHAND.md](SHORTHAND.md)
+For details of Simple Timesheet Notation see [stn.md](stn.md) for detals. Short details of
+shorthand see [shorthand.md](shorthand.md)
 
 
 ## Examples of using these utilities in a Unix pipeline

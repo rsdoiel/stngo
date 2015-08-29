@@ -10,7 +10,7 @@
 package report
 
 import (
-	"../../stn"
+	"../stn"
 	"fmt"
 	"sort"
 	"strings"

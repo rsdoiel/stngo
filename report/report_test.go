@@ -10,8 +10,8 @@
 package report
 
 import (
-	"../../ok"
-	"../../stn"
+	"../ok"
+	"../stn"
 	"fmt"
 	"log"
 	"strings"

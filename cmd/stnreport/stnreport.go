@@ -10,8 +10,8 @@
 package main
 
 import (
+	"../../report"
 	"../../stn"
-	"../../stn/report"
 	"bufio"
 	"fmt"
 	"log"
