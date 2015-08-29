@@ -10,9 +10,9 @@
 package report
 
 import (
-	"../ok"
 	"../stn"
 	"fmt"
+	"github.com/rsdoiel/ok"
 	"log"
 	"strings"
 	"testing"

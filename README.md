@@ -1,18 +1,23 @@
 
 # stngo
 
-Golang implementation of Simple Timesheet Notation utilities and packages.
+Golang implementation of Simple Timesheet Notation plus dome additional utilities and go packages.
 
-+ *shorthand* - a simple label/substition processor for text strings and file inclusion. Works with standard input and output.
-+ *reldate* - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation
+Main Simple Timesheet Notation utilities:
+
 + *stnparse* - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.
 + *stnfilter* - filters the output of *stnparse* by dates or text string
 + *stnreport* - summarizes the tab delimited output of *stnfilter* or *stnparse* yielding a simple table showing hours and first annotations
 
-This makes it easy to process and generate reports with Bash and common Unix utilities (e.g. *date*)
+Helpful extra utilities:
 
-For details of Simple Timesheet Notation see [stn.md](stn.md) for detals. Short details of
-shorthand see [shorthand.md](shorthand.md)
++ *shorthand* - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
++ *reldate* - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. *date*, *sed*, *tr*)
+
+For details of Simple Timesheet Notation markup see [stn.md](stn.md).
+
+For details on using *shorthand* with *stnparse* or generate HTML in
+reports see [shorthand.md](shorthand.md).
 
 
 ## Examples of using these utilities in a Unix pipeline
@@ -138,3 +143,5 @@ In this example we use the *reldate* utility from this package to capture the st
     cat Time_Sheet.txt | shorthand -e "@now := $NOW" | stnparse |\
         stnfilter -start "$(startYear $FOR_DATE)" -end "$(endYear $FOR_DATE)" | stnreport
 ```
+
+

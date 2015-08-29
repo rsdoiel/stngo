@@ -10,8 +10,8 @@
 package stn
 
 import (
-	"../ok"
 	"fmt"
+	"github.com/rsdoiel/ok"
 	"strconv"
 	"strings"
 	"testing"
