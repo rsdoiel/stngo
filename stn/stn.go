@@ -18,6 +18,8 @@ import (
 	"time"
 )
 
+const Revision = "v0.0.3"
+
 var (
 	dateLineRE       = regexp.MustCompile("^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$")
 	legacyDateLineRE = regexp.MustCompile("^[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]$")
