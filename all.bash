@@ -12,6 +12,8 @@ fi
 go get github.com/rsdoiel/ok
 # Add shorthand package
 go get github.com/rsdoiel/shorthand
+# Add reldate package
+go get github.com/rsdoiel/reldate
 
 make
 make test
