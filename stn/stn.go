@@ -18,6 +18,7 @@ import (
 	"time"
 )
 
+// version of stn.go package.
 const Revision = "v0.0.3"
 
 var (
