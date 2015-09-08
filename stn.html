@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>stngo - Simple Timesheet Notation explained</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+stngo - Simple Timesheet Notation explained
+</header>
+<section>
+<p><a href="http://travis-ci.org/rsdoiel/stn"><img src="https://secure.travis-ci.org/rsdoiel/stn.png" alt="build status" /></a></p>
+
+<h1>stn - Simple Time Notation</h1>
+
+<h1>Overview</h1>
+
+<p>I&rsquo;ve often found it necessary to keep track of time spent on projects or
+activities.  Every &ldquo;tracking system&rdquo; I&rsquo;ve used has worked for me at some level
+accept one. I always forget to use them. I forget because they break my
+workflow. I work with allot of text files so the system that works for me
+is a text file log. Over time I have simplified that format which has made it
+easy to enter, read and parse by a program. It was inspired
+by other simple formats like Textile and markdown but rather than focus
+on rendering to HTML typically Simple Timesheet Notation is rendered to
+a flat delimited text stream or JSON encoded data structure.</p>
+
+<p>Here&rsquo;s the summary view of the notation. Date are entered on single line by
+themselves. Dates are in the YYYY-MM-DD format (e.g. November 10, 2012 would be
+typed 2012-11-10) and are applied to all following time entries until another
+date is encountered.  If no date is indicated then the assumed date is today.</p>
+
+<p>Time entries take up a single line and start with a time range. Time ranges are
+in the form of HH:MM and do not assume 24hr or 12hr representation. Time entries
+are assumed to be within a single calendar day (e.g. 00:00 to 24:00). The start
+time and end time are separated by a hyphen. The range itself is terminated by
+a semi-colon. The rest the line is made up of a semi-colon delimited list of
+&ldquo;tags&rdquo; or phrases (e.g. descriptions). These are typically are transformed into
+columns (e.g. in tab delimited output) or cells of an array (in the case of JSON).</p>
+
+<p>Here&rsquo;s an example of a recording of travel and a meeting on November 6, 2012 -</p>
+
+<pre><code class="language-shell">	2012-11-06
+
+	7:45 - 8:30; travel; train to meeting
+
+	8:30 - 12:00; meeting; Standing committee for secret world domination by miniature sentient petunias.
+</code></pre>
+
+<p>This example suggests to column (or array cells) associated with the each time
+range. Here is an example of that markup rendered as a tab delimit table -</p>
+
+<pre><code class="language-shell">	2012-11-06T06:45:00-08:00	2012-11-06T07:30:00-08:00	travel	train to meeting
+	2012-11-06T07:30:00-08:00	2012-11-06T11:00:00-08:00	meeting	Standing committee for secret world domination by miniature sentient petunias.
+</code></pre>
+
+<p>Note that &ldquo;travel&rdquo; and &ldquo;train&rdquo; as well as &ldquo;meeting&rdquo; and &ldquo;Standing&rdquo; are separated
+by tabs in this example.</p>
+
+<p>A JSON presentation might look like -</p>
+
+<pre><code class="language-json">	[{
+		&quot;Start&quot;:&quot;2012-11-06T06:45:00-08:00&quot;,
+		&quot;End&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
+		&quot;Annotations&quot;:[&quot;travel&quot;,&quot;train to meeting&quot;]
+	},
+	{
+		&quot;Start&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
+		&quot;End&quot;:&quot;2012-11-06T11:00:00-08:00&quot;,
+		&quot;Annotations&quot;:[
+			&quot;meeting&quot;,
+			&quot;Standing committee for secret world domination by miniature sentient petunias.&quot;
+		]
+	}]
+</code></pre>
+
+<p>Integration then is just a matter of pushing the data into the appropriate database
+or service.</p>
+
+<h1>Notation details</h1>
+
+<h2>Dates of entries</h2>
+
+<p>A line which contains only a numerically formatted a date (e.g. YYYY-MM-DD
+format) indicates the start of a log entries for a particular day.  It is
+typed only once. All time entries after that are affiliated with that day.</p>
+
+<p>E..g Say I&rsquo;m entering time for November 3, 2011. I would note it one a single
+line as-</p>
+
+<pre><code>	2011-11-03
+</code></pre>
+
+<p>Any following entries would then refer to that date until a new date was encountered.</p>
+
+<h2>Time entries</h2>
+
+<p>An entry is a line which indicates an activity to be tracked. A time entry
+consists of a time range and one or more semi-colon delimited keywords or phrases.
+A time range is made up for two time elements separated by space, dash and space.
+The time element should be in the HH:MM format and does not assume AM/PM or
+24 hour notation. The range is in the form of &ldquo;HH:MM - HH:MM&rdquo;.</p>
+
+<p>I practice I usually use the first semi-colon delimited element to name a project
+and follow that by a short activity description. The notation doesn&rsquo;t assume the
+meaning of the semi-colon elements and just treats them as columns of text.</p>
+
+<p>Here is an example entry about debugging code on a project call &ldquo;timesheet&rdquo;
+from 8:30 AM until 1:00 PM (i.e. 13:00) I would note it as</p>
+
+<pre><code>	8:30 - 1:00; timesheet; debugging parsing code.
+</code></pre>
+
+<p>If could also look like this</p>
+
+<pre><code>	8:30 - 13:00; timesheet; debugging parsing code.
+</code></pre>
+
+<h3>12 hour versus 24 hour time notation</h3>
+
+<p>If you not using a twelve hour clock it is assume the first time before the
+dash is the start time and the second entry is the end time.  Calculating hours
+then evolves looking at the relationship of those two times to each other.  If
+the start time is smaller then the end time then simple subtraction of the
+start from the end calculates hours spent.  If that is not the case (i.e. you
+have crossed the noon boundary) then you will need to normalize the values
+before subtracting the start from end time. A time range of &ldquo;8:00 - 1:00&rdquo;
+would normalize to &ldquo;8:00 - 13:00&rdquo;.</p>
+
+<h2>Embedding extra text</h2>
+
+<p>If the line is not a date or time entry it is ignored.  This allows pre-processors
+like <em>shorthand</em> to integrate easily with a simple timesheet notation file. It
+also lets you add notes to self or extended descriptions without worry they
+will get pushed to whatever is down the pipeline after the stn parse is done
+its job.</p>
+
+<h2>Example timesheet entries for a day</h2>
+
+<p>In the following example is time entries for November 19, 2011 working on
+simple timesheet parsing project.</p>
+
+<pre><code class="language-text">	2012-11-19
+
+	// A meta entry which records pounds and meters associated with date
+	// Nov. 19, 2011
+	{lbs: 175.0, meters: 2.9}
+
+	8:30 - 11:00; timesheet notation; Writing a README.html describing my simple timesheet notation.
+
+	11:00 - 12:00; timesheet notation; Drafting a NodeJS example parser for the notation.
+
+	1:00 - 3:00; timesheet notation; debugging parser, realizing I can simplify my notation further and drop the first semi-colon.
+
+	Realized I need to keep some backward compatibility for my parse so I don't have to rewrite/edit my ascii timesheet file.
+</code></pre>
+
+<p>The lines starting with &ldquo;//&rdquo; and &ldquo;{&rdquo; are ignored since they are not recognized as
+a date or time entry. Likewise the last line starting with &ldquo;Realized&rdquo; is skipped.</p>
+
+</section>
+<nav>
+<ul>
+<li><a href="index.html">README</a></li>
+<li><a href="stn.html">stn</a> - Simple Typesheet Notation</li>
+<li><a href="notes.html">notes</a> - notes and background</li>
+</ul>
+
+</nav>
+<footer>
+stnparse v0.0.3
+<br />
+<p>copyright &copy; 2015 all rights reserved.
+Released under the BSD 2-Clause license
+See: <a href="http://opensource.org/licenses/BSD-2-Clause">http://opensource.org/licenses/BSD-2-Clause</a></p>
+
+</footer>
+</body>
+</html>

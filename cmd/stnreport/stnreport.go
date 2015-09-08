@@ -1,23 +1,40 @@
-/**
- * stnreport.go - Reporting tool for Simple Timesheet Notation. Expects input from either
- * stnfilter or stnparse.
- * @author R. S. Doiel, <rsdoiel@gmail.com>
- * copyright (c) 2015 all rights reserved.
- * Released under the BSD 2-Clause license.
- * See: http://opensource.org/licenses/BSD-2-Clause
- */
+//
+// stnreport.go - Reporting tool for Simple Timesheet Notation. Expects input from either
+// stnfilter or stnparse.
+//
+// @author R. S. Doiel, <rsdoiel@gmail.com>
+// copyright (c) 2015 all rights reserved.
+// Released under the BSD 2-Clause license.
+// See: http://opensource.org/licenses/BSD-2-Clause
+//
 package main
 
 import (
+	"../../report"
 	"../../stn"
-	"../../stn/report"
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
+func revision() {
+	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
+	os.Exit(0)
+}
+
 func main() {
+	var version bool
+
+	flag.BoolVar(&version, "version", false, "Display version information.")
+	flag.BoolVar(&version, "v", false, "Display version information.")
+	flag.Parse()
+	if version == true {
+		revision()
+	}
+
 	reader := bufio.NewReader(os.Stdin)
 
 	entry := new(stn.Entry)

@@ -1,10 +1,11 @@
-/**
- * stnparse.go - Simple Timesheet Notation parser.
- * @author R. S. Doiel, <rsdoiel@gmail.com>
- * copyright (c) 2015 all rights reserved.
- * Released under the BSD 2-Clause license.
- * See: http://opensource.org/licenses/BSD-2-Clause
- */
+//
+// stnparse.go - Simple Timesheet Notation parser.
+//
+// @author R. S. Doiel, <rsdoiel@gmail.com>
+// copyright (c) 2015 all rights reserved.
+// Released under the BSD 2-Clause license.
+// See: http://opensource.org/licenses/BSD-2-Clause
+//
 package main
 
 import (
@@ -14,6 +15,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -54,13 +56,25 @@ See: http://opensource.org/licenses/BSD-2-Clause
 	os.Exit(exit_code)
 }
 
+func revision() {
+	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
+	os.Exit(0)
+}
+
 func main() {
+	var version bool
+
 	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
 	flag.BoolVar(&help, "h", false, "Display this help document.")
 	flag.BoolVar(&help, "help", false, "Display this help document.")
+	flag.BoolVar(&version, "version", false, "Display version information.")
+	flag.BoolVar(&version, "v", false, "Display version information.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")
+	}
+	if version == true {
+		revision()
 	}
 
 	activeDate := time.Now().Format("2006-07-15")

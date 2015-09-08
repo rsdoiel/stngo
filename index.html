@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>stngo - Simple Timesheet Notation library and utilities</title>
+    <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
+<header>
+stngo - Simple Timesheet Notation library and utilities
+</header>
+<section>
 <h1>stngo</h1>
 
-<p>Golang implementation of Simple Timesheet Notation utilities and packages.</p>
+<p>Golang implementation of Simple Timesheet Notation plus dome additional utilities and go packages.</p>
+
+<p>Main Simple Timesheet Notation utilities:</p>
 
 <ul>
-<li><em>shorthand</em> - a simple label/substition processor for text strings and file inclusion. Works with standard input and output.</li>
-<li><em>reldate</em> - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation</li>
 <li><em>stnparse</em> - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.</li>
 <li><em>stnfilter</em> - filters the output of <em>stnparse</em> by dates or text string</li>
 <li><em>stnreport</em> - summarizes the tab delimited output of <em>stnfilter</em> or <em>stnparse</em> yielding a simple table showing hours and first annotations</li>
 </ul>
 
-<p>This makes it easy to process and generate reports with Bash and common Unix utilities (e.g. <em>date</em>)</p>
+<p>Helpful extra utilities:</p>
 
-<p>For details of Simple Timesheet Notation see <a href="STN.md">STN.md</a> for detals. Short details of
-shorthand see <a href="SHORTHAND.md">SHORTHAND.md</a></p>
+<ul>
+<li><a href="https://github.com/rsdoiel/shorthand">shorthand</a> - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.</li>
+<li><a href="https://github.com/rsdoiel/reldate">reldate</a> - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. <em>date</em>, <em>sed</em>, <em>tr</em>)</li>
+</ul>
+
+<p>For details of Simple Timesheet Notation markup see <a href="stn.html">stn.html</a>.</p>
+
+<p>For details on using <em>shorthand</em> with <em>stnparse</em> or generate HTML in
+reports see <a href="http://rsdoiel.github.io/shorthand">shorthand</a>.</p>
 
 <h2>Examples of using these utilities in a Unix pipeline</h2>
 
@@ -139,5 +152,23 @@ shorthand see <a href="SHORTHAND.md">SHORTHAND.md</a></p>
     cat Time_Sheet.txt | shorthand -e &quot;@now := $NOW&quot; | stnparse |\
         stnfilter -start &quot;$(startYear $FOR_DATE)&quot; -end &quot;$(endYear $FOR_DATE)&quot; | stnreport
 </code></pre>
+
+</section>
+<nav>
+<ul>
+<li><a href="index.html">README</a></li>
+<li><a href="stn.html">stn</a> - Simple Typesheet Notation</li>
+<li><a href="notes.html">notes</a> - notes and background</li>
+</ul>
+
+</nav>
+<footer>
+stnparse v0.0.3
+<br />
+<p>copyright &copy; 2015 all rights reserved.
+Released under the BSD 2-Clause license
+See: <a href="http://opensource.org/licenses/BSD-2-Clause">http://opensource.org/licenses/BSD-2-Clause</a></p>
+
+</footer>
 </body>
 </html>

@@ -1,0 +1,31 @@
+
+This builds the website for stngo project site.
+{{copyright}} :[<: copyright.md
+{{nav}} :[<: nav.md
+.md :=: .html
+
+Setup index.html ...
+{{pageTitle}} :=: stngo - Simple Timesheet Notation library and utilities
+{{contentBlock}} :{[<: README.md
+{{version}} :!: bin/stnparse --version
+
+Template and write it out
+@html :{<: page.shorthand
+@html :>: index.html
+
+Setup stn.html ...
+{{pageTitle}} :=: stngo - Simple Timesheet Notation explained
+{{contentBlock}} :{[<: stn.md
+
+Template and write it out
+@html :{<: page.shorthand
+@html :>: stn.html
+
+Setup notes.html ...
+{{pageTitle}} :=: stngo - Simple Timesheet Notation notes
+{{contentBlock}} :{[<: notes.md
+
+Template and write it out
+@html :{<: page.shorthand
+@html :>: notes.html
+

@@ -1,12 +1,12 @@
-/**
- * stn.go - implements a version of Simple Timesheet Notation as a Go package.
- * @author R. S. Doiel, <rsdoiel@gmail.com>
- * copyright (c) 2015 all rights reserved.
- * Released under the BSD 2-Clause license
- * See: http://opensource.org/licenses/BSD-2-Clause
- */
-
+//
 // Package stn is a library for processing Simple Timesheet Notation.
+//
+// stn.go - implements a version of Simple Timesheet Notation as a Go package.
+// @author R. S. Doiel, <rsdoiel@gmail.com>
+// copyright (c) 2015 all rights reserved.
+// Released under the BSD 2-Clause license
+// See: http://opensource.org/licenses/BSD-2-Clause
+//
 package stn
 
 import (
@@ -17,6 +17,9 @@ import (
 	"strings"
 	"time"
 )
+
+// version of stn.go package.
+const Version = "v0.0.3"
 
 var (
 	dateLineRE       = regexp.MustCompile("^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$")

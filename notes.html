@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>stngo - Simple Timesheet Notation notes</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+stngo - Simple Timesheet Notation notes
+</header>
+<section>
+<h1>Simple Timesheet Notation</h1>
+
+<h2>Misc Notes</h2>
+
+<p>Random notes on what this Golang package should look like.</p>
+
+<h3>Commands</h3>
+
+<ul>
+<li>stnparse - generates a steam of syntax elements encountered and their values as JSON blobs</li>
+<li>stnfilter - filters syntax stream by date rand returning a JSON blobs</li>
+<li>stnreport - report generator that renders the JSON blobs into a useful format (e.e.g plain text summary, comma separated value file)
+
+<ul>
+<li>if there are more cells of data than the report requires the right hand cells are concatenated by semi-colons</li>
+</ul></li>
+</ul>
+
+<h3>date lines</h3>
+
+<p>Older STN files used a MM/DD/YYYY format. What is the best way to handle those files?</p>
+
+<ul>
+<li>a dedicated conversion tool?</li>
+<li>add support for multiple date formats?</li>
+</ul>
+
+<h2>shorthand ideas</h2>
+
+<ul>
+<li>text substitutions defined with LABEL := STRING</li>
+<li>file inclusion defined with LABEL :&lt; PATH TO FILE TO INCLUDE</li>
+<li>support middle of file extraction negative index refers to lines from end of file
+
+<ul>
+<li>middle 6,-10 would mean the buffer size would be ten lines and when you hit eof the buf will be discarded.</li>
+<li>LABEL :&lt; #,# PATH TO FILE FRAGMENT TO INCLUDE</li>
+</ul></li>
+<li>support secondary output :&gt; #,# PATH OF FILE TO WRITE</li>
+</ul>
+
+<h2>Todo</h2>
+
+<ul>
+<li>Make sure local timezone is handled consistently in all tools when converting from YYYY-MM-DD to RFC3339.
+
+<ul>
+<li>double check reldate needs to be adjusted to local timezone.</li>
+</ul></li>
+<li>Add support for including files via shorthand (e.g. LABEL :&lt; #,# PATH_TO_FILE_TO_BE_INCLUDED)</li>
+<li>Write middle</li>
+<li>middle - a utility to pull out the middle of a file using line index numbers (negative numbers count form end of file)
+
+<ul>
+<li>support negative indexes (relative to end of file) via a masking buffer</li>
+<li>create a buffer the size of the last index to end of file, stream file through buffer</li>
+<li>decide line range uses absolute line numbers or start plus next number of lines</li>
+</ul></li>
+</ul>
+
+</section>
+<nav>
+<ul>
+<li><a href="index.html">README</a></li>
+<li><a href="stn.html">stn</a> - Simple Typesheet Notation</li>
+<li><a href="notes.html">notes</a> - notes and background</li>
+</ul>
+
+</nav>
+<footer>
+stnparse v0.0.3
+<br />
+<p>copyright &copy; 2015 all rights reserved.
+Released under the BSD 2-Clause license
+See: <a href="http://opensource.org/licenses/BSD-2-Clause">http://opensource.org/licenses/BSD-2-Clause</a></p>
+
+</footer>
+</body>
+</html>
