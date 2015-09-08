@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func revision() {
@@ -27,6 +28,7 @@ func revision() {
 func main() {
 	var version bool
 
+	flag.BoolVar(&version, "version", false, "Display version information.")
 	flag.BoolVar(&version, "v", false, "Display version information.")
 	flag.Parse()
 	if version == true {

@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -93,6 +94,7 @@ func main() {
 	flag.BoolVar(&asJSON, "json", false, "Output in JSON format.")
 	flag.BoolVar(&help, "help", false, "Display this help document.")
 	flag.BoolVar(&help, "h", false, "Display this help document.")
+	flag.BoolVar(&version, "version", false, "Display version information.")
 	flag.BoolVar(&version, "v", false, "Display version information.")
 	flag.Parse()
 	if help == true {

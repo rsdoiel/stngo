@@ -9,8 +9,11 @@
 {{pageTitle}}
 </header>
 <section>
-{{content}}
+{{contentBlock}}
 </section>
+<nav>
+{{nav}}
+</nav>
 <footer>
 {{version}}<br />
 {{copyright}}
