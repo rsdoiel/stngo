@@ -53,3 +53,6 @@ uninstall:
 	if [ -f $(GOBIN)/stnfilter ]; then /bin/rm $(GOBIN)/stnfilter; fi
 	if [ -f $(GOBIN)/stnreport ]; then /bin/rm $(GOBIN)/stnreport; fi
 
+website:
+	shorthand index.shorthand
+

@@ -55,13 +55,24 @@ See: http://opensource.org/licenses/BSD-2-Clause
 	os.Exit(exit_code)
 }
 
+func revision() {
+	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
+	os.Exit(0)
+}
+
 func main() {
+	var version bool
+
 	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
 	flag.BoolVar(&help, "h", false, "Display this help document.")
 	flag.BoolVar(&help, "help", false, "Display this help document.")
+	flag.BoolVar(&version, "v", false, "Display version information.")
 	flag.Parse()
 	if help == true {
 		usage(0, "")
+	}
+	if version == true {
+		revision()
 	}
 
 	activeDate := time.Now().Format("2006-07-15")

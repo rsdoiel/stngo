@@ -13,12 +13,26 @@ import (
 	"../../report"
 	"../../stn"
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
 )
 
+func revision() {
+	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
+	os.Exit(0)
+}
+
 func main() {
+	var version bool
+
+	flag.BoolVar(&version, "v", false, "Display version information.")
+	flag.Parse()
+	if version == true {
+		revision()
+	}
+
 	reader := bufio.NewReader(os.Stdin)
 
 	entry := new(stn.Entry)
