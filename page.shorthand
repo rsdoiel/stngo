@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{pageTitle}}</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+{{pageTitle}}
+</header>
+<section>
+{{content}}
+</section>
+<footer>
+{{version}}<br />
+{{copyright}}
+</footer>
+</body>
+</html>
