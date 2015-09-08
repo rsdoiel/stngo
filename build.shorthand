@@ -2,10 +2,11 @@
 This builds the website for stngo project site.
 {{copyright}} :[<: copyright.md
 {{nav}} :[<: nav.md
+.md :=: .html
 
 Setup index.html ...
 {{pageTitle}} :=: stngo - Simple Timesheet Notation library and utilities
-{{contentBlock}} :[<: README.md
+{{contentBlock}} :{[<: README.md
 {{version}} :!: bin/stnparse --version
 
 Template and write it out
@@ -14,7 +15,7 @@ Template and write it out
 
 Setup stn.html ...
 {{pageTitle}} :=: stngo - Simple Timesheet Notation explained
-{{contentBlock}} :[<: stn.md
+{{contentBlock}} :{[<: stn.md
 
 Template and write it out
 @html :{<: page.shorthand
@@ -22,7 +23,7 @@ Template and write it out
 
 Setup notes.html ...
 {{pageTitle}} :=: stngo - Simple Timesheet Notation notes
-{{contentBlock}} :[<: notes.md
+{{contentBlock}} :{[<: notes.md
 
 Template and write it out
 @html :{<: page.shorthand

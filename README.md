@@ -11,13 +11,13 @@ Main Simple Timesheet Notation utilities:
 
 Helpful extra utilities:
 
-+ *shorthand* - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
-+ *reldate* - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. *date*, *sed*, *tr*)
++ [shorthand](https://github.com/rsdoiel/shorthand) - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
++ [reldate](https://github.com/rsdoiel/reldate) - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. *date*, *sed*, *tr*)
 
 For details of Simple Timesheet Notation markup see [stn.md](stn.md).
 
 For details on using *shorthand* with *stnparse* or generate HTML in
-reports see [shorthand.md](shorthand.md).
+reports see [shorthand](http://rsdoiel.github.io/shorthand).
 
 
 ## Examples of using these utilities in a Unix pipeline
