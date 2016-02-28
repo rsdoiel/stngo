@@ -10,10 +10,11 @@
 package report
 
 import (
-	"../stn"
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/rsdoiel/stngo/stn"
 )
 
 // EntryAggregation - a structure to hold the aggregated entries.

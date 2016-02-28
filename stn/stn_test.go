@@ -11,11 +11,12 @@ package stn
 
 import (
 	"fmt"
-	"github.com/rsdoiel/ok"
 	"strconv"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/rsdoiel/ok"
 )
 
 func TestIsDateLine(t *testing.T) {

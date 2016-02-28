@@ -10,12 +10,13 @@
 package report
 
 import (
-	"../stn"
 	"fmt"
-	"github.com/rsdoiel/ok"
 	"log"
 	"strings"
 	"testing"
+
+	"github.com/rsdoiel/ok"
+	"github.com/rsodiel/stngo/stn"
 )
 
 func TestAggregator(t *testing.T) {
