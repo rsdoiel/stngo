@@ -9,7 +9,6 @@
 package main
 
 import (
-	"../../stn"
 	"bufio"
 	"flag"
 	"fmt"
@@ -17,6 +16,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/rsdoiel/stngo"
 )
 
 var (

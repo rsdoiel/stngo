@@ -8,23 +8,23 @@
 #
 bin/build: bin/stnparse bin/stnfilter bin/stnreport
 
-bin/stnparse: cmd/stnparse/stnparse.go stn/stn.go
-	go build -o bin/stnparse cmd/stnparse/stnparse.go
+bin/stnparse: cmds/stnparse/stnparse.go stn/stn.go
+	go build -o bin/stnparse cmds/stnparse/stnparse.go
 
-bin/stnfilter: cmd/stnfilter/stnfilter.go stn/stn.go
-	go build -o bin/stnfilter cmd/stnfilter/stnfilter.go
+bin/stnfilter: cmds/stnfilter/stnfilter.go stn/stn.go
+	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
 
-bin/stnreport: cmd/stnreport/stnreport.go report/report.go
-	go build -o bin/stnreport cmd/stnreport/stnreport.go
+bin/stnreport: cmds/stnreport/stnreport.go report/report.go
+	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 lint:
 	gofmt -w stn/stn.go && golint stn/stn.go
 	gofmt -w stn/stn_test.go && golint stn/stn_test.go
 	gofmt -w report/report.go && golint report/report.go
 	gofmt -w report/report_test.go && golint report/report_test.go
-	gofmt -w cmd/stnparse/stnparse.go && golint cmd/stnparse/stnparse.go
-	gofmt -w cmd/stnfilter/stnfilter.go && golint cmd/stnfilter/stnfilter.go
-	gofmt -w cmd/stnreport/stnreport.go && golint cmd/stnreport/stnreport.go
+	gofmt -w cmds/stnparse/stnparse.go && golint cmds/stnparse/stnparse.go
+	gofmt -w cmds/stnfilter/stnfilter.go && golint cmds/stnfilter/stnfilter.go
+	gofmt -w cmds/stnreport/stnreport.go && golint cmds/stnreport/stnreport.go
 
 test:
 	cd stn && go test
@@ -39,14 +39,14 @@ clean: bin/shorthand bin/stnparse bin/stnfilter bin/stnreport
 	if [ -f bin/stnreport ]; then rm bin/stnreport; fi
 
 build:
-	go build -o bin/stnparse cmd/stnparse/stnparse.go
-	go build -o bin/stnfilter cmd/stnfilter/stnfilter.go
-	go build -o bin/stnreport cmd/stnreport/stnreport.go
+	go build -o bin/stnparse cmds/stnparse/stnparse.go
+	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
+	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 install:
-	go install cmd/stnparse/stnparse.go
-	go install cmd/stnfilter/stnfilter.go
-	go install cmd/stnreport/stnreport.go
+	go install cmds/stnparse/stnparse.go
+	go install cmds/stnfilter/stnfilter.go
+	go install cmds/stnreport/stnreport.go
 
 uninstall:
 	if [ -f $(GOBIN)/stnparse ]; then /bin/rm $(GOBIN)/stnparse; fi

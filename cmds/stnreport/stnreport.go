@@ -10,14 +10,15 @@
 package main
 
 import (
-	"../../report"
-	"../../stn"
 	"bufio"
 	"flag"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/rsdoiel/report"
+	"github.com/rsdoiel/stn"
 )
 
 func revision() {
