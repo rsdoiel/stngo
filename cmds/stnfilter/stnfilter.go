@@ -17,7 +17,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/rsdoiel/stn"
+	"github.com/rsdoiel/stngo/stn"
 )
 
 var (

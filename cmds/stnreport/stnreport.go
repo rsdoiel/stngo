@@ -17,8 +17,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/rsdoiel/report"
-	"github.com/rsdoiel/stn"
+	"github.com/rsdoiel/stngo/report"
+	"github.com/rsdoiel/stngo/stn"
 )
 
 func revision() {
