@@ -15,8 +15,9 @@ import (
 	"strings"
 	"testing"
 
+    // Local packages
 	"github.com/rsdoiel/ok"
-	"github.com/rsodiel/stngo/stn"
+	"github.com/rsdoiel/stngo/stn"
 )
 
 func TestAggregator(t *testing.T) {
