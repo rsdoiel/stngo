@@ -15,7 +15,7 @@ import (
 	"strings"
 	"testing"
 
-    // Local packages
+	// Local packages
 	"github.com/rsdoiel/ok"
 	"github.com/rsdoiel/stngo/stn"
 )
