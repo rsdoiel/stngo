@@ -145,3 +145,13 @@ In this example we use the *reldate* utility from this package to capture the st
 ```
 
 
+## Installation
+
+_stngo_ and its commands can be installed with the *go get* command.
+
+```
+    go get github.com/rsdoiel/stngo/...
+```
+
+
+
