@@ -6,15 +6,13 @@
 # Released under the BSD 2-Clause license
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
-bin/build: bin/stnparse bin/stnfilter bin/stnreport
-
-bin/stnparse: cmds/stnparse/stnparse.go stn/stn.go
+bin/stnparse:
 	go build -o bin/stnparse cmds/stnparse/stnparse.go
 
-bin/stnfilter: cmds/stnfilter/stnfilter.go stn/stn.go
+bin/stnfilter:
 	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
 
-bin/stnreport: cmds/stnreport/stnreport.go report/report.go
+bin/stnreport:
 	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 lint:
@@ -33,10 +31,9 @@ test:
 # ok test throws false Fail so is skipped
 #	cd ok && go test
 
-clean: bin/shorthand bin/stnparse bin/stnfilter bin/stnreport
-	if [ -f bin/stnparse ]; then rm bin/stnparse; fi
-	if [ -f bin/stnfilter ]; then rm bin/stnfilter; fi
-	if [ -f bin/stnreport ]; then rm bin/stnreport; fi
+clean:
+	if [ -d bin ]; then rm -fR bin; fi
+	if [ -d dist ]; then rm -fR dist; fi
 
 build:
 	go build -o bin/stnparse cmds/stnparse/stnparse.go
@@ -44,16 +41,18 @@ build:
 	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 install:
-	go install cmds/stnparse/stnparse.go
-	go install cmds/stnfilter/stnfilter.go
-	go install cmds/stnreport/stnreport.go
+	env GOBIN=$HOME/bin go install cmds/stnparse/stnparse.go
+	env GOBIN=$HOME/bin go install cmds/stnfilter/stnfilter.go
+	env GOBIN=$HOME/bin go install cmds/stnreport/stnreport.go
 
 uninstall:
 	if [ -f $(GOBIN)/stnparse ]; then /bin/rm $(GOBIN)/stnparse; fi
 	if [ -f $(GOBIN)/stnfilter ]; then /bin/rm $(GOBIN)/stnfilter; fi
 	if [ -f $(GOBIN)/stnreport ]; then /bin/rm $(GOBIN)/stnreport; fi
 
-website: build
+website:
 	./bin/stnparse --version
 	shorthand build.shorthand
 
+release:
+	./mk-release.sh
