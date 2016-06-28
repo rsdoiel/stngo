@@ -26,3 +26,6 @@ _testmain.go
 # Project excludes
 .DS_Store
 bin/*
+dist/*
+*~
+*.swp
