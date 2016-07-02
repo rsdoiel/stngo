@@ -33,10 +33,9 @@ test:
 # ok test throws false Fail so is skipped
 #	cd ok && go test
 
-clean: bin/shorthand bin/stnparse bin/stnfilter bin/stnreport
-	if [ -f bin/stnparse ]; then rm bin/stnparse; fi
-	if [ -f bin/stnfilter ]; then rm bin/stnfilter; fi
-	if [ -f bin/stnreport ]; then rm bin/stnreport; fi
+clean: 
+	if [ -d bin ]; then rm -fR bin; fi
+		if [ -d dist ]; then rm -fR dist; fi
 
 build:
 	go build -o bin/stnparse cmds/stnparse/stnparse.go
@@ -57,3 +56,5 @@ website: build
 	./bin/stnparse --version
 	shorthand build.shorthand
 
+release:
+	./mk-release.sh
