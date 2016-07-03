@@ -43,9 +43,9 @@ build:
 	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 install:
-	go install cmds/stnparse/stnparse.go
-	go install cmds/stnfilter/stnfilter.go
-	go install cmds/stnreport/stnreport.go
+	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
+	env GOBIN=$(HOME)/bin go install cmds/stnfilter/stnfilter.go
+	env GOBIN=$(HOME)/bin go install cmds/stnreport/stnreport.go
 
 uninstall:
 	if [ -f $(GOBIN)/stnparse ]; then /bin/rm $(GOBIN)/stnparse; fi
