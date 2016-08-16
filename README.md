@@ -17,6 +17,7 @@ Helpful extra utilities:
 
 + [shorthand](https://github.com/rsdoiel/shorthand) - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
 + [reldate](https://github.com/rsdoiel/reldate) - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. *date*, *sed*, *tr*)
++ [timefmt](https://github.com/rsdoiel/timefmt) - Golang style date/time formatting
 
 For details of Simple Timesheet Notation markup see [stn.md](stn.md).
 
