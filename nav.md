@@ -1,5 +1,9 @@
 
-+ [README](index.html)
-+ [stn](stn.html) - Simple Typesheet Notation
-+ [notes](notes.html) - notes and background
++ [Home](/)
++ [stngo](./)
++ [Simple Timesheet Notation](stn.html)
++ [LICENSE](license.html)
++ [Install](install.html)
++ [Notes](notes.html) 
++ [Github](https://github.com/rsdoiel/stngo)
 

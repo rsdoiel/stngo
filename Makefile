@@ -35,7 +35,8 @@ test:
 
 clean: 
 	if [ -d bin ]; then rm -fR bin; fi
-		if [ -d dist ]; then rm -fR dist; fi
+	if [ -d dist ]; then rm -fR dist; fi
+	if [ -f stngo-binary-release.zip ]; then /bin/rm stngo-binary-release.zip; fi
 
 build:
 	go build -o bin/stnparse cmds/stnparse/stnparse.go
@@ -54,7 +55,7 @@ uninstall:
 
 website: build
 	./bin/stnparse --version
-	shorthand build.shorthand
+	./mk-website.bash
 
 release:
-	./mk-release.sh
+	./mk-release.bash
