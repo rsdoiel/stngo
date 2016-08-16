@@ -26,12 +26,9 @@ lint:
 	gofmt -w cmds/stnfilter/stnfilter.go && golint cmds/stnfilter/stnfilter.go
 	gofmt -w cmds/stnreport/stnreport.go && golint cmds/stnreport/stnreport.go
 
-test:
+test: lint
 	cd stn && go test
 	cd report && go test
-
-# ok test throws false Fail so is skipped
-#	cd ok && go test
 
 clean: 
 	if [ -d bin ]; then rm -fR bin; fi
@@ -59,3 +56,8 @@ website: build
 
 release:
 	./mk-release.bash
+
+publish:
+	./mk-website.bash
+	./publish.bash
+
