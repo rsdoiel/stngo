@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>stngo - Simple Timesheet Notation library and utilities</title>
+    <title>stngo: Simple Timesheet Notation</title>
     <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
 <header>
-stngo - Simple Timesheet Notation library and utilities
+stngo: Simple Timesheet Notation
 </header>
 <section>
+<p><a href="http://goreportcard.com/report/rsdoiel/stngo"><img src="http://goreportcard.com/badge/rsdoiel/stngo" alt="Go Report Card" /></a>
+<a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" /></a></p>
+
 <h1>stngo</h1>
 
 <p>Golang implementation of Simple Timesheet Notation plus dome additional utilities and go packages.</p>
@@ -28,7 +31,7 @@ stngo - Simple Timesheet Notation library and utilities
 <li><a href="https://github.com/rsdoiel/reldate">reldate</a> - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. <em>date</em>, <em>sed</em>, <em>tr</em>)</li>
 </ul>
 
-<p>For details of Simple Timesheet Notation markup see <a href="stn.html">stn.html</a>.</p>
+<p>For details of Simple Timesheet Notation markup see <a href="stn.md">stn.md</a>.</p>
 
 <p>For details on using <em>shorthand</em> with <em>stnparse</em> or generate HTML in
 reports see <a href="http://rsdoiel.github.io/shorthand">shorthand</a>.</p>
@@ -153,22 +156,30 @@ reports see <a href="http://rsdoiel.github.io/shorthand">shorthand</a>.</p>
         stnfilter -start &quot;$(startYear $FOR_DATE)&quot; -end &quot;$(endYear $FOR_DATE)&quot; | stnreport
 </code></pre>
 
+<h2>Installation</h2>
+
+<p><em>stngo</em> and its commands can be installed with the <em>go get</em> command.</p>
+
+<pre><code>    go get github.com/rsdoiel/stngo/...
+</code></pre>
+
 </section>
 <nav>
 <ul>
-<li><a href="index.html">README</a></li>
-<li><a href="stn.html">stn</a> - Simple Typesheet Notation</li>
-<li><a href="notes.html">notes</a> - notes and background</li>
+<li><a href="/">Home</a></li>
+<li><a href="./">stngo</a></li>
+<li><a href="stn.html">Simple Timesheet Notation</a></li>
+<li><a href="license.html">LICENSE</a></li>
+<li><a href="install.html">Install</a></li>
+<li><a href="notes.html">Notes</a></li>
+<li><a href="https://github.com/rsdoiel/stngo">Github</a></li>
 </ul>
 
 </nav>
 <footer>
-stnparse v0.0.3
-<br />
-<p>copyright &copy; 2015 all rights reserved.
+copyright (c) 2015, 2016 all rights reserved.
 Released under the BSD 2-Clause license
-See: <a href="http://opensource.org/licenses/BSD-2-Clause">http://opensource.org/licenses/BSD-2-Clause</a></p>
-
+See: http://opensource.org/licenses/BSD-2-Clause
 </footer>
 </body>
 </html>
