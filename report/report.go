@@ -32,9 +32,24 @@ func (e *EntryAggregation) Aggregate(entry *stn.Entry) bool {
 	return false
 }
 
-// Summarize - give the output of stnparse or stnfilter aggregate the results
-// by the first notation and the durration of time.
-func (e *EntryAggregation) Summarize() string {
+func composeKey(entry *stn.Entry, indexes []int) string {
+	var s []string
+	for _, col := range indexes {
+		s = append(s, entry.Annotations[col])
+	}
+	switch len(indexes) {
+	case 1:
+		return strings.Join(s, " ")
+	case 2:
+		return strings.Join(s, ": ")
+	default:
+		return strings.Join(s, "; ")
+	}
+}
+
+// Summarize - give the output of stnparse or stnfilter aggregate the
+// results by the first notation, second notation and durration of time.
+func (e *EntryAggregation) Summarize(columns []int) string {
 	var outText []string
 
 	summary := make(map[string]float64)
@@ -42,7 +57,7 @@ func (e *EntryAggregation) Summarize() string {
 		// Calc duration
 		duration := item.End.Sub(item.Start)
 		// Calc key
-		key := item.Annotations[0]
+		key := composeKey(&item, columns)
 		// if map entry does not exist create one with key and duration
 		// else add the new duration to old and update map
 		val, ok := summary[key]

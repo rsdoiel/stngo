@@ -45,7 +45,7 @@ func TestAggregator(t *testing.T) {
 			log.Fatalf("Can't read line no. %d: [%s]\n", i, line)
 		}
 	}
-	outText := aggregation.Summarize()
+	outText := aggregation.Summarize([]int{0})
 	outLines := strings.Split(outText, "\n")
 	ok.Ok(t, len(outLines) == 8, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
 }
