@@ -16,7 +16,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 
+	// This package
 	"github.com/rsdoiel/stngo/report"
 	"github.com/rsdoiel/stngo/stn"
 )
@@ -27,10 +30,15 @@ func revision() {
 }
 
 func main() {
-	var version bool
+	var (
+		version bool
+		columns string
+	)
 
 	flag.BoolVar(&version, "version", false, "Display version information.")
 	flag.BoolVar(&version, "v", false, "Display version information.")
+	flag.StringVar(&columns, "columns", "0", "A comma delimited List of zero indexed columns to report")
+
 	flag.Parse()
 	if version == true {
 		revision()
@@ -56,5 +64,15 @@ func main() {
 			aggregation.Aggregate(entry)
 		}
 	}
-	fmt.Println(aggregation.Summarize())
+	var cols []int
+	s := strings.Split(columns, ",")
+	for _, val := range s {
+		i, err := strconv.Atoi(val)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Column number error: %s, %s", columns, err)
+			os.Exit(1)
+		}
+		cols = append(cols, i)
+	}
+	fmt.Println(aggregation.Summarize(cols))
 }
