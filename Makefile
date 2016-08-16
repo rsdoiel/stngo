@@ -54,6 +54,10 @@ website: build
 	./bin/stnparse --version
 	./mk-website.bash
 
+save:
+	git commit -am "Quick save"
+	git push origin master
+
 release:
 	./mk-release.bash
 
