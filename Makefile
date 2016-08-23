@@ -6,16 +6,11 @@
 # Released under the BSD 2-Clause license
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
-bin/build: bin/stnparse bin/stnfilter bin/stnreport
-
-bin/stnparse: cmds/stnparse/stnparse.go stn/stn.go
+build:
 	go build -o bin/stnparse cmds/stnparse/stnparse.go
-
-bin/stnfilter: cmds/stnfilter/stnfilter.go stn/stn.go
 	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
-
-bin/stnreport: cmds/stnreport/stnreport.go report/report.go
 	go build -o bin/stnreport cmds/stnreport/stnreport.go
+
 
 lint:
 	gofmt -w stn/stn.go && golint stn/stn.go
@@ -34,11 +29,6 @@ clean:
 	if [ -d bin ]; then rm -fR bin; fi
 	if [ -d dist ]; then rm -fR dist; fi
 	if [ -f stngo-binary-release.zip ]; then /bin/rm stngo-binary-release.zip; fi
-
-build:
-	go build -o bin/stnparse cmds/stnparse/stnparse.go
-	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
-	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
 install:
 	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
