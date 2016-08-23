@@ -67,7 +67,7 @@ func (e *EntryAggregation) Summarize(columns []int) string {
 			summary[key] = duration.Hours()
 		}
 	}
-	outText = append(outText, "Hours\tProject")
+	outText = append(outText, "Hours\tAnnotation(s)")
 	total := 0.0
 	keys := make([]string, len(summary))
 	for k := range summary {
