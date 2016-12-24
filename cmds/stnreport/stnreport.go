@@ -19,9 +19,9 @@ import (
 	"strconv"
 	"strings"
 
-	// This package
+	// stn packages
+	"github.com/rsdoiel/stngo"
 	"github.com/rsdoiel/stngo/report"
-	"github.com/rsdoiel/stngo/stn"
 )
 
 func revision() {
