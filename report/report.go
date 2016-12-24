@@ -14,7 +14,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/rsdoiel/stngo/stn"
+	// stn packages
+	"github.com/rsdoiel/stngo"
 )
 
 // EntryAggregation - a structure to hold the aggregated entries.
