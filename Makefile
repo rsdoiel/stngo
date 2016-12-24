@@ -28,6 +28,7 @@ lint:
 	gofmt -w cmds/stnreport/stnreport.go && golint cmds/stnreport/stnreport.go
 
 test:
+	go test
 	cd stn && go test
 	cd report && go test
 
