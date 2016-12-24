@@ -16,7 +16,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rsdoiel/ok"
+	// stngo packages
+	"github.com/rsdoiel/stngo/ok"
 )
 
 func TestIsDateLine(t *testing.T) {
