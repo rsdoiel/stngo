@@ -2,15 +2,15 @@
 #
 # Make releases for Linux/amd64, Linux/ARM7 (Raspberry Pi), Windows, and Mac OX X (darwin)
 #
-PROJECT=stngo
+PROJECT=stn
 
 PROG_LIST="stnparse stnfilter stnreport"
 
 VERSION=$(grep -m1 'Version = ' $PROJECT.go | cut -d\" -f 2)
 
-RELEASE_VERSION=$PROJECT-$VERSION
+RELEASE_NAME=$PROJECT-$VERSION
 
-echo "Preparing $RELEASE_VERSION"
+echo "Preparing $RELEASE_NAME"
 for PROGNAME in $PROG_LIST; do
   echo "Cross compelling $PROGNAME"
   env GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/$PROGNAME cmds/$PROGNAME/$PROGNAME.go
@@ -25,4 +25,4 @@ for FNAME in README.md LICENSE INSTALL.md; do
     cp -v $FNAME dist/
 done
 echo "Zipping up $RELEASE_NAME"
-zip -r $REPONAME-binary-release.zip dist/*
+zip -r $RELEASE_NAME-release.zip dist/*
