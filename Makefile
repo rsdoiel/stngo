@@ -6,7 +6,7 @@
 # Released under the BSD 2-Clause license
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
-PROJECT = stngo
+PROJECT = stn
 
 VERSION = $(shell grep -m1 'Version = ' $(PROJECT).go | cut -d\"  -f 2)
 
@@ -19,8 +19,8 @@ build:
 
 
 lint:
-	gofmt -w stn/stn.go && golint stn/stn.go
-	gofmt -w stn/stn_test.go && golint stn/stn_test.go
+	gofmt -w stn.go && golint stn.go
+	gofmt -w stn_test.go && golint stn_test.go
 	gofmt -w report/report.go && golint report/report.go
 	gofmt -w report/report_test.go && golint report/report_test.go
 	gofmt -w cmds/stnparse/stnparse.go && golint cmds/stnparse/stnparse.go
@@ -29,13 +29,12 @@ lint:
 
 test:
 	go test
-	cd stn && go test
 	cd report && go test
 
 clean: 
 	if [ -d bin ]; then rm -fR bin; fi
 	if [ -d dist ]; then rm -fR dist; fi
-	if [ -f $($PROJECT)-$(VERSION)-release.zip ]; then /bin/rm $(PROJECT)-$(VERSION)-release.zip; fi
+	if [ -f $(PROJECT)-$(VERSION)-release.zip ]; then /bin/rm $(PROJECT)-$(VERSION)-release.zip; fi
 
 install:
 	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
