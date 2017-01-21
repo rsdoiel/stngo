@@ -73,18 +73,18 @@ dist/windows-amd64:
 
 dist/macosx-amd64:
 	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnparse cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnfilter.exe cmds/stnfilter/stnfilter.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnreport.exe cmds/stnreport/stnreport.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnreport cmds/stnreport/stnreport.go
 
 dist/raspbian-arm7:
 	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspberrypi-arm7/stnparse cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnparse.exe cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnreport.exe cmds/stnreport/stnreport.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspberrypi-arm7/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspberrypi-arm7/stnreport cmds/stnreport/stnreport.go
 
 dist/raspbian-arm6:
 	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspberrypi-arm6/stnparse cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnparse.exe cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnreport.exe cmds/stnreport/stnreport.go
+	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspberrypi-arm6/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspberrypi-arm6/stnreport cmds/stnreport/stnreport.go
 
 release: dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm7 dist/raspbian-arm6
 	cp -v README.md dist/
