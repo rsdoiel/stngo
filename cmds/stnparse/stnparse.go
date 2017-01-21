@@ -38,7 +38,7 @@ USAGE %s [options]
 
 EXAMPLE
 
-Parse TimeSheet.txt and render a stream of JSON blobs.
+Parse TimeSheet.txt and render an array of JSON elements.
 
     %s -json < timeSheet.txt
 
@@ -83,7 +83,11 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 
+	entryCnt := 0
 	lineNo := 1
+	if asJSON == true {
+		fmt.Print("[")
+	}
 	for {
 		line, err := reader.ReadString('\n')
 		if err != nil {
@@ -97,11 +101,18 @@ func main() {
 				log.Fatalf("line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
-				fmt.Println(entry.JSON())
+				if entryCnt > 0 {
+					fmt.Print(",")
+				}
+				fmt.Print(entry.JSON())
+				entryCnt++
 			} else {
 				fmt.Println(entry.String())
 			}
 		}
 		lineNo++
+	}
+	if asJSON == true {
+		fmt.Print("]")
 	}
 }
