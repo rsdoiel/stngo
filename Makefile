@@ -17,7 +17,6 @@ build:
 	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
 	go build -o bin/stnreport cmds/stnreport/stnreport.go
 
-
 lint:
 	gofmt -w stn.go && golint stn.go
 	gofmt -w stn_test.go && golint stn_test.go
@@ -39,8 +38,8 @@ test:
 	cd report && go test
 
 clean: 
-	if [ -d bin ]; then rm -fR bin; fi
-	if [ -d dist ]; then rm -fR dist; fi
+	if [ -d bin ]; then /bin/rm -fR bin; fi
+	if [ -d dist ]; then /bin/rm -fR dist; fi
 	if [ -f $(PROJECT)-$(VERSION)-release.zip ]; then /bin/rm $(PROJECT)-$(VERSION)-release.zip; fi
 
 install:
