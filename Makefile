@@ -6,7 +6,7 @@
 # Released under the BSD 2-Clause license
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
-PROJECT = stngo
+PROJECT = stn
 
 VERSION = $(shell grep -m1 'Version = ' $(PROJECT).go | cut -d\"  -f 2)
 
