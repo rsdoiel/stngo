@@ -9,41 +9,41 @@
 stngo: Simple Timesheet Notation
 </header>
 <section>
-<p>USAGE: stnparse [OPTIONS] [TIME_DESCRIPTION]</p>
+<h1>USAGE</h1>
 
-<p>SYNOPSIS</p>
+<pre><code>stnparse [OPTIONS] [TIME_DESCRIPTION]
+</code></pre>
+
+<h2>SYNOPSIS</h2>
 
 <p>stnparse parses content in &ldquo;Standard Timesheet Notation&rdquo;. By default
 it parse them into a tabular format but can also optionally
 parse them into a stream of JSON blobs.</p>
 
-<pre><code>-h  display help
--help   display help
--i  input filename
--input  input filename
--json   Output as JSON format.
--l  display license
--license    display license
--o  output filename
--output output filename
--v  display version
--version    display version
+<pre><code>    -h       display help
+    -help    display help
+    -i       input filename
+    -input   input filename
+    -json    output as JSON format
+    -l       display license
+    -license display license
+    -o       output filename
+    -output  output filename
+    -v       display version
+    -version display version
 </code></pre>
 
-<p>EXAMPLES</p>
+<h2>EXAMPLES</h2>
 
-<pre><code>stnparse &lt; TimeSheet.txt
+<pre><code>    stnparse &lt; TimeSheet.txt
 </code></pre>
 
 <p>This will parse the TimeSheet.txt file into a table.</p>
 
-<pre><code>stnparse -json &lt; TimeSheet.txt
+<pre><code>    stnparse -json &lt; TimeSheet.txt
 </code></pre>
 
-<p>This will parse TimeSheet.txt file into a stream of JSON blobs.
-%!(EXTRA string=stnparse, string=stnparse)</p>
-
-<p>stnparse v0.0.5</p>
+<p>This will parse TimeSheet.txt file into a stream of JSON blobs.</p>
 
 </section>
 <nav>

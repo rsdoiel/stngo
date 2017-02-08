@@ -67,8 +67,8 @@ func init() {
 	flag.StringVar(&outputFName, "output", "", "output filename")
 
 	// App Options
-	flag.StringVar(&columns, "c", "0", "A comma delimited List of zero indexed columns to report")
-	flag.StringVar(&columns, "columns", "0", "A comma delimited List of zero indexed columns to report")
+	flag.StringVar(&columns, "c", "0", "a comma delimited List of zero indexed columns to report")
+	flag.StringVar(&columns, "columns", "0", "a comma delimited List of zero indexed columns to report")
 }
 
 func main() {
@@ -79,7 +79,7 @@ func main() {
 	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
 	cfg.UsageText = fmt.Sprintf(usage, appName)
 	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+	cfg.ExampleText = fmt.Sprintf(examples, appName)
 
 	if showHelp == true {
 		fmt.Println(cfg.Usage())

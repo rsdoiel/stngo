@@ -9,36 +9,36 @@
 stngo: Simple Timesheet Notation
 </header>
 <section>
-<p>USAGE: stnreport [OPTIONS]</p>
+<h1>USAGE</h1>
 
-<p>SYNOPSIS</p>
+<pre><code>stnreport [OPTIONS]
+</code></pre>
+
+<h2>SYNOPSIS</h2>
 
 <p>stnreport takes output from stnparse or stnfilter and renders a
 report.</p>
 
-<pre><code>-c  A comma delimited List of zero indexed columns to report
--columns    A comma delimited List of zero indexed columns to report
--h  display help
--help   display help
--i  input filename
--input  input filename
--l  display license
--license    display license
--o  output filename
--output output filename
--v  display version
--version    display version
+<pre><code>    -c        a comma delimited List of zero indexed columns to report
+    -columns  a comma delimited List of zero indexed columns to report
+    -h        display help
+    -help     display help
+    -i        input filename
+    -input    input filename
+    -l        display license
+    -license  display license
+    -o        output filename
+    -output   output filename
+    -v        display version
+    -version  display version
 </code></pre>
 
-<p>EXAMPLE</p>
+<h2>EXAMPLE</h2>
 
-<pre><code>stnparse -i TimeSheet.txt | stnreport -columns 0,1
+<pre><code>    stnparse -i TimeSheet.txt | stnreport -columns 0,1
 </code></pre>
 
-<p>This renders columns zero (first column) and one.
-%!(EXTRA string=stnreport, string=stnreport, string=stnreport)</p>
-
-<p>stnreport v0.0.5</p>
+<p>This renders columns zero (first column) and one.</p>
 
 </section>
 <nav>

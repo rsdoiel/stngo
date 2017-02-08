@@ -30,19 +30,19 @@ columns (e.g. in tab delimited output) or cells of an array (in the case of JSON
 Here's an example of a recording of travel and a meeting on November 6, 2012 -
 
 ```shell
-	2012-11-06
+    2012-11-06
 
-	7:45 - 8:30; travel; train to meeting
+    7:45 - 8:30; travel; train to meeting
 
-	8:30 - 12:00; meeting; Standing committee for secret world domination by miniature sentient petunias.
+    8:30 - 12:00; meeting; Standing committee for secret world domination by miniature sentient petunias.
 ```
 
 This example suggests to column (or array cells) associated with the each time
 range. Here is an example of that markup rendered as a tab delimit table -
 
 ```shell
-	2012-11-06T06:45:00-08:00	2012-11-06T07:30:00-08:00	travel	train to meeting
-	2012-11-06T07:30:00-08:00	2012-11-06T11:00:00-08:00	meeting	Standing committee for secret world domination by miniature sentient petunias.
+    2012-11-06T06:45:00-08:00    2012-11-06T07:30:00-08:00    travel    train to meeting
+    2012-11-06T07:30:00-08:00    2012-11-06T11:00:00-08:00    meeting    Standing committee for secret world domination by miniature sentient petunias.
 ```
 
 Note that "travel" and "train" as well as "meeting" and "Standing" are separated
@@ -51,19 +51,19 @@ by tabs in this example.
 A JSON presentation might look like -
 
 ```json
-	[{
-		"Start":"2012-11-06T06:45:00-08:00",
-		"End":"2012-11-06T07:30:00-08:00",
-		"Annotations":["travel","train to meeting"]
-	},
-	{
-		"Start":"2012-11-06T07:30:00-08:00",
-		"End":"2012-11-06T11:00:00-08:00",
-		"Annotations":[
-			"meeting",
-			"Standing committee for secret world domination by miniature sentient petunias."
-		]
-	}]
+    [{
+        "Start":"2012-11-06T06:45:00-08:00",
+        "End":"2012-11-06T07:30:00-08:00",
+        "Annotations":["travel","train to meeting"]
+    },
+    {
+        "Start":"2012-11-06T07:30:00-08:00",
+        "End":"2012-11-06T11:00:00-08:00",
+        "Annotations":[
+            "meeting",
+            "Standing committee for secret world domination by miniature sentient petunias."
+        ]
+    }]
 ```
 
 Integration then is just a matter of pushing the data into the appropriate database
@@ -83,7 +83,7 @@ E..g Say I'm entering time for November 3, 2011. I would note it one a single
 line as-
 
 ```
-	2011-11-03
+    2011-11-03
 ```
 
 Any following entries would then refer to that date until a new date was encountered.
@@ -105,13 +105,13 @@ Here is an example entry about debugging code on a project call "timesheet"
 from 8:30 AM until 1:00 PM (i.e. 13:00) I would note it as
 
 ```
-	8:30 - 1:00; timesheet; debugging parsing code.
+    8:30 - 1:00; timesheet; debugging parsing code.
 ```
 
 If could also look like this
 
 ```
-	8:30 - 13:00; timesheet; debugging parsing code.
+    8:30 - 13:00; timesheet; debugging parsing code.
 ```
 
 ### 12 hour versus 24 hour time notation
@@ -139,19 +139,19 @@ In the following example is time entries for November 19, 2011 working on
 simple timesheet parsing project.
 
 ```text
-	2012-11-19
+    2012-11-19
 
-	// A meta entry which records pounds and meters associated with date
-	// Nov. 19, 2011
-	{lbs: 175.0, meters: 2.9}
+    // A meta entry which records pounds and meters associated with date
+    // Nov. 19, 2011
+    {lbs: 175.0, meters: 2.9}
 
-	8:30 - 11:00; timesheet notation; Writing a README.md describing my simple timesheet notation.
+    8:30 - 11:00; timesheet notation; Writing a README.md describing my simple timesheet notation.
 
-	11:00 - 12:00; timesheet notation; Drafting a NodeJS example parser for the notation.
+    11:00 - 12:00; timesheet notation; Drafting a NodeJS example parser for the notation.
 
-	1:00 - 3:00; timesheet notation; debugging parser, realizing I can simplify my notation further and drop the first semi-colon.
+    1:00 - 3:00; timesheet notation; debugging parser, realizing I can simplify my notation further and drop the first semi-colon.
 
-	Realized I need to keep some backward compatibility for my parse so I don't have to rewrite/edit my ascii timesheet file.
+    Realized I need to keep some backward compatibility for my parse so I don't have to rewrite/edit my ascii timesheet file.
 ```
 
 The lines starting with "//" and "{" are ignored since they are not recognized as
