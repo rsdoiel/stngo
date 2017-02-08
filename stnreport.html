@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>stngo: Simple Timesheet Notation</title>
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+stngo: Simple Timesheet Notation
+</header>
+<section>
+<p>USAGE: stnreport [OPTIONS]</p>
+
+<p>SYNOPSIS</p>
+
+<p>stnreport takes output from stnparse or stnfilter and renders a
+report.</p>
+
+<pre><code>-c  A comma delimited List of zero indexed columns to report
+-columns    A comma delimited List of zero indexed columns to report
+-h  display help
+-help   display help
+-i  input filename
+-input  input filename
+-l  display license
+-license    display license
+-o  output filename
+-output output filename
+-v  display version
+-version    display version
+</code></pre>
+
+<p>EXAMPLE</p>
+
+<pre><code>stnparse -i TimeSheet.txt | stnreport -columns 0,1
+</code></pre>
+
+<p>This renders columns zero (first column) and one.
+%!(EXTRA string=stnreport, string=stnreport, string=stnreport)</p>
+
+<p>stnreport v0.0.5</p>
+
+</section>
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="./">README</a></li>
+<li><a href="license.html">LICENSE</a></li>
+<li><a href="install.html">INSTALL</a></li>
+<li><a href="stn.html">Simple Timesheet Notation</a></li>
+<li><a href="stnparse.html">stnparse</a></li>
+<li><a href="stnfilter.html">stnfilter</a></li>
+<li><a href="stnreport.html">stnreport</a></li>
+<li><a href="notes.html">Notes</a></li>
+<li><a href="https://github.com/rsdoiel/stngo">Github</a></li>
+</ul>
+
+</nav>
+<footer>
+copyright (c) 2015, 2016 all rights reserved.
+Released under the BSD 3-Clause license
+See: http://opensource.org/licenses/BSD-3-Clause
+</footer>
+</body>
+</html>

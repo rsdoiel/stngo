@@ -30,6 +30,7 @@ function MakePage () {
         "nav=$nav" \
         "content=$content" \
         page.tmpl > $html
+    git add $html
 }
 
 echo "Checking necessary software is installed"
@@ -45,3 +46,7 @@ MakePage nav.md stn.md stn.html
 echo "Generating notes.html"
 MakePage nav.md notes.md notes.html
 
+for FNAME in stnparse stnfilter stnreport; do
+    echo "Generating $FNAME.html"
+    MakePage nav.md $FNAME.md $FNAME.html
+done

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>stngo: Simple Timesheet Notation</title>
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+<header>
+stngo: Simple Timesheet Notation
+</header>
+<section>
+<p>stnfilter [OPTIONS]</p>
+
+<p>SYNOPSIS</p>
+
+<p>%!f(string=stnfilter)ilter the output from stnparse based on date and/or matching text string.</p>
+
+<pre><code>-e  End of inclusive date range.
+-end    End of inclusive date range.
+-h  display help
+-help   display help
+-j  Output in JSON format.
+-json   Output in JSON format.
+-l  display license
+-license    display license
+-m  Match text in annotations.
+-match  Match text in annotations.
+-s  Start of inclusive date range.
+-start  Start of inclusive date range.
+-v  display version
+-version    display version
+</code></pre>
+
+<p>EXAMPLE</p>
+
+<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
+and render a stream of JSON blobs.</p>
+
+<pre><code>stnfilter -start 2015-07-04 -end 2015-07-14 -json &lt; TimeSheet.tab
+</code></pre>
+
+<p>To render the same in a tab delimited output</p>
+
+<pre><code>stnfilter -start 2015-07-04 -end 2015-07-14 &lt; TimeSheet.tab
+</code></pre>
+
+<p>Typical usage would be in a pipeline with Unix cat and stnparse</p>
+
+<p>cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010</p>
+
+<p>Matching a project name &ldquo;Fred&rdquo; for the same week would look like</p>
+
+<pre><code>cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010 -match Fred
+</code></pre>
+
+<p>stnfilter v0.0.5</p>
+
+</section>
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="./">README</a></li>
+<li><a href="license.html">LICENSE</a></li>
+<li><a href="install.html">INSTALL</a></li>
+<li><a href="stn.html">Simple Timesheet Notation</a></li>
+<li><a href="stnparse.html">stnparse</a></li>
+<li><a href="stnfilter.html">stnfilter</a></li>
+<li><a href="stnreport.html">stnreport</a></li>
+<li><a href="notes.html">Notes</a></li>
+<li><a href="https://github.com/rsdoiel/stngo">Github</a></li>
+</ul>
+
+</nav>
+<footer>
+copyright (c) 2015, 2016 all rights reserved.
+Released under the BSD 3-Clause license
+See: http://opensource.org/licenses/BSD-3-Clause
+</footer>
+</body>
+</html>
