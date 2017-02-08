@@ -69,7 +69,8 @@ func init() {
 	flag.StringVar(&outputFName, "output", "", "output filename")
 
 	// App Options
-	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
+	flag.BoolVar(&asJSON, "j", false, "output JSON format")
+	flag.BoolVar(&asJSON, "json", false, "output JSON format")
 }
 
 func main() {
@@ -80,7 +81,7 @@ func main() {
 	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
 	cfg.UsageText = fmt.Sprintf(usage, appName)
 	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+	cfg.ExampleText = fmt.Sprintf(examples, appName, appName)
 
 	if showHelp == true {
 		fmt.Println(cfg.Usage())

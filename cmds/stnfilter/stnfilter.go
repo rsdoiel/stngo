@@ -22,16 +22,16 @@ import (
 )
 
 var (
-	usage = `%s [OPTIONS]`
+	usage = `USAGE: %s [OPTIONS]`
 
 	description = `
 SYNOPSIS
 
-% filter the output from stnparse based on date and/or matching text string.
+%s will filter the output from stnparse based on date or matching text.
 `
 
 	examples = `
-EXAMPLE
+EXAMPLES
 
 Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
 and render a stream of JSON blobs.
@@ -75,14 +75,14 @@ func init() {
 	flag.BoolVar(&showVersion, "version", false, "display version")
 
 	// App Options
-	flag.StringVar(&match, "m", "", "Match text in annotations.")
-	flag.StringVar(&match, "match", "", "Match text in annotations.")
-	flag.StringVar(&start, "s", "", "Start of inclusive date range.")
-	flag.StringVar(&start, "start", "", "Start of inclusive date range.")
-	flag.StringVar(&end, "e", "", "End of inclusive date range.")
-	flag.StringVar(&end, "end", "", "End of inclusive date range.")
-	flag.BoolVar(&asJSON, "j", false, "Output in JSON format.")
-	flag.BoolVar(&asJSON, "json", false, "Output in JSON format.")
+	flag.StringVar(&match, "m", "", "match text annotations")
+	flag.StringVar(&match, "match", "", "Match text annotations")
+	flag.StringVar(&start, "s", "", "start of inclusive date range")
+	flag.StringVar(&start, "start", "", "start of inclusive date range")
+	flag.StringVar(&end, "e", "", "end of inclusive date range")
+	flag.StringVar(&end, "end", "", "end of inclusive date range")
+	flag.BoolVar(&asJSON, "j", false, "output JSON format")
+	flag.BoolVar(&asJSON, "json", false, "output JSON format")
 }
 func main() {
 	appName := path.Base(os.Args[0])

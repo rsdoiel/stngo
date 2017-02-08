@@ -38,18 +38,18 @@ columns (e.g. in tab delimited output) or cells of an array (in the case of JSON
 
 <p>Here&rsquo;s an example of a recording of travel and a meeting on November 6, 2012 -</p>
 
-<pre><code class="language-shell">	2012-11-06
+<pre><code class="language-shell">    2012-11-06
 
-	7:45 - 8:30; travel; train to meeting
+    7:45 - 8:30; travel; train to meeting
 
-	8:30 - 12:00; meeting; Standing committee for secret world domination by miniature sentient petunias.
+    8:30 - 12:00; meeting; Standing committee for secret world domination by miniature sentient petunias.
 </code></pre>
 
 <p>This example suggests to column (or array cells) associated with the each time
 range. Here is an example of that markup rendered as a tab delimit table -</p>
 
-<pre><code class="language-shell">	2012-11-06T06:45:00-08:00	2012-11-06T07:30:00-08:00	travel	train to meeting
-	2012-11-06T07:30:00-08:00	2012-11-06T11:00:00-08:00	meeting	Standing committee for secret world domination by miniature sentient petunias.
+<pre><code class="language-shell">    2012-11-06T06:45:00-08:00    2012-11-06T07:30:00-08:00    travel    train to meeting
+    2012-11-06T07:30:00-08:00    2012-11-06T11:00:00-08:00    meeting    Standing committee for secret world domination by miniature sentient petunias.
 </code></pre>
 
 <p>Note that &ldquo;travel&rdquo; and &ldquo;train&rdquo; as well as &ldquo;meeting&rdquo; and &ldquo;Standing&rdquo; are separated
@@ -57,19 +57,19 @@ by tabs in this example.</p>
 
 <p>A JSON presentation might look like -</p>
 
-<pre><code class="language-json">	[{
-		&quot;Start&quot;:&quot;2012-11-06T06:45:00-08:00&quot;,
-		&quot;End&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
-		&quot;Annotations&quot;:[&quot;travel&quot;,&quot;train to meeting&quot;]
-	},
-	{
-		&quot;Start&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
-		&quot;End&quot;:&quot;2012-11-06T11:00:00-08:00&quot;,
-		&quot;Annotations&quot;:[
-			&quot;meeting&quot;,
-			&quot;Standing committee for secret world domination by miniature sentient petunias.&quot;
-		]
-	}]
+<pre><code class="language-json">    [{
+        &quot;Start&quot;:&quot;2012-11-06T06:45:00-08:00&quot;,
+        &quot;End&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
+        &quot;Annotations&quot;:[&quot;travel&quot;,&quot;train to meeting&quot;]
+    },
+    {
+        &quot;Start&quot;:&quot;2012-11-06T07:30:00-08:00&quot;,
+        &quot;End&quot;:&quot;2012-11-06T11:00:00-08:00&quot;,
+        &quot;Annotations&quot;:[
+            &quot;meeting&quot;,
+            &quot;Standing committee for secret world domination by miniature sentient petunias.&quot;
+        ]
+    }]
 </code></pre>
 
 <p>Integration then is just a matter of pushing the data into the appropriate database
@@ -86,7 +86,7 @@ typed only once. All time entries after that are affiliated with that day.</p>
 <p>E..g Say I&rsquo;m entering time for November 3, 2011. I would note it one a single
 line as-</p>
 
-<pre><code>	2011-11-03
+<pre><code>    2011-11-03
 </code></pre>
 
 <p>Any following entries would then refer to that date until a new date was encountered.</p>
@@ -106,12 +106,12 @@ meaning of the semi-colon elements and just treats them as columns of text.</p>
 <p>Here is an example entry about debugging code on a project call &ldquo;timesheet&rdquo;
 from 8:30 AM until 1:00 PM (i.e. 13:00) I would note it as</p>
 
-<pre><code>	8:30 - 1:00; timesheet; debugging parsing code.
+<pre><code>    8:30 - 1:00; timesheet; debugging parsing code.
 </code></pre>
 
 <p>If could also look like this</p>
 
-<pre><code>	8:30 - 13:00; timesheet; debugging parsing code.
+<pre><code>    8:30 - 13:00; timesheet; debugging parsing code.
 </code></pre>
 
 <h3>12 hour versus 24 hour time notation</h3>
@@ -138,19 +138,19 @@ its job.</p>
 <p>In the following example is time entries for November 19, 2011 working on
 simple timesheet parsing project.</p>
 
-<pre><code class="language-text">	2012-11-19
+<pre><code class="language-text">    2012-11-19
 
-	// A meta entry which records pounds and meters associated with date
-	// Nov. 19, 2011
-	{lbs: 175.0, meters: 2.9}
+    // A meta entry which records pounds and meters associated with date
+    // Nov. 19, 2011
+    {lbs: 175.0, meters: 2.9}
 
-	8:30 - 11:00; timesheet notation; Writing a README.md describing my simple timesheet notation.
+    8:30 - 11:00; timesheet notation; Writing a README.md describing my simple timesheet notation.
 
-	11:00 - 12:00; timesheet notation; Drafting a NodeJS example parser for the notation.
+    11:00 - 12:00; timesheet notation; Drafting a NodeJS example parser for the notation.
 
-	1:00 - 3:00; timesheet notation; debugging parser, realizing I can simplify my notation further and drop the first semi-colon.
+    1:00 - 3:00; timesheet notation; debugging parser, realizing I can simplify my notation further and drop the first semi-colon.
 
-	Realized I need to keep some backward compatibility for my parse so I don't have to rewrite/edit my ascii timesheet file.
+    Realized I need to keep some backward compatibility for my parse so I don't have to rewrite/edit my ascii timesheet file.
 </code></pre>
 
 <p>The lines starting with &ldquo;//&rdquo; and &ldquo;{&rdquo; are ignored since they are not recognized as
