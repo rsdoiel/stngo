@@ -56,6 +56,9 @@ website: build
 	./bin/stnparse --version
 	./mk-website.bash
 
+status:
+	git status
+
 save:
 	git commit -am "Quick Save"
 	git push origin $(BRANCH)
@@ -89,6 +92,9 @@ release: dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm
 	cp -v README.md dist/
 	cp -v LICENSE dist/
 	cp -v INSTALL.md dist/
+	cp -v stnparse.md dist/
+	cp -v stnfilter.md dist/
+	cp -v stnreport.md dist/
 	zip -r $(PROJECT)-$(VERSION)-release.zip dist/*
 
 publish:

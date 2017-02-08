@@ -12,81 +12,111 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"log"
 	"os"
-	"path/filepath"
+	"path"
 	"time"
 
-	// stn packages
+	// My packages
+	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
 )
 
 var (
+	usage = `USAGE: %s [OPTIONS] [TIME_DESCRIPTION]`
+
+	description = `
+SYNOPSIS
+
+%s parses content in "Standard Timesheet Notation". By default
+it parse them into a tabular format but can also optionally
+parse them into a stream of JSON blobs.
+`
+
+	examples = `
+EXAMPLES
+
+	%s < TimeSheet.txt
+
+This will parse the TimeSheet.txt file into a table.
+
+	%s -json < TimeSheet.txt
+
+This will parse TimeSheet.txt file into a stream of JSON blobs.
+`
+
+	// Standard Options
+	showHelp    bool
+	showLicense bool
+	showVersion bool
+	inputFName  string
+	outputFName string
+
+	// App Options
 	asJSON bool
-	help   bool
 )
 
-var usage = func(exit_code int, msg string) {
-	var fh = os.Stderr
-	if exit_code == 0 {
-		fh = os.Stdout
-	}
-	cmdName := os.Args[0]
+func init() {
+	// Standard Options
+	flag.BoolVar(&showHelp, "h", false, "display help")
+	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showLicense, "l", false, "display license")
+	flag.BoolVar(&showLicense, "license", false, "display license")
+	flag.BoolVar(&showVersion, "v", false, "display version")
+	flag.BoolVar(&showVersion, "version", false, "display version")
+	flag.StringVar(&inputFName, "i", "", "input filename")
+	flag.StringVar(&inputFName, "input", "", "input filename")
+	flag.StringVar(&outputFName, "o", "", "output filename")
+	flag.StringVar(&outputFName, "output", "", "output filename")
 
-	fmt.Fprintf(fh, `%s
-USAGE %s [options]
-
-EXAMPLE
-
-Parse TimeSheet.txt and render an array of JSON elements.
-
-    %s -json < timeSheet.txt
-
-
-OPTIONS
-`, msg, cmdName, cmdName)
-
-	flag.VisitAll(func(f *flag.Flag) {
-		fmt.Fprintf(fh, "\t-%s\t\t%s\n", f.Name, f.Usage)
-	})
-
-	fmt.Fprintf(fh, `
-copyright (c) 2015 all rights reserved.
-Released under the BSD 2-Clause license.
-See: http://opensource.org/licenses/BSD-2-Clause
-`)
-	os.Exit(exit_code)
-}
-
-func revision() {
-	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
-	os.Exit(0)
+	// App Options
+	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
 }
 
 func main() {
-	var version bool
-
-	flag.BoolVar(&asJSON, "json", false, "Output as JSON format.")
-	flag.BoolVar(&help, "h", false, "Display this help document.")
-	flag.BoolVar(&help, "help", false, "Display this help document.")
-	flag.BoolVar(&version, "version", false, "Display version information.")
-	flag.BoolVar(&version, "v", false, "Display version information.")
+	appName := path.Base(os.Args[0])
 	flag.Parse()
-	if help == true {
-		usage(0, "")
+
+	// Configuration and command line interation
+	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
+	cfg.UsageText = fmt.Sprintf(usage, appName)
+	cfg.DescriptionText = fmt.Sprintf(description, appName)
+	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+
+	if showHelp == true {
+		fmt.Println(cfg.Usage())
+		os.Exit(0)
 	}
-	if version == true {
-		revision()
+	if showLicense == true {
+		fmt.Println(cfg.License())
+		os.Exit(0)
 	}
+	if showVersion == true {
+		fmt.Println(cfg.Version())
+		os.Exit(0)
+	}
+
+	in, err := cli.Open(inputFName, os.Stdin)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(inputFName, in)
+
+	out, err := cli.Create(outputFName, os.Stdout)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(outputFName, out)
 
 	activeDate := time.Now().Format("2006-07-15")
 
-	reader := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(in)
 
 	entryCnt := 0
 	lineNo := 1
 	if asJSON == true {
-		fmt.Print("[")
+		fmt.Fprint(out, "[")
 	}
 	for {
 		line, err := reader.ReadString('\n')
@@ -98,21 +128,21 @@ func main() {
 		} else if stn.IsEntry(line) {
 			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
-				log.Fatalf("line %d: %v\n", lineNo, perr)
+				fmt.Fprintf(os.Stderr, "line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
 				if entryCnt > 0 {
-					fmt.Print(",")
+					fmt.Fprint(out, ",")
 				}
-				fmt.Print(entry.JSON())
+				fmt.Fprint(out, entry.JSON())
 				entryCnt++
 			} else {
-				fmt.Println(entry.String())
+				fmt.Fprintln(out, entry.String())
 			}
 		}
 		lineNo++
 	}
 	if asJSON == true {
-		fmt.Print("]")
+		fmt.Fprint(out, "]")
 	}
 }

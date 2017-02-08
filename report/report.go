@@ -36,7 +36,9 @@ func (e *EntryAggregation) Aggregate(entry *stn.Entry) bool {
 func composeKey(entry *stn.Entry, indexes []int) string {
 	var s []string
 	for _, col := range indexes {
-		s = append(s, entry.Annotations[col])
+		if col < len(entry.Annotations) {
+			s = append(s, entry.Annotations[col])
+		}
 	}
 	switch len(indexes) {
 	case 1:

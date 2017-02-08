@@ -13,38 +13,102 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"log"
 	"os"
-	"path/filepath"
+	"path"
 	"strconv"
 	"strings"
 
-	// stn packages
+	// My packages
+	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
 	"github.com/rsdoiel/stngo/report"
 )
 
-func revision() {
-	fmt.Printf("%s %s\n", filepath.Base(os.Args[0]), stn.Version)
-	os.Exit(0)
+var (
+	usage = `USAGE: %s [OPTIONS]`
+
+	description = `
+SYNOPSIS
+
+%s takes output from stnparse or stnfilter and renders a
+report.
+`
+
+	examples = `
+EXAMPLE
+
+    stnparse -i TimeSheet.txt | %s -columns 0,1
+
+This renders columns zero (first column) and one.
+`
+
+	// Standard Options
+	showHelp    bool
+	showLicense bool
+	showVersion bool
+	inputFName  string
+	outputFName string
+
+	// App Options
+	columns string
+)
+
+func init() {
+	// Standard Options
+	flag.BoolVar(&showHelp, "h", false, "display help")
+	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showLicense, "l", false, "display license")
+	flag.BoolVar(&showLicense, "license", false, "display license")
+	flag.BoolVar(&showVersion, "v", false, "display version")
+	flag.BoolVar(&showVersion, "version", false, "display version")
+	flag.StringVar(&inputFName, "i", "", "input filename")
+	flag.StringVar(&inputFName, "input", "", "input filename")
+	flag.StringVar(&outputFName, "o", "", "output filename")
+	flag.StringVar(&outputFName, "output", "", "output filename")
+
+	// App Options
+	flag.StringVar(&columns, "c", "0", "A comma delimited List of zero indexed columns to report")
+	flag.StringVar(&columns, "columns", "0", "A comma delimited List of zero indexed columns to report")
 }
 
 func main() {
-	var (
-		version bool
-		columns string
-	)
-
-	flag.BoolVar(&version, "version", false, "Display version information.")
-	flag.BoolVar(&version, "v", false, "Display version information.")
-	flag.StringVar(&columns, "columns", "0", "A comma delimited List of zero indexed columns to report")
-
+	appName := path.Base(os.Args[0])
 	flag.Parse()
-	if version == true {
-		revision()
+
+	// Configuration and command line interation
+	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
+	cfg.UsageText = fmt.Sprintf(usage, appName)
+	cfg.DescriptionText = fmt.Sprintf(description, appName)
+	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+
+	if showHelp == true {
+		fmt.Println(cfg.Usage())
+		os.Exit(0)
+	}
+	if showLicense == true {
+		fmt.Println(cfg.License())
+		os.Exit(0)
+	}
+	if showVersion == true {
+		fmt.Println(cfg.Version())
+		os.Exit(0)
 	}
 
-	reader := bufio.NewReader(os.Stdin)
+	in, err := cli.Open(inputFName, os.Stdin)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(inputFName, in)
+
+	out, err := cli.Create(outputFName, os.Stdout)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(outputFName, out)
+
+	reader := bufio.NewReader(in)
 
 	entry := new(stn.Entry)
 	aggregation := new(report.EntryAggregation)
@@ -56,9 +120,8 @@ func main() {
 			break
 		}
 		lineNo++
-		//fmt.Printf("DEBUG line %d: [%s]", lineNo, line)
 		if entry.FromString(line) != true {
-			log.Fatalf("line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(os.Stderr, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		} else {
 			aggregation.Aggregate(entry)
@@ -74,5 +137,5 @@ func main() {
 		}
 		cols = append(cols, i)
 	}
-	fmt.Println(aggregation.Summarize(cols))
+	fmt.Fprintln(out, aggregation.Summarize(cols))
 }
