@@ -20,9 +20,6 @@ function MakePage () {
     html="$3"
     # Always use the latest compiled mkpage
     APP=$(which mkpage)
-    if [ -f ./bin/mkpage ]; then
-        APP="./bin/mkpage"
-    fi
 
     echo "Rendering $html"
     $APP \
