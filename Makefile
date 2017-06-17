@@ -40,7 +40,6 @@ test:
 clean: 
 	if [ -d bin ]; then /bin/rm -fR bin; fi
 	if [ -d dist ]; then /bin/rm -fR dist; fi
-	if [ -f $(PROJECT)-$(VERSION)-release.zip ]; then /bin/rm $(PROJECT)-$(VERSION)-release.zip; fi
 
 install:
 	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
@@ -104,6 +103,7 @@ dist/linux-arm64:
 	rm -fR dist/bin
 
 distribute_docs:
+	mkdir -p dist
 	cp -v README.md dist/
 	cp -v LICENSE dist/
 	cp -v INSTALL.md dist/
