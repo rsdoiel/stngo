@@ -17,8 +17,10 @@ import (
 	"time"
 
 	// My packages
-	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
+
+	// Caltech Library packages
+	"github.com/caltechlibrary/cli"
 )
 
 var (

@@ -19,9 +19,11 @@ import (
 	"strings"
 
 	// My packages
-	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
 	"github.com/rsdoiel/stngo/report"
+
+	// Caltech Library packages
+	"github.com/caltechlibrary/cli"
 )
 
 var (
