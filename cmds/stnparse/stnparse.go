@@ -27,14 +27,17 @@ var (
 	usage = `USAGE: %s [OPTIONS] [TIME_DESCRIPTION]`
 
 	description = `
+
 SYNOPSIS
 
 %s parses content in "Standard Timesheet Notation". By default
 it parse them into a tabular format but can also optionally
 parse them into a stream of JSON blobs.
+
 `
 
 	examples = `
+
 EXAMPLES
 
 	%s < TimeSheet.txt
@@ -44,6 +47,7 @@ This will parse the TimeSheet.txt file into a table.
 	%s -json < TimeSheet.txt
 
 This will parse TimeSheet.txt file into a stream of JSON blobs.
+
 `
 
 	// Standard Options

@@ -27,12 +27,15 @@ var (
 	usage = `USAGE: %s [OPTIONS]`
 
 	description = `
+
 SYNOPSIS
 
 %s will filter the output from stnparse based on date or matching text.
+
 `
 
 	examples = `
+
 EXAMPLES
 
 Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
@@ -51,6 +54,7 @@ Typical usage would be in a pipeline with Unix cat and stnparse
 Matching a project name "Fred" for the same week would look like
 
     cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
+
 `
 
 	// Standard Options
@@ -111,7 +115,7 @@ func main() {
 	}
 	if showExamples == true {
 		if len(args) > 0 {
-			fmt.Println(cfg.Help(args...))
+			fmt.Println(cfg.Example(args...))
 		} else {
 			fmt.Println(cfg.ExampleText)
 		}

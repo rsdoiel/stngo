@@ -30,10 +30,12 @@ var (
 	usage = `USAGE: %s [OPTIONS]`
 
 	description = `
+
 SYNOPSIS
 
 %s takes output from stnparse or stnfilter and renders a
 report.
+
 `
 
 	examples = `
@@ -42,6 +44,7 @@ EXAMPLE
     stnparse -i TimeSheet.txt | %s -columns 0,1
 
 This renders columns zero (first column) and one.
+
 `
 
 	// Standard Options
