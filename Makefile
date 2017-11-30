@@ -38,8 +38,8 @@ test:
 	cd report && go test
 
 clean: 
-	if [ -d bin ]; then /bin/rm -fR bin; fi
-	if [ -d dist ]; then /bin/rm -fR dist; fi
+	if [ -d bin ]; then rm -fR bin; fi
+	if [ -d dist ]; then rm -fR dist; fi
 
 install:
 	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
