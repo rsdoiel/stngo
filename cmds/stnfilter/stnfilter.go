@@ -60,6 +60,7 @@ Matching a project name "Fred" for the same week would look like
 	showExamples bool
 	inputFName   string
 	outputFName  string
+	quiet        bool
 
 	// App Options
 	start  string
@@ -83,6 +84,9 @@ func main() {
 	app.BoolVar(&showLicense, "l,license", false, "display license")
 	app.BoolVar(&showVersion, "v,version", false, "display version")
 	app.BoolVar(&showExamples, "examples", false, "display examples(s)")
+	app.StringVar(&inputFName, "i,input", "", "input file name")
+	app.StringVar(&outputFName, "o,output", "", "output file name")
+	app.BoolVar(&quiet, "quiet", false, "suppress error message")
 
 	// App Options
 	app.StringVar(&match, "m,match", "", "Match text annotations")
@@ -94,47 +98,42 @@ func main() {
 	app.Parse()
 	args := app.Args()
 
+	// Setup IO
 	var err error
+
+	app.Eout = os.Stderr
+
 	app.In, err = cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(inputFName, app.In)
 
 	app.Out, err = cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(outputFName, app.Out)
-	app.Err = os.Stderr
 
-	if showHelp == true {
+	// Handle Options
+	if showHelp || showExamples {
 		if len(args) > 0 {
 			fmt.Fprintln(app.Out, app.Help(args...))
+		} else if showExamples {
+			fmt.Fprintln(app.Out, app.Help("examples"))
 		} else {
 			app.Usage(app.Out)
 		}
 		os.Exit(0)
 	}
-	if showExamples == true {
-		if len(args) > 0 {
-			fmt.Fprintln(app.Out, app.Help(args...))
-		} else {
-			fmt.Fprintln(app.Out, app.Help("examples"))
-		}
-		os.Exit(0)
-	}
-	if showLicense == true {
+
+	if showLicense {
 		fmt.Fprintln(app.Out, app.License())
 		os.Exit(0)
 	}
-	if showVersion == true {
+
+	if showVersion {
 		fmt.Fprintln(app.Out, app.Version())
 		os.Exit(0)
 	}
 
+	// On to running the app
 	var (
 		showLine   = true
 		startTime  time.Time
@@ -145,7 +144,7 @@ func main() {
 	if start != "" {
 		startTime, err = time.Parse("2006-01-02 15:04:05", start+" 00:00:00")
 		if err != nil {
-			fmt.Fprintf(app.Err, "Start date error: %s\n", err)
+			fmt.Fprintf(app.Eout, "Start date error: %s\n", err)
 			os.Exit(1)
 		}
 		if end == "" {
@@ -153,7 +152,7 @@ func main() {
 		} else {
 			endTime, err = time.Parse("2006-01-02 15:04:05", end+" 23:59:59")
 			if err != nil {
-				fmt.Fprintf(app.Err, "End date error: %s\n", err)
+				fmt.Fprintf(app.Eout, "End date error: %s\n", err)
 				os.Exit(1)
 			}
 		}
@@ -171,7 +170,7 @@ func main() {
 		}
 		lineNo++
 		if entry.FromString(line) != true {
-			fmt.Fprintf(app.Err, "line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(app.Eout, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		}
 		if start != "" {

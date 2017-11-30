@@ -50,6 +50,7 @@ This renders columns zero (first column) and one.
 	showVersion  bool
 	inputFName   string
 	outputFName  string
+	quiet        bool
 
 	// App Options
 	columns string
@@ -72,6 +73,7 @@ func main() {
 	app.BoolVar(&showExamples, "examples", false, "display example(s)")
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
+	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
 
 	// App Options
 	app.StringVar(&columns, "c,columns", "0", "a comma delimited List of zero indexed columns to report")
@@ -79,46 +81,39 @@ func main() {
 	app.Parse()
 	args := app.Args()
 
+	// Setup IO
 	var err error
+	app.Eout = os.Stderr
+
 	app.In, err = cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(inputFName, app.In)
 
 	app.Out, err = cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(outputFName, app.Out)
-	app.Err = os.Stderr
 
-	if showHelp == true {
+	// Handle Options
+	if showHelp || showExamples {
 		if len(args) > 0 {
 			fmt.Fprintln(app.Out, app.Help(args...))
+		} else if showExamples {
+			fmt.Fprintln(app.Out, app.Help("examples"))
 		} else {
 			app.Usage(app.Out)
 		}
 		os.Exit(0)
 	}
-	if showExamples == true {
-		if len(args) > 0 {
-			fmt.Fprintln(app.Out, app.Help(args...))
-		} else {
-			fmt.Fprintln(app.Out, app.Help("examples"))
-		}
-		os.Exit(0)
-	}
-	if showLicense == true {
+
+	if showLicense {
 		fmt.Fprintln(app.Out, app.License())
 		os.Exit(0)
 	}
-	if showVersion == true {
+	if showVersion {
 		fmt.Fprintln(app.Out, app.Version())
 		os.Exit(0)
 	}
+
 	reader := bufio.NewReader(app.In)
 
 	entry := new(stn.Entry)
@@ -132,7 +127,7 @@ func main() {
 		}
 		lineNo++
 		if entry.FromString(line) != true {
-			fmt.Fprintf(app.Err, "line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(app.Eout, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		} else {
 			aggregation.Aggregate(entry)
@@ -143,7 +138,7 @@ func main() {
 	for _, val := range s {
 		i, err := strconv.Atoi(val)
 		if err != nil {
-			fmt.Fprintf(app.Err, "Column number error: %s, %s", columns, err)
+			fmt.Fprintf(app.Eout, "Column number error: %s, %s", columns, err)
 			os.Exit(1)
 		}
 		cols = append(cols, i)

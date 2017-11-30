@@ -53,6 +53,7 @@ This will parse TimeSheet.txt file into a stream of JSON blobs.
 	showExamples bool
 	inputFName   string
 	outputFName  string
+	quiet        bool
 
 	// App Options
 	asJSON bool
@@ -77,6 +78,7 @@ func main() {
 	app.BoolVar(&showExamples, "examples", false, "display example(s)")
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
+	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
 
 	// App Options
 	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
@@ -84,46 +86,37 @@ func main() {
 	app.Parse()
 	args := app.Args()
 
+	// Setup IO
 	var err error
+
+	app.Eout = os.Stderr
+
 	app.In, err = cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(inputFName, app.In)
 
 	app.Out, err = cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
+	cli.ExitOnError(app.Eout, err, quiet)
 	defer cli.CloseFile(outputFName, app.Out)
-	app.Err = os.Stderr
 
-	if showHelp == true {
+	// Handle Options
+	if showHelp || showExamples {
 		if len(args) > 0 {
-			fmt.Println(app.Help(args...))
+			fmt.Fprintln(app.Out, app.Help(args...))
+		} else if showExamples {
+			fmt.Fprintln(app.Out, app.Help("examples"))
 		} else {
 			app.Usage(app.Out)
 		}
 		os.Exit(0)
 	}
 
-	if showExamples == true {
-		if len(args) > 0 {
-			fmt.Println(app.Help(args...))
-		} else {
-			fmt.Println(app.Help("examples"))
-		}
-		os.Exit(0)
-	}
-
 	if showLicense == true {
-		fmt.Println(app.License())
+		fmt.Fprintln(app.Out, app.License())
 		os.Exit(0)
 	}
 	if showVersion == true {
-		fmt.Println(app.Version())
+		fmt.Fprintln(app.Out, app.Version())
 		os.Exit(0)
 	}
 
@@ -146,7 +139,7 @@ func main() {
 		} else if stn.IsEntry(line) {
 			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
-				fmt.Fprintf(app.Err, "line %d: %v\n", lineNo, perr)
+				fmt.Fprintf(app.Eout, "line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
 				if entryCnt > 0 {
