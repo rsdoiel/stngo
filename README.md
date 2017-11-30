@@ -5,15 +5,14 @@ Golang implementation of Simple Timesheet Notation plus dome additional utilitie
 
 Main Simple Timesheet Notation utilities:
 
-+ *stnparse* - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.
-+ *stnfilter* - filters the output of *stnparse* by dates or text string
-+ *stnreport* - summarizes the tab delimited output of *stnfilter* or *stnparse* yielding a simple table showing hours and first annotations
++ [stnparse](docs/stnparse/) - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.
++ [stnfilter](docs/stnfilter/) - filters the output of *stnparse* by dates or text string
++ [stnreport](docs/stnreport/)* - summarizes the tab delimited output of *stnfilter* or *stnparse* yielding a simple table showing hours and first annotations
 
 Helpful extra utilities:
 
 + [shorthand](https://github.com/rsdoiel/shorthand) - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
-+ [reldate](https://github.com/rsdoiel/reldate) - a utility to generate relative dates in the YYYY-MM-DD format expected by Simple Timesheet Notation. It easy to process and generate reports with Bash and common Unix utilities (e.g. *date*, *sed*, *tr*)
-+ [timefmt](https://github.com/rsdoiel/timefmt) - Golang style date/time formatting
++ [datatools](https://github.com/caltechlibrary/datatools) - utilities for working in Bash including reldate and timefmt.
 
 For details of Simple Timesheet Notation markup see [stn.md](stn.html).
 

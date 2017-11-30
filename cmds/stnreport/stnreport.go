@@ -44,13 +44,14 @@ This renders columns zero (first column) and one.
 `
 
 	// Standard Options
-	showHelp     bool
-	showExamples bool
-	showLicense  bool
-	showVersion  bool
-	inputFName   string
-	outputFName  string
-	quiet        bool
+	showHelp             bool
+	showExamples         bool
+	showLicense          bool
+	showVersion          bool
+	inputFName           string
+	outputFName          string
+	quiet                bool
+	generateMarkdownDocs bool
 
 	// App Options
 	columns string
@@ -74,6 +75,7 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
+	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
 
 	// App Options
 	app.StringVar(&columns, "c,columns", "0", "a comma delimited List of zero indexed columns to report")
@@ -94,6 +96,10 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
+	if generateMarkdownDocs {
+		app.GenerateMarkdownDocs(app.Out)
+		os.Exit(0)
+	}
 	if showHelp || showExamples {
 		if len(args) > 0 {
 			fmt.Fprintln(app.Out, app.Help(args...))
