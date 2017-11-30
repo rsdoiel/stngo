@@ -10,10 +10,8 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
-	"path"
 	"time"
 
 	// My packages
@@ -24,8 +22,6 @@ import (
 )
 
 var (
-	usage = `USAGE: %s [OPTIONS] [TIME_DESCRIPTION]`
-
 	description = `
 
 SYNOPSIS
@@ -62,87 +58,83 @@ This will parse TimeSheet.txt file into a stream of JSON blobs.
 	asJSON bool
 )
 
-func init() {
+func main() {
+	// Configuration and command line interation
+	app := cli.NewCli(stn.Version)
+	appName := app.AppName()
+
+	// Document expected parameters (non-option args)
+	app.AddParams("[TIME_DESCRIPTION]")
+
+	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
+	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName)))
+
 	// Standard Options
-	flag.BoolVar(&showHelp, "h", false, "display help")
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showLicense, "l", false, "display license")
-	flag.BoolVar(&showLicense, "license", false, "display license")
-	flag.BoolVar(&showVersion, "v", false, "display version")
-	flag.BoolVar(&showVersion, "version", false, "display version")
-	flag.BoolVar(&showExamples, "example", false, "display example(s)")
-	flag.StringVar(&inputFName, "i", "", "input filename")
-	flag.StringVar(&inputFName, "input", "", "input filename")
-	flag.StringVar(&outputFName, "o", "", "output filename")
-	flag.StringVar(&outputFName, "output", "", "output filename")
+	app.BoolVar(&showHelp, "h,help", false, "display help")
+	app.BoolVar(&showLicense, "l,license", false, "display license")
+	app.BoolVar(&showVersion, "v,version", false, "display version")
+	app.BoolVar(&showExamples, "examples", false, "display example(s)")
+	app.StringVar(&inputFName, "i,input", "", "input filename")
+	app.StringVar(&outputFName, "o,output", "", "output filename")
 
 	// App Options
-	flag.BoolVar(&asJSON, "j", false, "output JSON format")
-	flag.BoolVar(&asJSON, "json", false, "output JSON format")
-}
+	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
 
-func main() {
-	appName := path.Base(os.Args[0])
-	flag.Parse()
-	args := flag.Args()
+	app.Parse()
+	args := app.Args()
 
-	// Configuration and command line interation
-	cfg := cli.New(appName, "STN", stn.Version)
-	cfg.LicenseText = fmt.Sprintf(stn.LicenseText, appName, stn.Version)
-	cfg.UsageText = fmt.Sprintf(usage, appName)
-	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.OptionText = "OPTIONS\n\n"
-	cfg.ExampleText = fmt.Sprintf(examples, appName, appName)
+	var err error
+	app.In, err = cli.Open(inputFName, os.Stdin)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(inputFName, app.In)
+
+	app.Out, err = cli.Create(outputFName, os.Stdout)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(outputFName, app.Out)
+	app.Err = os.Stderr
 
 	if showHelp == true {
 		if len(args) > 0 {
-			fmt.Println(cfg.Help(args...))
+			fmt.Println(app.Help(args...))
 		} else {
-			fmt.Println(cfg.Usage())
+			app.Usage(app.Out)
 		}
 		os.Exit(0)
 	}
 
 	if showExamples == true {
 		if len(args) > 0 {
-			fmt.Println(cfg.Example(args...))
+			fmt.Println(app.Help(args...))
 		} else {
-			fmt.Println(cfg.ExampleText)
+			fmt.Println(app.Help("examples"))
 		}
 		os.Exit(0)
 	}
 
 	if showLicense == true {
-		fmt.Println(cfg.License())
+		fmt.Println(app.License())
 		os.Exit(0)
 	}
 	if showVersion == true {
-		fmt.Println(cfg.Version())
+		fmt.Println(app.Version())
 		os.Exit(0)
 	}
 
-	in, err := cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(inputFName, in)
-
-	out, err := cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(outputFName, out)
-
 	activeDate := time.Now().Format("2006-07-15")
 
-	reader := bufio.NewReader(in)
+	reader := bufio.NewReader(app.In)
 
 	entryCnt := 0
 	lineNo := 1
 	if asJSON == true {
-		fmt.Fprint(out, "[")
+		fmt.Fprint(app.Out, "[")
 	}
 	for {
 		line, err := reader.ReadString('\n')
@@ -154,21 +146,21 @@ func main() {
 		} else if stn.IsEntry(line) {
 			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
-				fmt.Fprintf(os.Stderr, "line %d: %v\n", lineNo, perr)
+				fmt.Fprintf(app.Err, "line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
 				if entryCnt > 0 {
-					fmt.Fprint(out, ",")
+					fmt.Fprint(app.Out, ",")
 				}
-				fmt.Fprint(out, entry.JSON())
+				fmt.Fprint(app.Out, entry.JSON())
 				entryCnt++
 			} else {
-				fmt.Fprintln(out, entry.String())
+				fmt.Fprintln(app.Out, entry.String())
 			}
 		}
 		lineNo++
 	}
 	if asJSON == true {
-		fmt.Fprint(out, "]")
+		fmt.Fprint(app.Out, "]")
 	}
 }

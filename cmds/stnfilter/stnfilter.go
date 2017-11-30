@@ -10,10 +10,8 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
-	"path"
 	"time"
 
 	// My packages
@@ -24,8 +22,6 @@ import (
 )
 
 var (
-	usage = `USAGE: %s [OPTIONS]`
-
 	description = `
 
 SYNOPSIS
@@ -72,77 +68,72 @@ Matching a project name "Fred" for the same week would look like
 	asJSON bool
 )
 
-func init() {
+func main() {
+	// Configuration and command line interation
+	app := cli.NewCli(stn.Version)
+	appName := app.AppName()
+
+	// Add some Help docs
+	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
+	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName, appName, appName)))
+
 	// Standard Options
-	flag.BoolVar(&showHelp, "h", false, "display help")
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showLicense, "l", false, "display license")
-	flag.BoolVar(&showLicense, "license", false, "display license")
-	flag.BoolVar(&showVersion, "v", false, "display version")
-	flag.BoolVar(&showVersion, "version", false, "display version")
-	flag.BoolVar(&showExamples, "example", false, "display examples(s)")
+	app.BoolVar(&showHelp, "h,help", false, "display help")
+	app.BoolVar(&showLicense, "l,license", false, "display license")
+	app.BoolVar(&showVersion, "v,version", false, "display version")
+	app.BoolVar(&showExamples, "examples", false, "display examples(s)")
 
 	// App Options
-	flag.StringVar(&match, "m", "", "match text annotations")
-	flag.StringVar(&match, "match", "", "Match text annotations")
-	flag.StringVar(&start, "s", "", "start of inclusive date range")
-	flag.StringVar(&start, "start", "", "start of inclusive date range")
-	flag.StringVar(&end, "e", "", "end of inclusive date range")
-	flag.StringVar(&end, "end", "", "end of inclusive date range")
-	flag.BoolVar(&asJSON, "j", false, "output JSON format")
-	flag.BoolVar(&asJSON, "json", false, "output JSON format")
-}
-func main() {
-	appName := path.Base(os.Args[0])
-	flag.Parse()
-	args := flag.Args()
+	app.StringVar(&match, "m,match", "", "Match text annotations")
+	app.StringVar(&start, "s,start", "", "start of inclusive date range")
+	app.StringVar(&end, "e,end", "", "end of inclusive date range")
+	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
 
-	// Configuration and command line interation
-	cfg := cli.New(appName, "STN", stn.Version)
-	cfg.LicenseText = fmt.Sprintf(stn.LicenseText, appName, stn.Version)
-	cfg.UsageText = fmt.Sprintf(usage, appName)
-	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.OptionText = "OPTIONS\n\n"
-	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+	// Run the command line interface
+	app.Parse()
+	args := app.Args()
+
+	var err error
+	app.In, err = cli.Open(inputFName, os.Stdin)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(inputFName, app.In)
+
+	app.Out, err = cli.Create(outputFName, os.Stdout)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer cli.CloseFile(outputFName, app.Out)
+	app.Err = os.Stderr
 
 	if showHelp == true {
 		if len(args) > 0 {
-			fmt.Println(cfg.Help(args...))
+			fmt.Fprintln(app.Out, app.Help(args...))
 		} else {
-			fmt.Println(cfg.Usage())
+			app.Usage(app.Out)
 		}
 		os.Exit(0)
 	}
 	if showExamples == true {
 		if len(args) > 0 {
-			fmt.Println(cfg.Example(args...))
+			fmt.Fprintln(app.Out, app.Help(args...))
 		} else {
-			fmt.Println(cfg.ExampleText)
+			fmt.Fprintln(app.Out, app.Help("examples"))
 		}
 		os.Exit(0)
 	}
 	if showLicense == true {
-		fmt.Println(cfg.License())
+		fmt.Fprintln(app.Out, app.License())
 		os.Exit(0)
 	}
 	if showVersion == true {
-		fmt.Println(cfg.Version())
+		fmt.Fprintln(app.Out, app.Version())
 		os.Exit(0)
 	}
-
-	in, err := cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(inputFName, in)
-
-	out, err := cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(outputFName, out)
 
 	var (
 		showLine   = true
@@ -154,7 +145,7 @@ func main() {
 	if start != "" {
 		startTime, err = time.Parse("2006-01-02 15:04:05", start+" 00:00:00")
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Start date error: %s\n", err)
+			fmt.Fprintf(app.Err, "Start date error: %s\n", err)
 			os.Exit(1)
 		}
 		if end == "" {
@@ -162,13 +153,13 @@ func main() {
 		} else {
 			endTime, err = time.Parse("2006-01-02 15:04:05", end+" 23:59:59")
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "End date error: %s\n", err)
+				fmt.Fprintf(app.Err, "End date error: %s\n", err)
 				os.Exit(1)
 			}
 		}
 	}
 
-	reader := bufio.NewReader(in)
+	reader := bufio.NewReader(app.In)
 
 	entry := new(stn.Entry)
 	lineNo := 0
@@ -180,7 +171,7 @@ func main() {
 		}
 		lineNo++
 		if entry.FromString(line) != true {
-			fmt.Fprintf(os.Stderr, "line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(app.Err, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		}
 		if start != "" {
@@ -190,7 +181,7 @@ func main() {
 			showLine = entry.IsMatch(match)
 		}
 		if showLine == true {
-			fmt.Fprintf(out, "%s", line)
+			fmt.Fprintf(app.Out, "%s", line)
 		}
 	}
 }
