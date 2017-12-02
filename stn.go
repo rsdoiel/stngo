@@ -20,7 +20,7 @@ import (
 
 // Version of stn.go package.
 const (
-	Version = "v0.0.5"
+	Version = "v0.0.6"
 
 	LicenseText = `
 %s %s

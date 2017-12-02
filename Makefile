@@ -38,9 +38,8 @@ test:
 	cd report && go test
 
 clean: 
-	if [ -d bin ]; then /bin/rm -fR bin; fi
-	if [ -d dist ]; then /bin/rm -fR dist; fi
-	if [ -f $(PROJECT)-$(VERSION)-release.zip ]; then /bin/rm $(PROJECT)-$(VERSION)-release.zip; fi
+	if [ -d bin ]; then rm -fR bin; fi
+	if [ -d dist ]; then rm -fR dist; fi
 
 install:
 	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
@@ -64,38 +63,55 @@ save:
 	git push origin $(BRANCH)
 
 dist/linux-amd64:
-	env GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/stnreport cmds/stnreport/stnreport.go
+	mkdir -p dist/bin
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-linux-amd64.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
 
 dist/windows-amd64:
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnparse.exe cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnfilter.exe cmds/stnfilter/stnfilter.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/windows/stnreport.exe cmds/stnreport/stnreport.go
+	mkdir -p dist/bin
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnparse.exe cmds/stnparse/stnparse.go
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnfilter.exe cmds/stnfilter/stnfilter.go
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnreport.exe cmds/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-windows-amd64.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
 
 dist/macosx-amd64:
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnparse cmds/stnparse/stnparse.go
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/maxosx/stnreport cmds/stnreport/stnreport.go
+	mkdir -p dist/bin
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-macosx-amd64.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
 
 dist/raspbian-arm7:
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspbian-arm7/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspbian-arm7/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/raspbian-arm7/stnreport cmds/stnreport/stnreport.go
+	mkdir -p dist/bin
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-raspbian-arm7.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
 
-dist/raspbian-arm6:
-	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspbian-arm6/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspbian-arm6/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=arm GOARM=6 go build -o dist/raspbian-arm6/stnreport cmds/stnreport/stnreport.go
+dist/linux-arm64:
+	mkdir -p dist/bin
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-linux-arm64.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
 
-release: dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm7 dist/raspbian-arm6
+distribute_docs:
+	mkdir -p dist
 	cp -v README.md dist/
 	cp -v LICENSE dist/
 	cp -v INSTALL.md dist/
 	cp -v stnparse.md dist/
 	cp -v stnfilter.md dist/
 	cp -v stnreport.md dist/
-	zip -r $(PROJECT)-$(VERSION)-release.zip dist/*
+
+release: distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm7 dist/linux-arm64
 
 publish:
 	./mk-website.bash

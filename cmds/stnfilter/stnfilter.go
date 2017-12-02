@@ -10,27 +10,28 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
-	"path"
 	"time"
 
 	// My packages
-	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
+
+	// Caltech Library packages
+	"github.com/caltechlibrary/cli"
 )
 
 var (
-	usage = `USAGE: %s [OPTIONS]`
-
 	description = `
+
 SYNOPSIS
 
 %s will filter the output from stnparse based on date or matching text.
+
 `
 
 	examples = `
+
 EXAMPLES
 
 Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
@@ -49,14 +50,18 @@ Typical usage would be in a pipeline with Unix cat and stnparse
 Matching a project name "Fred" for the same week would look like
 
     cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
+
 `
 
 	// Standard Options
-	showHelp    bool
-	showLicense bool
-	showVersion bool
-	inputFName  string
-	outputFName string
+	showHelp             bool
+	showLicense          bool
+	showVersion          bool
+	showExamples         bool
+	inputFName           string
+	outputFName          string
+	quiet                bool
+	generateMarkdownDocs bool
 
 	// App Options
 	start  string
@@ -65,62 +70,76 @@ Matching a project name "Fred" for the same week would look like
 	asJSON bool
 )
 
-func init() {
+func main() {
+	// Configuration and command line interation
+	app := cli.NewCli(stn.Version)
+	appName := app.AppName()
+
+	// Add some Help docs
+	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
+	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName, appName, appName)))
+
 	// Standard Options
-	flag.BoolVar(&showHelp, "h", false, "display help")
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showLicense, "l", false, "display license")
-	flag.BoolVar(&showLicense, "license", false, "display license")
-	flag.BoolVar(&showVersion, "v", false, "display version")
-	flag.BoolVar(&showVersion, "version", false, "display version")
+	app.BoolVar(&showHelp, "h,help", false, "display help")
+	app.BoolVar(&showLicense, "l,license", false, "display license")
+	app.BoolVar(&showVersion, "v,version", false, "display version")
+	app.BoolVar(&showExamples, "examples", false, "display examples(s)")
+	app.StringVar(&inputFName, "i,input", "", "input file name")
+	app.StringVar(&outputFName, "o,output", "", "output file name")
+	app.BoolVar(&quiet, "quiet", false, "suppress error message")
+	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
 
 	// App Options
-	flag.StringVar(&match, "m", "", "match text annotations")
-	flag.StringVar(&match, "match", "", "Match text annotations")
-	flag.StringVar(&start, "s", "", "start of inclusive date range")
-	flag.StringVar(&start, "start", "", "start of inclusive date range")
-	flag.StringVar(&end, "e", "", "end of inclusive date range")
-	flag.StringVar(&end, "end", "", "end of inclusive date range")
-	flag.BoolVar(&asJSON, "j", false, "output JSON format")
-	flag.BoolVar(&asJSON, "json", false, "output JSON format")
-}
-func main() {
-	appName := path.Base(os.Args[0])
-	flag.Parse()
+	app.StringVar(&match, "m,match", "", "Match text annotations")
+	app.StringVar(&start, "s,start", "", "start of inclusive date range")
+	app.StringVar(&end, "e,end", "", "end of inclusive date range")
+	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
 
-	// Configuration and command line interation
-	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
-	cfg.UsageText = fmt.Sprintf(usage, appName)
-	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.ExampleText = fmt.Sprintf(examples, appName, appName, appName, appName)
+	// Run the command line interface
+	app.Parse()
+	args := app.Args()
 
-	if showHelp == true {
-		fmt.Println(cfg.Usage())
+	// Setup IO
+	var err error
+
+	app.Eout = os.Stderr
+
+	app.In, err = cli.Open(inputFName, os.Stdin)
+	cli.ExitOnError(app.Eout, err, quiet)
+	defer cli.CloseFile(inputFName, app.In)
+
+	app.Out, err = cli.Create(outputFName, os.Stdout)
+	cli.ExitOnError(app.Eout, err, quiet)
+	defer cli.CloseFile(outputFName, app.Out)
+
+	// Handle Options
+	if generateMarkdownDocs {
+		app.GenerateMarkdownDocs(app.Out)
 		os.Exit(0)
 	}
-	if showLicense == true {
-		fmt.Println(cfg.License())
+	if showHelp || showExamples {
+		if len(args) > 0 {
+			fmt.Fprintln(app.Out, app.Help(args...))
+		} else if showExamples {
+			fmt.Fprintln(app.Out, app.Help("examples"))
+		} else {
+			app.Usage(app.Out)
+		}
 		os.Exit(0)
 	}
-	if showVersion == true {
-		fmt.Println(cfg.Version())
+
+	if showLicense {
+		fmt.Fprintln(app.Out, app.License())
 		os.Exit(0)
 	}
 
-	in, err := cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
+	if showVersion {
+		fmt.Fprintln(app.Out, app.Version())
+		os.Exit(0)
 	}
-	defer cli.CloseFile(inputFName, in)
 
-	out, err := cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(outputFName, out)
-
+	// On to running the app
 	var (
 		showLine   = true
 		startTime  time.Time
@@ -131,7 +150,7 @@ func main() {
 	if start != "" {
 		startTime, err = time.Parse("2006-01-02 15:04:05", start+" 00:00:00")
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Start date error: %s\n", err)
+			fmt.Fprintf(app.Eout, "Start date error: %s\n", err)
 			os.Exit(1)
 		}
 		if end == "" {
@@ -139,13 +158,13 @@ func main() {
 		} else {
 			endTime, err = time.Parse("2006-01-02 15:04:05", end+" 23:59:59")
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "End date error: %s\n", err)
+				fmt.Fprintf(app.Eout, "End date error: %s\n", err)
 				os.Exit(1)
 			}
 		}
 	}
 
-	reader := bufio.NewReader(in)
+	reader := bufio.NewReader(app.In)
 
 	entry := new(stn.Entry)
 	lineNo := 0
@@ -157,7 +176,7 @@ func main() {
 		}
 		lineNo++
 		if entry.FromString(line) != true {
-			fmt.Fprintf(os.Stderr, "line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(app.Eout, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		}
 		if start != "" {
@@ -167,7 +186,7 @@ func main() {
 			showLine = entry.IsMatch(match)
 		}
 		if showLine == true {
-			fmt.Fprintf(out, "%s", line)
+			fmt.Fprintf(app.Out, "%s", line)
 		}
 	}
 }

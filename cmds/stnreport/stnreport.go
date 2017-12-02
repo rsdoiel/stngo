@@ -11,27 +11,27 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
-	"path"
 	"strconv"
 	"strings"
 
 	// My packages
-	"github.com/rsdoiel/cli"
 	"github.com/rsdoiel/stngo"
 	"github.com/rsdoiel/stngo/report"
+
+	// Caltech Library packages
+	"github.com/caltechlibrary/cli"
 )
 
 var (
-	usage = `USAGE: %s [OPTIONS]`
-
 	description = `
+
 SYNOPSIS
 
 %s takes output from stnparse or stnfilter and renders a
 report.
+
 `
 
 	examples = `
@@ -40,75 +40,87 @@ EXAMPLE
     stnparse -i TimeSheet.txt | %s -columns 0,1
 
 This renders columns zero (first column) and one.
+
 `
 
 	// Standard Options
-	showHelp    bool
-	showLicense bool
-	showVersion bool
-	inputFName  string
-	outputFName string
+	showHelp             bool
+	showExamples         bool
+	showLicense          bool
+	showVersion          bool
+	inputFName           string
+	outputFName          string
+	quiet                bool
+	generateMarkdownDocs bool
 
 	// App Options
 	columns string
 )
 
-func init() {
+func main() {
+	// Configure command line interface
+	app := cli.NewCli(stn.Version)
+	appName := app.AppName()
+
+	// Add Help Docs
+	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
+	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName)))
+
 	// Standard Options
-	flag.BoolVar(&showHelp, "h", false, "display help")
-	flag.BoolVar(&showHelp, "help", false, "display help")
-	flag.BoolVar(&showLicense, "l", false, "display license")
-	flag.BoolVar(&showLicense, "license", false, "display license")
-	flag.BoolVar(&showVersion, "v", false, "display version")
-	flag.BoolVar(&showVersion, "version", false, "display version")
-	flag.StringVar(&inputFName, "i", "", "input filename")
-	flag.StringVar(&inputFName, "input", "", "input filename")
-	flag.StringVar(&outputFName, "o", "", "output filename")
-	flag.StringVar(&outputFName, "output", "", "output filename")
+	app.BoolVar(&showHelp, "h,help", false, "display help")
+	app.BoolVar(&showLicense, "l,license", false, "display license")
+	app.BoolVar(&showVersion, "v,version", false, "display version")
+	app.BoolVar(&showExamples, "examples", false, "display example(s)")
+	app.StringVar(&inputFName, "i,input", "", "input filename")
+	app.StringVar(&outputFName, "o,output", "", "output filename")
+	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
+	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
 
 	// App Options
-	flag.StringVar(&columns, "c", "0", "a comma delimited List of zero indexed columns to report")
-	flag.StringVar(&columns, "columns", "0", "a comma delimited List of zero indexed columns to report")
-}
+	app.StringVar(&columns, "c,columns", "0", "a comma delimited List of zero indexed columns to report")
 
-func main() {
-	appName := path.Base(os.Args[0])
-	flag.Parse()
+	app.Parse()
+	args := app.Args()
 
-	// Configuration and command line interation
-	cfg := cli.New(appName, "STN", fmt.Sprintf(stn.LicenseText, appName, stn.Version), stn.Version)
-	cfg.UsageText = fmt.Sprintf(usage, appName)
-	cfg.DescriptionText = fmt.Sprintf(description, appName)
-	cfg.ExampleText = fmt.Sprintf(examples, appName)
+	// Setup IO
+	var err error
+	app.Eout = os.Stderr
 
-	if showHelp == true {
-		fmt.Println(cfg.Usage())
+	app.In, err = cli.Open(inputFName, os.Stdin)
+	cli.ExitOnError(app.Eout, err, quiet)
+	defer cli.CloseFile(inputFName, app.In)
+
+	app.Out, err = cli.Create(outputFName, os.Stdout)
+	cli.ExitOnError(app.Eout, err, quiet)
+	defer cli.CloseFile(outputFName, app.Out)
+
+	// Handle Options
+	if generateMarkdownDocs {
+		app.GenerateMarkdownDocs(app.Out)
 		os.Exit(0)
 	}
-	if showLicense == true {
-		fmt.Println(cfg.License())
+	if showHelp || showExamples {
+		if len(args) > 0 {
+			fmt.Fprintln(app.Out, app.Help(args...))
+		} else if showExamples {
+			fmt.Fprintln(app.Out, app.Help("examples"))
+		} else {
+			app.Usage(app.Out)
+		}
 		os.Exit(0)
 	}
-	if showVersion == true {
-		fmt.Println(cfg.Version())
+
+	if showLicense {
+		fmt.Fprintln(app.Out, app.License())
+		os.Exit(0)
+	}
+	if showVersion {
+		fmt.Fprintln(app.Out, app.Version())
 		os.Exit(0)
 	}
 
-	in, err := cli.Open(inputFName, os.Stdin)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(inputFName, in)
-
-	out, err := cli.Create(outputFName, os.Stdout)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
-	}
-	defer cli.CloseFile(outputFName, out)
-
-	reader := bufio.NewReader(in)
+	reader := bufio.NewReader(app.In)
 
 	entry := new(stn.Entry)
 	aggregation := new(report.EntryAggregation)
@@ -121,7 +133,7 @@ func main() {
 		}
 		lineNo++
 		if entry.FromString(line) != true {
-			fmt.Fprintf(os.Stderr, "line no. %d: can't filter [%s]\n", lineNo, line)
+			fmt.Fprintf(app.Eout, "line no. %d: can't filter [%s]\n", lineNo, line)
 			os.Exit(1)
 		} else {
 			aggregation.Aggregate(entry)
@@ -132,10 +144,10 @@ func main() {
 	for _, val := range s {
 		i, err := strconv.Atoi(val)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Column number error: %s, %s", columns, err)
+			fmt.Fprintf(app.Eout, "Column number error: %s, %s", columns, err)
 			os.Exit(1)
 		}
 		cols = append(cols, i)
 	}
-	fmt.Fprintln(out, aggregation.Summarize(cols))
+	fmt.Fprintln(app.Out, aggregation.Summarize(cols))
 }
