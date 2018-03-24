@@ -24,9 +24,11 @@ _testmain.go
 *.prof
 
 # Project excludes
+*.h
 .DS_Store
 bin/*
 dist/*
 *.zip
 *~
 *.swp
+__pycache__

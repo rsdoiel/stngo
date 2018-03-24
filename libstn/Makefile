@@ -5,8 +5,6 @@
 
 PROJECT = stn
 
-LIB_NAME = libstn
-
 VERSION = $(shell grep -m1 'Version = ' ../$(PROJECT).go | cut -d\"  -f 2)
 
 BRANCH = $(shell git branch | grep '* ' | cut -d\  -f 2)
@@ -26,15 +24,10 @@ ifeq ($(OS), Windows)
 endif
 
 build:
-	go build -buildmode=c-shared -o $(PROJECT)/$(LIB_NAME)$(EXT) ../$(LIB_NAME)/$(LIB_NAME).go
+	go build -buildmode=c-shared -o libstn$(EXT)
 
 clean:
-	if [ -f "$(PROJECT)/$(LIB_NAME)$(EXT)" ]; then rm "$(PROJECT)/$(LIB_NAME)$(EXT)"; fi
-	if [ -f "$(PROJECT)/$(LIB_NAME).h" ]; then rm "$(PROJECT)/$(LIB_NAME).h"; fi
-	if [ -d "stn/__pycache__" ]; then rm -fR stn/__pycache__; fi
-
-
-test: clean build
-	python3 stn_test.py
+	if [ -f "libstn$(EXT)" ]; then rm libstn$(EXT); fi
+	if [ -f "libstn.h" ]; then rm libstn.h; fi
 
 

@@ -1,6 +1,6 @@
 #
 # A Simple Makefile for building stn shared library
-# for Python 3 integration.
+# for Julia integration.
 #
 
 PROJECT = stn
@@ -26,15 +26,14 @@ ifeq ($(OS), Windows)
 endif
 
 build:
-	go build -buildmode=c-shared -o $(PROJECT)/$(LIB_NAME)$(EXT) ../$(LIB_NAME)/$(LIB_NAME).go
+	go build -buildmode=c-shared -o $(LIB_NAME)$(EXT) ../$(LIB_NAME)/$(LIB_NAME).go
 
 clean:
-	if [ -f "$(PROJECT)/$(LIB_NAME)$(EXT)" ]; then rm "$(PROJECT)/$(LIB_NAME)$(EXT)"; fi
-	if [ -f "$(PROJECT)/$(LIB_NAME).h" ]; then rm "$(PROJECT)/$(LIB_NAME).h"; fi
-	if [ -d "stn/__pycache__" ]; then rm -fR stn/__pycache__; fi
+	if [ -f "$(LIB_NAME)$(EXT)" ]; then rm "$(LIB_NAME)$(EXT)"; fi
+	if [ -f "$(LIB_NAME).h" ]; then rm "$(LIB_NAME).h"; fi
 
 
 test: clean build
-	python3 stn_test.py
+	julia stn_test.jl
 
 
