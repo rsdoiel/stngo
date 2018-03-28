@@ -7,7 +7,11 @@ include("stn.jl")
 
 function test_version() 
     """Read in version information from ../codemeta.json and makesure stn.version() returns appropriate string"""
-    codemeta = JSON.parse(open(readall, "../codemeta.json"))
+    src = '{"version":""}'
+    open("../codemeta.json") do f
+        src = readstring(f)
+    end
+    codemeta = JSON.parse(src)
     expected = "v" * codemeta["version"]
     result = stn.version()
     if expected != result
