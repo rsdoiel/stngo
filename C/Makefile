@@ -19,7 +19,7 @@ ifeq ($(OS), Linux)
 	EXT =
 endif
 ifeq ($(OS), Darwin)
-	DLL = .dynlib
+	DLL = .dylib
 	EXT =
 endif
 ifeq ($(OS), Windows)
