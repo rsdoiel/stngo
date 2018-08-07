@@ -13,25 +13,25 @@ VERSION = $(shell grep -m1 'Version = ' $(PROJECT).go | cut -d\"  -f 2)
 BRANCH = $(shell git branch | grep '* ' | cut -d\  -f 2)
 
 build:
-	go build -o bin/stnparse cmds/stnparse/stnparse.go
-	go build -o bin/stnfilter cmds/stnfilter/stnfilter.go
-	go build -o bin/stnreport cmds/stnreport/stnreport.go
+	go build -o bin/stnparse cmd/stnparse/stnparse.go
+	go build -o bin/stnfilter cmd/stnfilter/stnfilter.go
+	go build -o bin/stnreport cmd/stnreport/stnreport.go
 
 lint:
 	gofmt -w stn.go && golint stn.go
 	gofmt -w stn_test.go && golint stn_test.go
 	gofmt -w report/report.go && golint report/report.go
 	gofmt -w report/report_test.go && golint report/report_test.go
-	gofmt -w cmds/stnparse/stnparse.go && golint cmds/stnparse/stnparse.go
-	gofmt -w cmds/stnfilter/stnfilter.go && golint cmds/stnfilter/stnfilter.go
-	gofmt -w cmds/stnreport/stnreport.go && golint cmds/stnreport/stnreport.go
+	gofmt -w cmd/stnparse/stnparse.go && golint cmd/stnparse/stnparse.go
+	gofmt -w cmd/stnfilter/stnfilter.go && golint cmd/stnfilter/stnfilter.go
+	gofmt -w cmd/stnreport/stnreport.go && golint cmd/stnreport/stnreport.go
 	goimports -w stn.go && golint stn.go
 	goimports -w stn_test.go && golint stn_test.go
 	goimports -w report/report.go && golint report/report.go
 	goimports -w report/report_test.go && golint report/report_test.go
-	goimports -w cmds/stnparse/stnparse.go && golint cmds/stnparse/stnparse.go
-	goimports -w cmds/stnfilter/stnfilter.go && golint cmds/stnfilter/stnfilter.go
-	goimports -w cmds/stnreport/stnreport.go && golint cmds/stnreport/stnreport.go
+	goimports -w cmd/stnparse/stnparse.go && golint cmd/stnparse/stnparse.go
+	goimports -w cmd/stnfilter/stnfilter.go && golint cmd/stnfilter/stnfilter.go
+	goimports -w cmd/stnreport/stnreport.go && golint cmd/stnreport/stnreport.go
 
 test:
 	go test
@@ -42,9 +42,9 @@ clean:
 	if [ -d dist ]; then rm -fR dist; fi
 
 install:
-	env GOBIN=$(HOME)/bin go install cmds/stnparse/stnparse.go
-	env GOBIN=$(HOME)/bin go install cmds/stnfilter/stnfilter.go
-	env GOBIN=$(HOME)/bin go install cmds/stnreport/stnreport.go
+	env GOBIN=$(HOME)/bin go install cmd/stnparse/stnparse.go
+	env GOBIN=$(HOME)/bin go install cmd/stnfilter/stnfilter.go
+	env GOBIN=$(HOME)/bin go install cmd/stnreport/stnreport.go
 
 uninstall:
 	if [ -f $(GOBIN)/stnparse ]; then /bin/rm $(GOBIN)/stnparse; fi
@@ -64,41 +64,41 @@ save:
 
 dist/linux-amd64:
 	mkdir -p dist/bin
-	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=amd64 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
 	cd dist && zip -r $(PROJECT)-$(VERSION)-linux-amd64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
 dist/windows-amd64:
 	mkdir -p dist/bin
-	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnparse.exe cmds/stnparse/stnparse.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnfilter.exe cmds/stnfilter/stnfilter.go
-	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnreport.exe cmds/stnreport/stnreport.go
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnparse.exe cmd/stnparse/stnparse.go
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnfilter.exe cmd/stnfilter/stnfilter.go
+	env GOOS=windows GOARCH=amd64 go build -o dist/bin/stnreport.exe cmd/stnreport/stnreport.go
 	cd dist && zip -r $(PROJECT)-$(VERSION)-windows-amd64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
 dist/macosx-amd64:
 	mkdir -p dist/bin
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
+	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
 	cd dist && zip -r $(PROJECT)-$(VERSION)-macosx-amd64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
 dist/raspbian-arm7:
 	mkdir -p dist/bin
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm GOARM=7 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
 	cd dist && zip -r $(PROJECT)-$(VERSION)-raspbian-arm7.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
 dist/linux-arm64:
 	mkdir -p dist/bin
-	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnparse cmds/stnparse/stnparse.go
-	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnfilter cmds/stnfilter/stnfilter.go
-	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnreport cmds/stnreport/stnreport.go
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
+	env GOOS=linux GOARCH=arm64 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
 	cd dist && zip -r $(PROJECT)-$(VERSION)-linux-arm64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
