@@ -58,15 +58,15 @@ Matching a project name "Fred" for the same week would look like
 `
 
 	// Standard Options
-	showHelp             bool
-	showLicense          bool
-	showVersion          bool
-	showExamples         bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	generateMarkdownDocs bool
-	generateManPage      bool
+	showHelp         bool
+	showLicense      bool
+	showVersion      bool
+	showExamples     bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	generateMarkdown bool
+	generateManPage  bool
 
 	// App Options
 	start  string
@@ -94,7 +94,7 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input file name")
 	app.StringVar(&outputFName, "o,output", "", "output file name")
 	app.BoolVar(&quiet, "quiet", false, "suppress error message")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
 	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 
 	// App Options
@@ -121,8 +121,8 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(app.Out)
+	if generateMarkdown {
+		app.GenerateMarkdown(app.Out)
 		os.Exit(0)
 	}
 	if generateManPage {

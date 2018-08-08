@@ -46,15 +46,15 @@ This will parse TimeSheet.txt file into a stream of JSON blobs.
 `
 
 	// Standard Options
-	showHelp             bool
-	showLicense          bool
-	showVersion          bool
-	showExamples         bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	generateMarkdownDocs bool
-	generateManPage      bool
+	showHelp         bool
+	showLicense      bool
+	showVersion      bool
+	showExamples     bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	generateMarkdown bool
+	generateManPage  bool
 
 	// App Options
 	asJSON bool
@@ -81,7 +81,7 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
 	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 
 	// App Options
@@ -104,8 +104,8 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(app.Out)
+	if generateMarkdown {
+		app.GenerateMarkdown(app.Out)
 		os.Exit(0)
 	}
 	if generateManPage {
