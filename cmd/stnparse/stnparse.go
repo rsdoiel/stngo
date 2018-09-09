@@ -66,7 +66,7 @@ func main() {
 	appName := app.AppName()
 
 	// Document expected parameters (non-option args)
-	app.AddParams("[TIME_DESCRIPTION]")
+	app.SetParams("[TIME_DESCRIPTION]")
 
 	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
 	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
