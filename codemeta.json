@@ -12,24 +12,19 @@
             "@type": "Person",
             "givenName": "Robert",
             "familyName": "Doiel",
-            "affiliation": "Caltech Library",
             "email": "rsdoiel@caltech.edu",
             "@id": "https://orcid.org/0000-0003-0900-6903"
         }
     ],
     "developmentStatus": "active",
-    "downloadUrl": "https://github.com/rsdoiel/stngo/archive/v0.0.7.zip",
     "keywords": [
         "Github",
         "text markup",
         "golang",
-        "python",
         "timesheet"
     ],
     "maintainer": "https://orcid.org/0000-0003-0900-6903",
     "programmingLanguage": [
-        "Go",
-        "Python",
-        "Julia"
+        "Go"
     ]
 }
