@@ -3,7 +3,7 @@
 //
 // stn.go - implements a version of Simple Timesheet Notation as a Go package.
 // @author R. S. Doiel, <rsdoiel@gmail.com>
-// copyright (c) 2015 all rights reserved.
+// copyright (c) 2019 all rights reserved.
 // Released under the BSD 2-Clause license
 // See: http://opensource.org/licenses/BSD-2-Clause
 //
@@ -20,12 +20,12 @@ import (
 
 // Version of stn.go package.
 const (
-	Version = "v0.0.6"
+	Version = `v0.0.7`
 
 	LicenseText = `
 %s %s
 
-Copyright (c) 2015-2016, R. S. Doiel
+Copyright (c) 2015-2019, R. S. Doiel
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
