@@ -1,0 +1,30 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "description": "A set of command line tools, Go package, Python module and Julia script for working with Standard Timesheet Notation.",
+    "name": "stngo",
+    "codeRepository": "https://github.com/rsdoiel/stngo",
+    "issueTracker": "https://github.com/rsdoiel/stngo/issues",
+    "license": "https://rsdoiel.github.io/stngo/license.html",
+    "version": "0.0.7",
+    "author": [
+        {
+            "@type": "Person",
+            "givenName": "Robert",
+            "familyName": "Doiel",
+            "email": "rsdoiel@caltech.edu",
+            "@id": "https://orcid.org/0000-0003-0900-6903"
+        }
+    ],
+    "developmentStatus": "active",
+    "keywords": [
+        "Github",
+        "text markup",
+        "golang",
+        "timesheet"
+    ],
+    "maintainer": "https://orcid.org/0000-0003-0900-6903",
+    "programmingLanguage": [
+        "Go"
+    ]
+}

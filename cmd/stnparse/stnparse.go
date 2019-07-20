@@ -22,39 +22,39 @@ import (
 )
 
 var (
+	synopsis = `
+%s is a standard timesheet notation parser.
+`
 	description = `
-
-SYNOPSIS
-
 %s parses content in "Standard Timesheet Notation". By default
 it parse them into a tabular format but can also optionally
 parse them into a stream of JSON blobs.
-
 `
 
 	examples = `
-
-EXAMPLES
-
-	%s < TimeSheet.txt
-
 This will parse the TimeSheet.txt file into a table.
 
-	%s -json < TimeSheet.txt
+` + "```" + `
+	%s < TimeSheet.txt
+` + "```" + `
 
 This will parse TimeSheet.txt file into a stream of JSON blobs.
 
+` + "```" + `
+	%s -json < TimeSheet.txt
+` + "```" + `
 `
 
 	// Standard Options
-	showHelp             bool
-	showLicense          bool
-	showVersion          bool
-	showExamples         bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	generateMarkdownDocs bool
+	showHelp         bool
+	showLicense      bool
+	showVersion      bool
+	showExamples     bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	generateMarkdown bool
+	generateManPage  bool
 
 	// App Options
 	asJSON bool
@@ -66,9 +66,10 @@ func main() {
 	appName := app.AppName()
 
 	// Document expected parameters (non-option args)
-	app.AddParams("[TIME_DESCRIPTION]")
+	app.SetParams("[TIME_DESCRIPTION]")
 
 	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
 	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
 	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName)))
 
@@ -80,7 +81,8 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
+	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 
 	// App Options
 	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
@@ -102,8 +104,12 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(app.Out)
+	if generateMarkdown {
+		app.GenerateMarkdown(app.Out)
+		os.Exit(0)
+	}
+	if generateManPage {
+		app.GenerateManPage(app.Out)
 		os.Exit(0)
 	}
 	if showHelp || showExamples {

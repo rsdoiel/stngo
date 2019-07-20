@@ -6,7 +6,7 @@
 + [Simple Timesheet Notation](../../stn.html)
 + [stnparse](../stnparse/)
 + [stnfilter](../stnfilter/)
-+ [stnreport](..//stnreport/)
++ [stnreport](../stnreport/)
 + [Notes](../../notes.html) 
 + [Github](https://github.com/rsdoiel/stngo)
 

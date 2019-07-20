@@ -2,7 +2,7 @@
 // stnfilter.go - Simple Timesheet Notation filter.
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
-// copyright (c) 2015 all rights reserved.
+// copyright (c) 2019 all rights reserved.
 // Released under the BSD 2-Clause license.
 // See: http://opensource.org/licenses/BSD-2-Clause
 //
@@ -22,46 +22,51 @@ import (
 )
 
 var (
+	synopsis = `
+%s a standard timesheet notation filter.
+`
 	description = `
-
-SYNOPSIS
-
 %s will filter the output from stnparse based on date or matching text.
-
 `
 
 	examples = `
-
-EXAMPLES
-
 Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
 and render a stream of JSON blobs.
 
+` + "```" + `
     %s -start 2015-07-04 -end 2015-07-14 -json < TimeSheet.tab
+` + "```" + `
 
 To render the same in a tab delimited output
 
+` + "```" + `
     %s -start 2015-07-04 -end 2015-07-14 < TimeSheet.tab
+` + "```" + `
 
 Typical usage would be in a pipeline with Unix cat and stnparse
 
+` + "```" + `
    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010
+` + "```" + `
 
 Matching a project name "Fred" for the same week would look like
 
+` + "```" + `
     cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
+` + "```" + `
 
 `
 
 	// Standard Options
-	showHelp             bool
-	showLicense          bool
-	showVersion          bool
-	showExamples         bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	generateMarkdownDocs bool
+	showHelp         bool
+	showLicense      bool
+	showVersion      bool
+	showExamples     bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	generateMarkdown bool
+	generateManPage  bool
 
 	// App Options
 	start  string
@@ -77,6 +82,7 @@ func main() {
 
 	// Add some Help docs
 	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
 	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
 	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName, appName, appName)))
 
@@ -88,7 +94,8 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input file name")
 	app.StringVar(&outputFName, "o,output", "", "output file name")
 	app.BoolVar(&quiet, "quiet", false, "suppress error message")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
+	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 
 	// App Options
 	app.StringVar(&match, "m,match", "", "Match text annotations")
@@ -114,8 +121,12 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(app.Out)
+	if generateMarkdown {
+		app.GenerateMarkdown(app.Out)
+		os.Exit(0)
+	}
+	if generateManPage {
+		app.GenerateManPage(app.Out)
 		os.Exit(0)
 	}
 	if showHelp || showExamples {

@@ -2,6 +2,8 @@
 *.o
 *.a
 *.so
+*.dll
+*.dylib
 
 # Folders
 _obj
@@ -24,9 +26,11 @@ _testmain.go
 *.prof
 
 # Project excludes
+*.h
 .DS_Store
 bin/*
 dist/*
 *.zip
 *~
 *.swp
+__pycache__

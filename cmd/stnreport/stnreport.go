@@ -3,7 +3,7 @@
 // stnfilter or stnparse.
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
-// copyright (c) 2015 all rights reserved.
+// copyright (c) 2019 all rights reserved.
 // Released under the BSD 2-Clause license.
 // See: http://opensource.org/licenses/BSD-2-Clause
 //
@@ -25,33 +25,33 @@ import (
 )
 
 var (
+	synopsis = `
+%s renders parsed standard timesheet notation reports
+`
+
 	description = `
-
-SYNOPSIS
-
 %s takes output from stnparse or stnfilter and renders a
 report.
-
 `
 
 	examples = `
-EXAMPLE
-
-    stnparse -i TimeSheet.txt | %s -columns 0,1
-
 This renders columns zero (first column) and one.
 
+` + "```" + `
+    stnparse -i TimeSheet.txt | %s -columns 0,1
+` + "```" + `
 `
 
 	// Standard Options
-	showHelp             bool
-	showExamples         bool
-	showLicense          bool
-	showVersion          bool
-	inputFName           string
-	outputFName          string
-	quiet                bool
-	generateMarkdownDocs bool
+	showHelp         bool
+	showExamples     bool
+	showLicense      bool
+	showVersion      bool
+	inputFName       string
+	outputFName      string
+	quiet            bool
+	generateMarkdown bool
+	generateManPage  bool
 
 	// App Options
 	columns string
@@ -64,6 +64,7 @@ func main() {
 
 	// Add Help Docs
 	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
+	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
 	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
 	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName)))
 
@@ -75,7 +76,8 @@ func main() {
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
-	app.BoolVar(&generateMarkdownDocs, "generate-markdown-docs", false, "generate markdown documentation")
+	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
+	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
 
 	// App Options
 	app.StringVar(&columns, "c,columns", "0", "a comma delimited List of zero indexed columns to report")
@@ -96,8 +98,12 @@ func main() {
 	defer cli.CloseFile(outputFName, app.Out)
 
 	// Handle Options
-	if generateMarkdownDocs {
-		app.GenerateMarkdownDocs(app.Out)
+	if generateMarkdown {
+		app.GenerateMarkdown(app.Out)
+		os.Exit(0)
+	}
+	if generateManPage {
+		app.GenerateManPage(app.Out)
 		os.Exit(0)
 	}
 	if showHelp || showExamples {
