@@ -1,23 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {{- with .front_matter.title -}} <title>{{- .title -}}</title>{{- end }}
+     <title>…</title>
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
-{{- with .front_matter -}}
 <header>
-{{ .title }}
+…
 </header>
-{{- end }}
 <section>
-{{ .content }}
+<h1 id="usage">
+USAGE
+</h1>
+<pre><code>stnreport [OPTIONS]</code></pre>
+<h2 id="synopsis">
+SYNOPSIS
+</h2>
+<p>
+SYNOPSIS
+</p>
+<p>
+stnreport takes output from stnparse or stnfilter and renders a report.
+</p>
+<h2 id="options">
+OPTIONS
+</h2>
+<pre><code>    -c, -columns              a comma delimited List of zero indexed columns to report
+    -examples                 display example(s)
+    -generate-markdown-docs   generate markdown documentation
+    -h, -help                 display help
+    -i, -input                input filename
+    -l, -license              display license
+    -o, -output               output filename
+    -quiet                    suppress error messages
+    -v, -version              display version</code></pre>
+<h2 id="examples">
+EXAMPLES
+</h2>
+<p>
+EXAMPLE
+</p>
+<pre><code>stnparse -i TimeSheet.txt | stnreport -columns 0,1</code></pre>
+<p>
+This renders columns zero (first column) and one.
+</p>
+<p>
+stnreport v0.0.6
+</p>
 </section>
 <nav>
-{{ .nav }}
+<ul>
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="../../">README</a>
+</li>
+<li>
+<a href="../../license.html">LICENSE</a>
+</li>
+<li>
+<a href="../../install.html">INSTALL</a>
+</li>
+<li>
+<a href="../../stn.html">Simple Timesheet Notation</a>
+</li>
+<li>
+<a href="../stnparse/">stnparse</a>
+</li>
+<li>
+<a href="../stnfilter/">stnfilter</a>
+</li>
+<li>
+<a href="../stnreport/">stnreport</a>
+</li>
+<li>
+<a href="../../notes.html">Notes</a>
+</li>
+<li>
+<a href="https://github.com/rsdoiel/stngo">Github</a>
+</li>
+</ul>
 </nav>
 <footer>
-copyright (c) 2015, 2016 all rights reserved.
+copyright (c) 2021 all rights reserved.
 Released under the BSD 3-Clause license
 See: http://opensource.org/licenses/BSD-3-Clause
 </footer>

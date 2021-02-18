@@ -1,23 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {{- with .front_matter.title -}} <title>{{- .title -}}</title>{{- end }}
+     <title>…</title>
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
-{{- with .front_matter -}}
 <header>
-{{ .title }}
+…
 </header>
-{{- end }}
 <section>
-{{ .content }}
+<h1 id="usage">
+USAGE
+</h1>
+<pre><code>stnreport [OPTIONS]</code></pre>
+<h2 id="synopsis">
+SYNOPSIS
+</h2>
+<p>
+stnreport takes output from stnparse or stnfilter and renders a report.
+</p>
+<pre><code>    -c        a comma delimited List of zero indexed columns to report
+    -columns  a comma delimited List of zero indexed columns to report
+    -h        display help
+    -help     display help
+    -i        input filename
+    -input    input filename
+    -l        display license
+    -license  display license
+    -o        output filename
+    -output   output filename
+    -v        display version
+    -version  display version</code></pre>
+<h2 id="example">
+EXAMPLE
+</h2>
+<pre><code>    stnparse -i TimeSheet.txt | stnreport -columns 0,1</code></pre>
+<p>
+This renders columns zero (first column) and one.
+</p>
 </section>
 <nav>
-{{ .nav }}
+<ul>
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="./">README</a>
+</li>
+<li>
+<a href="license.html">LICENSE</a>
+</li>
+<li>
+<a href="install.html">INSTALL</a>
+</li>
+<li>
+<a href="stn.html">Simple Timesheet Notation</a>
+</li>
+<li>
+<a href="docs/stnparse/">stnparse</a>
+</li>
+<li>
+<a href="docs/stnfilter/">stnfilter</a>
+</li>
+<li>
+<a href="docs/stnreport/">stnreport</a>
+</li>
+<li>
+<a href="notes.html">Notes</a>
+</li>
+<li>
+<a href="https://github.com/rsdoiel/stngo">Github</a>
+</li>
+</ul>
 </nav>
 <footer>
-copyright (c) 2015, 2016 all rights reserved.
+copyright (c) 2021 all rights reserved.
 Released under the BSD 3-Clause license
 See: http://opensource.org/licenses/BSD-3-Clause
 </footer>
