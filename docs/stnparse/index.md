@@ -46,4 +46,3 @@ This will parse TimeSheet.txt file into a stream of JSON blobs.
 
 
 
-stnparse v0.0.6

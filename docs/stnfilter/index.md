@@ -56,4 +56,3 @@ Matching a project name "Fred" for the same week would look like
 
 
 
-stnfilter v0.0.6
