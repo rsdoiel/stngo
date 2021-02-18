@@ -40,4 +40,3 @@ This renders columns zero (first column) and one.
 
 
 
-stnreport v0.0.6
