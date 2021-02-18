@@ -1,7 +1,9 @@
 
-# Simple Timesheet Notation
+Simple Timesheet Notation
+-------------------------
 
-## Misc Notes
+Misc Notes
+==========
 
 Random notes on what this Golang package should look like.
 
@@ -21,7 +23,8 @@ Older STN files used a MM/DD/YYYY format. What is the best way to handle those f
 + a dedicated conversion tool?
 + add support for multiple date formats?
 
-## Todo
+Todo
+====
 
 + Make sure local timezone is handled consistently in all tools when converting from YYYY-MM-DD to RFC3339.
     + double check reldate needs to be adjusted to local timezone.

@@ -2,7 +2,8 @@ stn - Simple Timesheet Notation
 ===============================
 
 
-# Overview
+Overview
+--------
 
 I've often found it necessary to keep track of time spent on projects or
 activities.  Every "tracking system" I've used has worked for me at some level
@@ -70,9 +71,10 @@ Integration then is just a matter of pushing the data into the appropriate datab
 or service.
 
 
-# Notation details
+Notation details
+----------------
 
-## Dates of entries
+### Dates of entries
 
 A line which contains only a numerically formatted a date (e.g. YYYY-MM-DD
 format) indicates the start of a log entries for a particular day.  It is
@@ -89,7 +91,7 @@ line as-
 Any following entries would then refer to that date until a new date was encountered.
 
 
-## Time entries
+### Time entries
 
 An entry is a line which indicates an activity to be tracked. A time entry
 consists of a time range and one or more semi-colon delimited keywords or phrases.
@@ -114,7 +116,7 @@ If could also look like this
     8:30 - 13:00; timesheet; debugging parsing code.
 ```
 
-### 12 hour versus 24 hour time notation
+#### 12 hour versus 24 hour time notation
 
 If you not using a twelve hour clock it is assume the first time before the
 dash is the start time and the second entry is the end time.  Calculating hours
@@ -125,7 +127,7 @@ have crossed the noon boundary) then you will need to normalize the values
 before subtracting the start from end time. A time range of "8:00 - 1:00"
 would normalize to "8:00 - 13:00".
 
-## Embedding extra text
+### Embedding extra text
 
 If the line is not a date or time entry it is ignored.  This allows pre-processors
 like *shorthand* to integrate easily with a simple timesheet notation file. It
@@ -133,7 +135,7 @@ also lets you add notes to self or extended descriptions without worry they
 will get pushed to whatever is down the pipeline after the stn parse is done
 its job.
 
-## Example timesheet entries for a day
+### Example timesheet entries for a day
 
 In the following example is time entries for November 19, 2011 working on
 simple timesheet parsing project.
