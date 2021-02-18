@@ -1,7 +1,9 @@
 
-# Action items
+Action items
+============
 
-## Bugs
+Bugs
+----
 
 + [ ] (parsing) When parts a time of "24:00", Go segfaults, e.g. line like '23:30 - 24:00; DLD; Misc; shutdown systems for power outage'
 

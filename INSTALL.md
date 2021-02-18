@@ -1,5 +1,6 @@
 
-# Installation
+Installation
+============
 
 *stngo* is a set of command line programs run from a shell like Bash. You can find compiled
 version in the [releases](https://github.com/rsdoiel/stngo/releases/latest) 
@@ -8,7 +9,7 @@ version in the [releases](https://github.com/rsdoiel/stngo/releases/latest)
 
 This is generalized instructions for a release. 
 
-Compiled versions are available for Mac OS X (amd64 processor, macosx-amd64), 
+Compiled versions are available for Mac OS X (amd64 and M1 processors, macos-amd64, macos-arm64), 
 Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), 
 Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)
 
@@ -24,7 +25,8 @@ For all the released version go to the project page on Github and click latest r
 | Platform    | Zip Filename                           |
 |-------------|----------------------------------------|
 | Windows     | stngo-VERSION_NUMBER-windows-amd64.zip |
-| Mac OS X    | stngo-VERSION_NUMBER-macosx-amd64.zip  |
+| Mac OS X    | stngo-VERSION_NUMBER-macos-amd64.zip  |
+| Mac OS X    | stngo-VERSION_NUMBER-macos-arm64.zip  |
 | Linux/Intel | stngo-VERSION_NUMBER-linux-amd64.zip   |
 | Raspbery Pi | stngo-VERSION_NUMBER-raspbian-arm7.zip |
 | Pine64      | stngo-VERSION_NUMBER-linux-arm64.zip   |
@@ -38,7 +40,7 @@ For all the released version go to the project page on Github and click latest r
 + Copy the contents of the folder named "bin" to a folder that is in your path 
     + (e.g. "$HOME/bin" is common).
 + Adjust your PATH if needed
-    + (e.g. `export PATH="$HOME/bin:$PATH"`)
+    + (e.g. export PATH="$HOME/bin:$PATH")
 + Test
 
 
@@ -55,7 +57,7 @@ zip file.
 
 ```shell
     cd Downloads/
-    unzip stngo-*-macosx-amd64.zip
+    unzip stngo-*-macos-amd64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -124,7 +126,8 @@ downloading the zip file.
 ```
 
 
-## Compiling from source
+Compiling from source
+---------------------
 
 _stngo_ is "go gettable".  Use the "go get" command to download the dependant packages
 as well as _stngo_'s source code.

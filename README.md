@@ -1,7 +1,8 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 
-# stngo
+stngo
+=====
 
 Golang implementation of Simple Timesheet Notation plus dome additional utilities and go packages.
 
@@ -22,7 +23,8 @@ For details on using *shorthand* with *stnparse* or generate HTML in
 reports see [shorthand](http://rsdoiel.github.io/shorthand).
 
 
-## Examples of using these utilities in a Unix pipeline
+Examples of using these utilities in a Unix pipeline
+----------------------------------------------------
 
 In this example we are filtering entries for a specific date.
 
@@ -147,7 +149,8 @@ In this example we use the *reldate* utility from this package to capture the st
 ```
 
 
-## Installation
+Installation
+------------
 
 _stngo_ and its commands can be installed with the *go get* command.
 

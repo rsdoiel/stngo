@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {{- with .front_matter.title -}} <title>{{- .title -}}</title>{{- end }}
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
+{{- with .front_matter -}}
+<header>
+{{ .title }}
+</header>
+{{- end }}
 <section>
-<p>copyright &copy; 2015 all rights reserved.
-Released under the BSD 2-Clause license
-See: <a href="http://opensource.org/licenses/BSD-2-Clause">http://opensource.org/licenses/BSD-2-Clause</a></p>
-
+{{ .content }}
 </section>
 <nav>
-<ul>
-<li><a href="/">Home</a></li>
-<li><a href="./">README</a></li>
-<li><a href="license.html">LICENSE</a></li>
-<li><a href="install.html">INSTALL</a></li>
-<li><a href="stn.html">Simple Timesheet Notation</a></li>
-<li><a href="docs/stnparse/">stnparse</a></li>
-<li><a href="docs/stnfilter/">stnfilter</a></li>
-<li><a href="docs/stnreport/">stnreport</a></li>
-<li><a href="notes.html">Notes</a></li>
-<li><a href="https://github.com/rsdoiel/stngo">Github</a></li>
-</ul>
-
+{{ .nav }}
 </nav>
 <footer>
 copyright (c) 2015, 2016 all rights reserved.
