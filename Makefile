@@ -85,12 +85,20 @@ dist/windows-amd64:
 	cd dist && zip -r $(PROJECT)-$(VERSION)-windows-amd64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
-dist/macosx-amd64:
+dist/macos-amd64:
 	mkdir -p dist/bin
 	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
 	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
 	env GOOS=darwin	GOARCH=amd64 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
-	cd dist && zip -r $(PROJECT)-$(VERSION)-macosx-amd64.zip README.md LICENSE INSTSALL.md bin/*
+	cd dist && zip -r $(PROJECT)-$(VERSION)-macos-amd64.zip README.md LICENSE INSTSALL.md bin/*
+	rm -fR dist/bin
+
+dist/macos-arm64:
+	mkdir -p dist/bin
+	env GOOS=darwin	GOARCH=arm64 go build -o dist/bin/stnparse cmd/stnparse/stnparse.go
+	env GOOS=darwin	GOARCH=arm64 go build -o dist/bin/stnfilter cmd/stnfilter/stnfilter.go
+	env GOOS=darwin	GOARCH=arm64 go build -o dist/bin/stnreport cmd/stnreport/stnreport.go
+	cd dist && zip -r $(PROJECT)-$(VERSION)-macos-arm64.zip README.md LICENSE INSTSALL.md bin/*
 	rm -fR dist/bin
 
 dist/raspbian-arm7:
@@ -118,7 +126,7 @@ distribute_docs:
 	cp -v stnfilter.md dist/
 	cp -v stnreport.md dist/
 
-release: distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macosx-amd64 dist/raspbian-arm7 dist/linux-arm64
+release: distribute_docs dist/linux-amd64 dist/windows-amd64 dist/macos-amd64 dist/macos-arm64 dist/raspbian-arm7 dist/linux-arm64
 
 publish:
 	./mk_website.py
