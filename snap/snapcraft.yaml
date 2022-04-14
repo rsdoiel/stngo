@@ -25,6 +25,7 @@ apps:
   stnreport:
     command: bin/stnreport
       - home
+
 parts:
   stngo:
     plugin: go
