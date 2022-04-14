@@ -33,4 +33,4 @@ parts:
     build-environment:
         - "CGO_ENABLED" : "0"
     source-type: git
-    source: https://github.com/caltechlibrary/mkpage
+    source: https://github.com/rsdoiel/stngo
