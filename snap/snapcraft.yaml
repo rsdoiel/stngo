@@ -20,13 +20,17 @@ apps:
     command: bin/stnparse
     plugs:
       - home
+    aliases: [stnparse]
   stnfilter:
     command: bin/stnfilter
     plugs:
       - home
+    aliases: [stnfilter]
   stnreport:
     command: bin/stnreport
+    plugs:
       - home
+    aliases: [stnreport]
 
 parts:
   stngo:
