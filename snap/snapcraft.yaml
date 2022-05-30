@@ -20,16 +20,22 @@ apps:
     command: bin/stnparse
     plugs:
       - home
+      - removable-media
+      - desktop
     aliases: [stnparse]
   stnfilter:
     command: bin/stnfilter
     plugs:
       - home
+      - removable-media
+      - desktop
     aliases: [stnfilter]
   stnreport:
     command: bin/stnreport
     plugs:
       - home
+      - removable-media
+      - desktop
     aliases: [stnreport]
 
 parts:
@@ -37,6 +43,6 @@ parts:
     plugin: go
     go-channel: stable
     build-environment:
-        - "CGO_ENABLED" : "0"
+        - "CGO_ENABLED" : "1"
     source-type: git
     source: https://github.com/rsdoiel/stngo
