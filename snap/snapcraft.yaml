@@ -13,30 +13,30 @@ description: |
   See https://rsdoiel.github.io/stngo
 
 grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
   stnparse:
     command: bin/stnparse
     plugs:
       - home
-      - removable-media
       - desktop
-    aliases: [stnparse]
+      - removable-media
+#    aliases: [stnparse]
   stnfilter:
     command: bin/stnfilter
     plugs:
       - home
-      - removable-media
       - desktop
-    aliases: [stnfilter]
+      - removable-media
+#    aliases: [stnfilter]
   stnreport:
     command: bin/stnreport
     plugs:
       - home
-      - removable-media
       - desktop
-    aliases: [stnreport]
+      - removable-media
+#    aliases: [stnreport]
 
 parts:
   stngo:
