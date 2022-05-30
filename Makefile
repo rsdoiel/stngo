@@ -12,6 +12,10 @@ VERSION = $(shell grep -m1 'Version = `' $(PROJECT).go | cut -d\`  -f 2)
 
 BRANCH = $(shell git branch | grep '* ' | cut -d\  -f 2)
 
+#PREFIX = /usr/local
+PREFIX = $(HOME)
+
+
 build:
 	go build -o bin/stnparse cmd/stnparse/stnparse.go
 	go build -o bin/stnfilter cmd/stnfilter/stnfilter.go
@@ -49,14 +53,14 @@ clean:
 	if [ -d man ]; then rm -fR man; fi
 
 install:
-	env GOBIN=$(HOME)/bin go install cmd/stnparse/stnparse.go
-	env GOBIN=$(HOME)/bin go install cmd/stnfilter/stnfilter.go
-	env GOBIN=$(HOME)/bin go install cmd/stnreport/stnreport.go
+	env GOBIN=$(PREFIX)/bin go install cmd/stnparse/stnparse.go
+	env GOBIN=$(PREFIX)/bin go install cmd/stnfilter/stnfilter.go
+	env GOBIN=$(PREFIX)/bin go install cmd/stnreport/stnreport.go
 
 uninstall:
-	if [ -f $(GOBIN)/stnparse ]; then /bin/rm $(GOBIN)/stnparse; fi
-	if [ -f $(GOBIN)/stnfilter ]; then /bin/rm $(GOBIN)/stnfilter; fi
-	if [ -f $(GOBIN)/stnreport ]; then /bin/rm $(GOBIN)/stnreport; fi
+	if [ -f $(PREFIX)/bin/stnparse ]; then /bin/rm $(PREFIX)/bin/stnparse; fi
+	if [ -f $(PREFIX)/bin/stnfilter ]; then /bin/rm $(PREFIX)/bin/stnfilter; fi
+	if [ -f $(PREFIX)/bin/stnreport ]; then /bin/rm $(PREFIX)/bin/stnreport; fi
 
 website: build
 	./bin/stnparse --version
