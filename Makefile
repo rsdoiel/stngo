@@ -36,7 +36,7 @@ endif
 
 DIST_FOLDERS = bin/*
 
-build: version.go $(PROGRAMS) CITATION.cff
+build: version.go $(PROGRAMS) CITATION.cff man
 
 version.go: .FORCE
 	@echo "package $(PROJECT)" >version.go
@@ -83,6 +83,7 @@ uninstall: .FORCE
 	-rm $(PREFIX)/man/man1/stnreport.1
 
 man: man/man1/stn.1 man/man1/stnfilter.1 man/man1/stnparse.1 man/man1/stnreport.1 .FORCE
+	git add man
 
 man/man1/stn.1: docs/stn.md
 	mkdir -p man/man1
