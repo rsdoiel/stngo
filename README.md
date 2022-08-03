@@ -10,9 +10,9 @@ Golang implementation of Simple Timesheet Notation plus dome additional utilitie
 
 Main Simple Timesheet Notation utilities:
 
-+ [stnparse](docs/stnparse/) - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.
-+ [stnfilter](docs/stnfilter/) - filters the output of *stnparse* by dates or text string
-+ [stnreport](docs/stnreport/)* - summarizes the tab delimited output of *stnfilter* or *stnparse* yielding a simple table showing hours and first annotations
++ [stnparse](stnparse.html) - translates a standard input and output turning Simple Timesheet Notation into a tab delimited table with RFC3339 dates or JSON blobs.
++ [stnfilter](stnfilter.html) - filters the output of *stnparse* by dates or text string
++ [stnreport](stnreport.html)* - summarizes the tab delimited output of *stnfilter* or *stnparse* yielding a simple table showing hours and first annotations
 
 Helpful extra utilities:
 
