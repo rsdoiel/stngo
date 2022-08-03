@@ -23,16 +23,19 @@ Commands
 </h3>
 <ul>
 <li>
-stnparse - generates a steam of syntax elements encountered and their values as JSON blobs
+stnparse - generates a steam of syntax elements encountered and their
+values as JSON blobs
 </li>
 <li>
 stnfilter - filters syntax stream by date rand returning a JSON blobs
 </li>
 <li>
-stnreport - report generator that renders the JSON blobs into a useful format (e.e.g plain text summary, comma separated value file)
+stnreport - report generator that renders the JSON blobs into a useful
+format (e.e.g plain text summary, comma separated value file)
 <ul>
 <li>
-if there are more cells of data than the report requires the right hand cells are concatenated by semi-colons
+if there are more cells of data than the report requires the right hand
+cells are concatenated by semi-colons
 </li>
 </ul>
 </li>
@@ -41,7 +44,8 @@ if there are more cells of data than the report requires the right hand cells ar
 date lines
 </h3>
 <p>
-Older STN files used a MM/DD/YYYY format. What is the best way to handle those files?
+Older STN files used a MM/DD/YYYY format. What is the best way to handle
+those files?
 </p>
 <ul>
 <li>
@@ -56,7 +60,8 @@ Todo
 </h1>
 <ul>
 <li>
-Make sure local timezone is handled consistently in all tools when converting from YYYY-MM-DD to RFC3339.
+Make sure local timezone is handled consistently in all tools when
+converting from YYYY-MM-DD to RFC3339.
 <ul>
 <li>
 double check reldate needs to be adjusted to local timezone.
@@ -64,19 +69,23 @@ double check reldate needs to be adjusted to local timezone.
 </ul>
 </li>
 <li>
-Write middle (e.g. extract middle lines of a file, all but the last N lines of a file, file starting at line N)
+Write middle (e.g. extract middle lines of a file, all but the last N
+lines of a file, file starting at line N)
 </li>
 <li>
-middle - a utility to pull out the middle of a file using line index numbers (negative numbers count form end of file)
+middle - a utility to pull out the middle of a file using line index
+numbers (negative numbers count form end of file)
 <ul>
 <li>
 support negative indexes (relative to end of file) via a masking buffer
 </li>
 <li>
-create a buffer the size of the last index to end of file, stream file through buffer
+create a buffer the size of the last index to end of file, stream file
+through buffer
 </li>
 <li>
-decide line range uses absolute line numbers or start plus next number of lines
+decide line range uses absolute line numbers or start plus next number
+of lines
 </li>
 </ul>
 </li>
@@ -119,6 +128,9 @@ Migrate out ok to its own test module
 </li>
 <li>
 <a href="https://github.com/rsdoiel/stngo">Github</a>
+</li>
+<li>
+<a href="about.html">About</a>
 </li>
 </ul>
 </nav>

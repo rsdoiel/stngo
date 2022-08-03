@@ -1,4 +1,3 @@
-//
 // Package stn is a library for processing Simple Timesheet Notation.
 //
 // stn_test.go - implements tests for stn Go package.
@@ -6,7 +5,6 @@
 // copyright (c) 2021 all rights reserved.
 // Released under the BSD 2-Clause license
 // See: http://opensource.org/licenses/BSD-2-Clause
-//
 package stn
 
 import (
@@ -185,8 +183,8 @@ func TestParseEntry(t *testing.T) {
 	// but this is not as an entry
 	text := `2015-07-04`
 	_, err := ParseEntry(activeDate, text)
-	if err != nil {
-		t.Errorf("%q produced error on ParseEntry() - %s.", text, err)
+	if err == nil {
+		t.Errorf("%q produced no error on ParseEntry().", text)
 	}
 
 	// niether date nor entry
@@ -199,8 +197,8 @@ func TestParseEntry(t *testing.T) {
 	// Also not valid IsDateLine/entry...
 	text = `07-25-2015`
 	_, err = ParseEntry(activeDate, text)
-	if err != nil {
-		t.Errorf("%q produced error on ParseEntry() - %s", text, err)
+	if err == nil {
+		t.Errorf("%q produced no error on ParseEntry()", text)
 	}
 
 	// This is an entry

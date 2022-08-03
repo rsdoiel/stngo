@@ -20,7 +20,8 @@ SYNOPSIS
 SYNOPSIS
 </p>
 <p>
-stnfilter will filter the output from stnparse based on date or matching text.
+stnfilter will filter the output from stnparse based on date or matching
+text.
 </p>
 <h2 id="options">
 OPTIONS
@@ -44,7 +45,8 @@ EXAMPLES
 EXAMPLES
 </p>
 <p>
-Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and render a stream of JSON blobs.
+Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and render
+a stream of JSON blobs.
 </p>
 <pre><code>stnfilter -start 2015-07-04 -end 2015-07-14 -json &lt; TimeSheet.tab</code></pre>
 <p>
@@ -55,7 +57,8 @@ To render the same in a tab delimited output
 Typical usage would be in a pipeline with Unix cat and stnparse
 </p>
 <p>
-cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010
+cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end
+2015-07-010
 </p>
 <p>
 Matching a project name “Fred” for the same week would look like
@@ -93,6 +96,9 @@ Matching a project name “Fred” for the same week would look like
 </li>
 <li>
 <a href="https://github.com/rsdoiel/stngo">Github</a>
+</li>
+<li>
+<a href="../../about.html">About</a>
 </li>
 </ul>
 </nav>

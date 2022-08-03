@@ -1,4 +1,3 @@
-//
 // stnreport.go - Reporting tool for Simple Timesheet Notation. Expects input from either
 // stnfilter or stnparse.
 //
@@ -6,7 +5,6 @@
 // copyright (c) 2021 all rights reserved.
 // Released under the BSD 2-Clause license.
 // See: http://opensource.org/licenses/BSD-2-Clause
-//
 package main
 
 import (
@@ -40,6 +38,14 @@ This renders columns zero (first column) and one.
 ` + "```" + `
     stnparse -i TimeSheet.txt | %s -columns 0,1
 ` + "```" + `
+
+This renders columns zero (first column) and one as a CSV file.
+
+` + "```" + `
+    stnparse -i TimeSheet.txt | %s -columns 0,1 -format csv
+` + "```" + `
+
+
 `
 
 	// Standard Options
@@ -49,6 +55,7 @@ This renders columns zero (first column) and one.
 	showVersion      bool
 	inputFName       string
 	outputFName      string
+	format           string
 	quiet            bool
 	generateMarkdown bool
 	generateManPage  bool
@@ -66,7 +73,7 @@ func main() {
 	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
 	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
 	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
-	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName)))
+	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName)))
 
 	// Standard Options
 	app.BoolVar(&showHelp, "h,help", false, "display help")
@@ -81,6 +88,7 @@ func main() {
 
 	// App Options
 	app.StringVar(&columns, "c,columns", "0", "a comma delimited List of zero indexed columns to report")
+	app.StringVar(&format, "f,format", "", "Set the format of out, text, csv or JSON")
 
 	app.Parse()
 	args := app.Args()
@@ -155,5 +163,5 @@ func main() {
 		}
 		cols = append(cols, i)
 	}
-	fmt.Fprintln(app.Out, aggregation.Summarize(cols))
+	fmt.Fprintln(app.Out, aggregation.Summarize(cols, format))
 }

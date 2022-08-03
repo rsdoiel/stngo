@@ -19,6 +19,7 @@ report.
 ```
     -c, -columns              a comma delimited List of zero indexed columns to report
     -examples                 display example(s)
+    -format                   sets output format, text, csv or JSON
     -generate-markdown-docs   generate markdown documentation
     -h, -help                 display help
     -i, -input                input filename
@@ -38,5 +39,8 @@ EXAMPLE
 
 This renders columns zero (first column) and one.
 
+    stnparse -i TimeSheet.txt | stnreport -columns 0,1 -format csv
+
+This renders columns zero (first column) and one as a CSV file.
 
 
