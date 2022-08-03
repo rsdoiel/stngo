@@ -12,8 +12,8 @@ stngo 0.0.10
 
 - Robert Doiel
 
-A set of command line tools, Go package, Python module and Julia script
-for working with Standard Timesheet Notation.
+A set of command line tools and Go package for working with Standard
+Timesheet Notation.
 
 
 - License: https://rsdoiel.github.io/stngo/license.html

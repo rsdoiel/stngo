@@ -5,13 +5,12 @@ authors:
   - family-names: Doiel
     given-names: Robert
     orcid: https://orcid.org/0000-0003-0900-6903
-abstract: A set of command line tools, Go package, Python module and Julia script for working with Standard Timesheet Notation.
+abstract: A set of command line tools and Go package for working with Standard Timesheet Notation.
 repository-code: "https://github.com/rsdoiel/stngo"
 type: software
 version: 0.0.10
 license-url: "https://rsdoiel.github.io/stngo/license.html"
 keywords:
-  - Github
   - text markup
   - golang
   - timesheet
