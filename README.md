@@ -16,8 +16,8 @@ Main Simple Timesheet Notation utilities:
 
 Helpful extra utilities:
 
-+ [shorthand](https://github.com/rsdoiel/shorthand) - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output.
-+ [datatools](https://github.com/caltechlibrary/datatools) - utilities for working in Bash including reldate and timefmt.
++ [shorthand](https://rsdoiel.github.io/shorthand) - a simple label expander for text strings, file inclusion and simple Bash statements. Works with standard input and output (see [GitHub](https://github.com/rsdoiel/shorthand))
++ [datatools](https://caltechlibrary.github.io/datatools) - utilities for working in Bash including reldate and timefmt (see [GitHub](https://github.com/caltechlibrary/datatools))
 
 For details of Simple Timesheet Notation markup see [stn.md](stn.html).
 
