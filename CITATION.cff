@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: stngo
+authors:
+  - family-names: Doiel
+    given-names: Robert
+    orcid: https://orcid.org/0000-0003-0900-6903
+abstract: A set of command line tools, Go package, Python module and Julia script for working with Standard Timesheet Notation.
+repository-code: "https://github.com/rsdoiel/stngo"
+type: software
+version: 0.0.10
+license-url: "https://rsdoiel.github.io/stngo/license.html"
+keywords:
+  - Github
+  - text markup
+  - golang
+  - timesheet
+date-released: 2022-08-03

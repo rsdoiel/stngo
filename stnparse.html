@@ -1,85 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     <title>…</title>
-    <link href="/css/site.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>R. S. Doiel, Software Engineer/Analyst - stn: stnparse</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link title="markdown source for page" rel="alternative" type="application/markdown" href="docs/stnparse.md">
 </head>
 <body>
-<header>
-…
-</header>
-<section>
-<h1 id="usage">
-USAGE
-</h1>
-<pre><code>stnparse [OPTIONS] [TIME_DESCRIPTION]</code></pre>
-<h2 id="synopsis">
-SYNOPSIS
-</h2>
-<p>
-stnparse parses content in “Standard Timesheet Notation”. By default it parse them into a tabular format but can also optionally parse them into a stream of JSON blobs.
-</p>
-<pre><code>    -h       display help
-    -help    display help
-    -i       input filename
-    -input   input filename
-    -json    output as JSON format
-    -l       display license
-    -license display license
-    -o       output filename
-    -output  output filename
-    -v       display version
-    -version display version</code></pre>
-<h2 id="examples">
-EXAMPLES
-</h2>
-<pre><code>    stnparse &lt; TimeSheet.txt</code></pre>
-<p>
-This will parse the TimeSheet.txt file into a table.
-</p>
-<pre><code>    stnparse -json &lt; TimeSheet.txt</code></pre>
-<p>
-This will parse TimeSheet.txt file into a stream of JSON blobs.
-</p>
-</section>
 <nav>
 <ul>
-<li>
-<a href="/">Home</a>
-</li>
-<li>
-<a href="./">README</a>
-</li>
-<li>
-<a href="license.html">LICENSE</a>
-</li>
-<li>
-<a href="install.html">INSTALL</a>
-</li>
-<li>
-<a href="stn.html">Simple Timesheet Notation</a>
-</li>
-<li>
-<a href="docs/stnparse/">stnparse</a>
-</li>
-<li>
-<a href="docs/stnfilter/">stnfilter</a>
-</li>
-<li>
-<a href="docs/stnreport/">stnreport</a>
-</li>
-<li>
-<a href="notes.html">Notes</a>
-</li>
-<li>
-<a href="https://github.com/rsdoiel/stngo">Github</a>
-</li>
+<li><a href="/">Home</a></li>
+<li><a href="index.html">README</a></li>
+<li><a href="user-manual.html">User Manual</a></li>
+<li><a href="IDEAS.html">Ideas</a></li>
+<li><a href="TODO.html">Todo</a></li>
+<li><a href="license.html">LICENSE</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="https://github.com/rsdoiel/pdtk">GitHub</a></li>
 </ul>
 </nav>
+
+<section>
+<!--  <h1>stn: stnparse</h1> -->
+
+<h1 id="name">NAME</h1>
+<p>stnparse</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p>stnparse <a href="#options">OPTIONS</a> [TIME_DESCRIPTION]</p>
+<h1 id="description">DESCRIPTION</h1>
+<p>stnparse parses content in “Standard Timesheet Notation”. By default
+it parse them into a tabular format but can also optionally parse them
+into a stream of JSON blobs.</p>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-examples</dt>
+<dd>
+display example(s)
+</dd>
+<dt>-generate-markdown-docs</dt>
+<dd>
+generate markdown documentation
+</dd>
+<dt>-h, -help</dt>
+<dd>
+display help
+</dd>
+<dt>-i, -input</dt>
+<dd>
+input filename
+</dd>
+<dt>-j, -json</dt>
+<dd>
+output JSON format
+</dd>
+<dt>-l, -license</dt>
+<dd>
+display license
+</dd>
+<dt>-o, -output</dt>
+<dd>
+output filename
+</dd>
+<dt>-quiet</dt>
+<dd>
+suppress error messages
+</dd>
+<dt>-v, -version</dt>
+<dd>
+display version
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<p>This will parse the TimeSheet.txt file into a table.</p>
+<pre class="shell"><code>    stnparse &lt; TimeSheet.txt</code></pre>
+<p>This will parse TimeSheet.txt file into a stream of JSON blobs.</p>
+<pre class="shell"><code>    stnparse -json &lt; TimeSheet.txt</code></pre>
+<h1 id="also-see">ALSO SEE</h1>
+<ul>
+<li><a href="stn.html">simple timesheet notation</a></li>
+<li><a href="stnfilter.html">stnfilter</a></li>
+<li><a href="stnreport.html">stnreport</a></li>
+<li>Website: <a
+href="https://rsdoiel.github.io/stngo">https://rsdoiel.github.io/stngo</a></li>
+</ul>
+</section>
+
 <footer>
-copyright (c) 2021 all rights reserved.
-Released under the BSD 3-Clause license
-See: http://opensource.org/licenses/BSD-3-Clause
 </footer>
+
 </body>
 </html>

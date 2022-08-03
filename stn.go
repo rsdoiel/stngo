@@ -1,4 +1,3 @@
-//
 // Package stn is a library for processing Simple Timesheet Notation.
 //
 // stn.go - implements a version of Simple Timesheet Notation as a Go package.
@@ -6,7 +5,6 @@
 // copyright (c) 2021 all rights reserved.
 // Released under the BSD 2-Clause license
 // See: http://opensource.org/licenses/BSD-2-Clause
-//
 package stn
 
 import (
@@ -20,8 +18,6 @@ import (
 
 // Version of stn.go package.
 const (
-	Version = `v0.0.8`
-
 	LicenseText = `
 %s %s
 

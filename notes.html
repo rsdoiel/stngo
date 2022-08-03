@@ -1,131 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     <title>…</title>
-    <link href="/css/site.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="EN">
+  <title>R. S. Doiel, Software Engineer/Analyst - notes</title>
+
+  <link rel="stylesheet" type="text/css"  href="/printfonts/print.css" media="print" />
+  <link rel="stylesheet" type="text/css"  href="/webfonts/fonts.css" media="screen" />
+  <link rel="stylesheet" type="text/css"  href="/css/site.css" media="screen" />
+  <link title="RSS feed for rsdoiel's blog" rel="alternate" type="application/rss+xml" href="https://rsdoiel.github.io/rss.xml" />
+  <link title="markdown source for page" rel="alternative" type="application/markdown" href="notes.md">
 </head>
 <body>
-<header>
-…
-</header>
-<section>
-<h2 id="simple-timesheet-notation">
-Simple Timesheet Notation
-</h2>
-<h1 id="misc-notes">
-Misc Notes
-</h1>
-<p>
-Random notes on what this Golang package should look like.
-</p>
-<h3 id="commands">
-Commands
-</h3>
-<ul>
-<li>
-stnparse - generates a steam of syntax elements encountered and their values as JSON blobs
-</li>
-<li>
-stnfilter - filters syntax stream by date rand returning a JSON blobs
-</li>
-<li>
-stnreport - report generator that renders the JSON blobs into a useful format (e.e.g plain text summary, comma separated value file)
-<ul>
-<li>
-if there are more cells of data than the report requires the right hand cells are concatenated by semi-colons
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="date-lines">
-date lines
-</h3>
-<p>
-Older STN files used a MM/DD/YYYY format. What is the best way to handle those files?
-</p>
-<ul>
-<li>
-a dedicated conversion tool?
-</li>
-<li>
-add support for multiple date formats?
-</li>
-</ul>
-<h1 id="todo">
-Todo
-</h1>
-<ul>
-<li>
-Make sure local timezone is handled consistently in all tools when converting from YYYY-MM-DD to RFC3339.
-<ul>
-<li>
-double check reldate needs to be adjusted to local timezone.
-</li>
-</ul>
-</li>
-<li>
-Write middle (e.g. extract middle lines of a file, all but the last N lines of a file, file starting at line N)
-</li>
-<li>
-middle - a utility to pull out the middle of a file using line index numbers (negative numbers count form end of file)
-<ul>
-<li>
-support negative indexes (relative to end of file) via a masking buffer
-</li>
-<li>
-create a buffer the size of the last index to end of file, stream file through buffer
-</li>
-<li>
-decide line range uses absolute line numbers or start plus next number of lines
-</li>
-</ul>
-</li>
-<li>
-Integrate reldate pkg into stnfilter
-</li>
-<li>
-Migrate out ok to its own test module
-</li>
-</ul>
-</section>
 <nav>
 <ul>
-<li>
-<a href="/">Home</a>
-</li>
-<li>
-<a href="./">README</a>
-</li>
-<li>
-<a href="license.html">LICENSE</a>
-</li>
-<li>
-<a href="install.html">INSTALL</a>
-</li>
-<li>
-<a href="stn.html">Simple Timesheet Notation</a>
-</li>
-<li>
-<a href="docs/stnparse/">stnparse</a>
-</li>
-<li>
-<a href="docs/stnfilter/">stnfilter</a>
-</li>
-<li>
-<a href="docs/stnreport/">stnreport</a>
-</li>
-<li>
-<a href="notes.html">Notes</a>
-</li>
-<li>
-<a href="https://github.com/rsdoiel/stngo">Github</a>
-</li>
+<li><a href="/">Home</a></li>
+<li><a href="index.html">README</a></li>
+<li><a href="user-manual.html">User Manual</a></li>
+<li><a href="IDEAS.html">Ideas</a></li>
+<li><a href="TODO.html">Todo</a></li>
+<li><a href="license.html">LICENSE</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="https://github.com/rsdoiel/pdtk">GitHub</a></li>
 </ul>
 </nav>
+
+<section>
+<!--  <h1>notes</h1> -->
+
+<h2 id="simple-timesheet-notation">Simple Timesheet Notation</h2>
+<h1 id="misc-notes">Misc Notes</h1>
+<p>Random notes on what this Golang package should look like.</p>
+<h3 id="commands">Commands</h3>
+<ul>
+<li>stnparse - generates a steam of syntax elements encountered and
+their values as JSON blobs</li>
+<li>stnfilter - filters syntax stream by date rand returning a JSON
+blobs</li>
+<li>stnreport - report generator that renders the JSON blobs into a
+useful format (e.e.g plain text summary, comma separated value file)
+<ul>
+<li>if there are more cells of data than the report requires the right
+hand cells are concatenated by semi-colons</li>
+</ul></li>
+</ul>
+<h3 id="date-lines">date lines</h3>
+<p>Older STN files used a MM/DD/YYYY format. What is the best way to
+handle those files?</p>
+<ul>
+<li>a dedicated conversion tool?</li>
+<li>add support for multiple date formats?</li>
+</ul>
+<h1 id="todo">Todo</h1>
+<ul>
+<li>Make sure local timezone is handled consistently in all tools when
+converting from YYYY-MM-DD to RFC3339.
+<ul>
+<li>double check reldate needs to be adjusted to local timezone.</li>
+</ul></li>
+<li>Write middle (e.g. extract middle lines of a file, all but the last
+N lines of a file, file starting at line N)</li>
+<li>middle - a utility to pull out the middle of a file using line index
+numbers (negative numbers count form end of file)
+<ul>
+<li>support negative indexes (relative to end of file) via a masking
+buffer</li>
+<li>create a buffer the size of the last index to end of file, stream
+file through buffer</li>
+<li>decide line range uses absolute line numbers or start plus next
+number of lines</li>
+</ul></li>
+<li>Integrate reldate pkg into stnfilter</li>
+<li>Migrate out ok to its own test module</li>
+</ul>
+</section>
+
 <footer>
-copyright (c) 2021 all rights reserved.
-Released under the BSD 3-Clause license
-See: http://opensource.org/licenses/BSD-3-Clause
 </footer>
+
 </body>
 </html>
