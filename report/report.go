@@ -51,6 +51,46 @@ func composeKey(entry *stn.Entry, indexes []int) string {
 	}
 }
 
+func composeHeaders(entry *stn.Entry, indexes []int) []string {
+	s := []string{"Duration"}
+	for _, col := range indexes {
+		switch col {
+		case 0:
+			s = append(s, "Primary")
+		case 1:
+			s = append(s, "Secondary")
+		case 2:
+			s = append(s, "Tertiary")
+		default:
+			s = append(s, fmt.Sprintf("column_%d", col))
+		}
+	}
+	return s
+}
+
+func composeColumns(entry *stn.Entry, indexes []int, format string) []string {
+	var s []string
+	// Zero column is duration
+	duration := entry.End.Sub(entry.Start)
+
+	switch strings.ToLower(format) {
+	case "csv":
+		s = append(s, fmt.Sprintf("%0.2f", duration.Hours()))
+	case "json":
+		s = append(s, fmt.Sprintf("%0.2f", duration.Hours()))
+	default:
+		s = append(s, fmt.Sprintf("%5.2f", duration.Hours()))
+	}
+	for _, col := range indexes {
+		if col < len(entry.Annotations) {
+			s = append(s, strings.TrimSpace(entry.Annotations[col]))
+		} else {
+			s = append(s, "N/A")
+		}
+	}
+	return s
+}
+
 func formatFloat(val float64, format string) string {
 	var out string
 	switch strings.ToLower(format) {
@@ -112,6 +152,42 @@ func (e *EntryAggregation) Summarize(columns []int, format string) string {
 		"Total Hours",
 	})
 	records = append(records, []string{})
+
+	// Now output an appropriate format, default is text,
+	// JSON and CSV are options.
+	switch strings.ToLower(format) {
+	case "csv":
+		buf := new(bytes.Buffer)
+		w := csv.NewWriter(buf)
+		w.WriteAll(records)
+		return buf.String()
+	case "json":
+		src, _ := json.MarshalIndent(records, "", "    ")
+		return string(src)
+	default:
+		outText := []string{}
+		for _, record := range records {
+			outText = append(outText, strings.Join(record, "\t"))
+		}
+		return strings.Join(outText, "\n")
+	}
+}
+
+// Itemize - give the output of stnparse or stnfilter aggregate
+// in detail for use in other tools. Supports plain text, JSON
+// and CSV output.
+func (e *EntryAggregation) Itemize(columns []int, format string) string {
+	cols := []string{}
+	records := [][]string{}
+	for i, item := range e.Entries {
+		if i == 0 {
+			cols = composeHeaders(&item, columns)
+		} else {
+			// Columns to include
+			cols = composeColumns(&item, columns, format)
+		}
+		records = append(records, cols)
+	}
 
 	// Now output an appropriate format, default is text,
 	// JSON and CSV are options.

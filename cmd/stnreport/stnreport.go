@@ -62,6 +62,7 @@ This renders columns zero (first column) and one as a CSV file.
 
 	// App Options
 	columns string
+	itemize bool
 )
 
 func main() {
@@ -80,6 +81,7 @@ func main() {
 	app.BoolVar(&showLicense, "l,license", false, "display license")
 	app.BoolVar(&showVersion, "v,version", false, "display version")
 	app.BoolVar(&showExamples, "examples", false, "display example(s)")
+	app.BoolVar(&itemize, "itemize", false, "report details, for JSON and CSV formats duration is in fractional hours")
 	app.StringVar(&inputFName, "i,input", "", "input filename")
 	app.StringVar(&outputFName, "o,output", "", "output filename")
 	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
@@ -163,5 +165,9 @@ func main() {
 		}
 		cols = append(cols, i)
 	}
-	fmt.Fprintln(app.Out, aggregation.Summarize(cols, format))
+	if itemize {
+		fmt.Fprintln(app.Out, aggregation.Itemize(cols, format))
+	} else {
+		fmt.Fprintln(app.Out, aggregation.Summarize(cols, format))
+	}
 }
