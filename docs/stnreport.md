@@ -1,15 +1,14 @@
-% stnreport(1) stngo user manual
+%stnreport(1) stnreport user manual
 % R. S. Doiel
-% August, 3, 2022
+% August 14, 2022
 
-
-# NAME
+# Name
 
 stnreport
 
 # SYNOPSIS
 
-stnreport [OPTIONS]
+stnreport [OPTIONS] [INPUT_FILENAME] [OUTPUT_FILENAME]
 
 # DESCRIPTION
 
@@ -18,54 +17,29 @@ report.
 
 # OPTIONS
 
--c, -columns
-: a comma delimited List of zero indexed columns to report
+-i
+: Reading input from a file rather than standard input
 
--examples
-: display example(s)
+-o
+: Write output to a file rather than standard output
 
 -format
-: sets output format, text, csv or JSON
+: Render output as a CSV file or JSON
 
--generate-markdown-docs
-: generate markdown documentation
-
--h, -help
-: display help
-
--i, -input
-: input filename
-
--l, -license
-: display license
-
--o, -output
-: output filename
-
--quiet
-: suppress error messages
-
--v, -version
-: display version
 
 # EXAMPLES
 
 This renders columns zero (first column) and one.
 
-```shell
+~~~shell
     stnparse -i TimeSheet.txt | stnreport -columns 0,1
-```
+~~~
 
 This renders columns zero (first column) and one as a CSV file.
 
-```shell
+~~~shell
     stnparse -i TimeSheet.txt | stnreport -columns 0,1 -format csv
-```
+~~~
 
-# ALSO SEE
 
-- [simple timesheet notation](stn.html)
-- [stnfilter](stnfilter.html)
-- [stnparse](stnparse.html)
-- Website: [https://rsdoiel.github.io/stngo](https://rsdoiel.github.io/stngo)
 

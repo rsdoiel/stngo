@@ -9,6 +9,7 @@ Bugs
 
 ## Someday Maybe
 
++ Output iCal/RSS feed of content for a given time range
 + Added Excel .xlsx import/export
 + Add JavaScript support
 

@@ -10,136 +10,98 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"os"
+	"path"
 	"time"
 
 	// My packages
-	"github.com/rsdoiel/stngo"
-
-	// Caltech Library packages
-	"github.com/caltechlibrary/cli"
+	stn "github.com/rsdoiel/stngo"
 )
 
 var (
-	synopsis = `
-%s is a standard timesheet notation parser.
-`
-	description = `
-%s parses content in "Standard Timesheet Notation". By default
-it parse them into a tabular format but can also optionally
-parse them into a stream of JSON blobs.
-`
-
-	examples = `
-This will parse the TimeSheet.txt file into a table.
-
-` + "```" + `
-	%s < TimeSheet.txt
-` + "```" + `
-
-This will parse TimeSheet.txt file into a stream of JSON blobs.
-
-` + "```" + `
-	%s -json < TimeSheet.txt
-` + "```" + `
-`
 
 	// Standard Options
-	showHelp         bool
-	showLicense      bool
-	showVersion      bool
-	showExamples     bool
-	inputFName       string
-	outputFName      string
-	quiet            bool
-	generateMarkdown bool
-	generateManPage  bool
+	showHelp    bool
+	showLicense bool
+	showVersion bool
+	inputFName  string
+	outputFName string
 
 	// App Options
 	asJSON bool
 )
 
 func main() {
+	appName := path.Base(os.Args[0])
+
 	// Configuration and command line interation
-	app := cli.NewCli(stn.Version)
-	appName := app.AppName()
-
-	// Document expected parameters (non-option args)
-	app.SetParams("[TIME_DESCRIPTION]")
-
-	app.AddHelp("license", []byte(fmt.Sprintf(stn.LicenseText, appName, stn.Version)))
-	app.AddHelp("synopsis", []byte(fmt.Sprintf(synopsis, appName)))
-	app.AddHelp("description", []byte(fmt.Sprintf(description, appName)))
-	app.AddHelp("examples", []byte(fmt.Sprintf(examples, appName, appName)))
 
 	// Standard Options
-	app.BoolVar(&showHelp, "h,help", false, "display help")
-	app.BoolVar(&showLicense, "l,license", false, "display license")
-	app.BoolVar(&showVersion, "v,version", false, "display version")
-	app.BoolVar(&showExamples, "examples", false, "display example(s)")
-	app.StringVar(&inputFName, "i,input", "", "input filename")
-	app.StringVar(&outputFName, "o,output", "", "output filename")
-	app.BoolVar(&quiet, "quiet", false, "suppress error messages")
-	app.BoolVar(&generateMarkdown, "generate-markdown", false, "generate markdown documentation")
-	app.BoolVar(&generateManPage, "generate-manpage", false, "generate man page")
+	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showLicense, "license", false, "display license")
+	flag.BoolVar(&showVersion, "version", false, "display version")
+	flag.StringVar(&inputFName, "i", "", "input filename")
+	flag.StringVar(&outputFName, "o", "", "output filename")
 
 	// App Options
-	app.BoolVar(&asJSON, "j,json", false, "output JSON format")
+	flag.BoolVar(&asJSON, "json", false, "output JSON format")
 
-	app.Parse()
-	args := app.Args()
+	flag.Parse()
+	args := flag.Args()
 
 	// Setup IO
 	var err error
 
-	app.Eout = os.Stderr
+	in := os.Stdin
+	out := os.Stdout
+	eout := os.Stderr
 
-	app.In, err = cli.Open(inputFName, os.Stdin)
-	cli.ExitOnError(app.Eout, err, quiet)
-	defer cli.CloseFile(inputFName, app.In)
-
-	app.Out, err = cli.Create(outputFName, os.Stdout)
-	cli.ExitOnError(app.Eout, err, quiet)
-	defer cli.CloseFile(outputFName, app.Out)
-
-	// Handle Options
-	if generateMarkdown {
-		app.GenerateMarkdown(app.Out)
+	if showHelp {
+		fmt.Fprintln(out, fmtText(helpText, appName, stn.Version))
 		os.Exit(0)
 	}
-	if generateManPage {
-		app.GenerateManPage(app.Out)
+	if showLicense {
+		fmt.Fprintln(out, fmtText(licenseText, appName, stn.Version))
 		os.Exit(0)
 	}
-	if showHelp || showExamples {
-		if len(args) > 0 {
-			fmt.Fprintln(app.Out, app.Help(args...))
-		} else if showExamples {
-			fmt.Fprintln(app.Out, app.Help("examples"))
-		} else {
-			app.Usage(app.Out)
+	if showVersion {
+		fmt.Fprintf(out, "%s %s\n", appName, stn.Version)
+		os.Exit(0)
+	}
+
+	if inputFName == "" && len(args) > 0 {
+		inputFName = args[0]
+	}
+	if outputFName == "" && len(args) > 1 {
+		outputFName = args[1]
+	}
+	if inputFName != "" && inputFName != "-" {
+		in, err = os.Open(inputFName)
+		if err != nil {
+			fmt.Fprintf(eout, "%s\n", err)
+			os.Exit(1)
 		}
-		os.Exit(0)
+		defer in.Close()
 	}
-
-	if showLicense == true {
-		fmt.Fprintln(app.Out, app.License())
-		os.Exit(0)
-	}
-	if showVersion == true {
-		fmt.Fprintln(app.Out, app.Version())
-		os.Exit(0)
+	if outputFName != "" && outputFName != "-" {
+		out, err = os.Create(outputFName)
+		if err != nil {
+			fmt.Fprintf(eout, "%s\n", err)
+			os.Exit(1)
+		}
+		defer out.Close()
 	}
 
 	activeDate := time.Now().Format("2006-07-15")
 
-	reader := bufio.NewReader(app.In)
+	reader := bufio.NewReader(in)
 
 	entryCnt := 0
 	lineNo := 1
 	if asJSON == true {
-		fmt.Fprint(app.Out, "[")
+		fmt.Fprint(out, "[")
 	}
 	for {
 		line, err := reader.ReadString('\n')
@@ -151,21 +113,21 @@ func main() {
 		} else if stn.IsEntry(line) {
 			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
-				fmt.Fprintf(app.Eout, "line %d: %v\n", lineNo, perr)
+				fmt.Fprintf(eout, "line %d: %v\n", lineNo, perr)
 			}
 			if asJSON == true {
 				if entryCnt > 0 {
-					fmt.Fprint(app.Out, ",")
+					fmt.Fprint(out, ",")
 				}
-				fmt.Fprint(app.Out, entry.JSON())
+				fmt.Fprint(out, entry.JSON())
 				entryCnt++
 			} else {
-				fmt.Fprintln(app.Out, entry.String())
+				fmt.Fprintln(out, entry.String())
 			}
 		}
 		lineNo++
 	}
 	if asJSON == true {
-		fmt.Fprint(app.Out, "]")
+		fmt.Fprint(out, "]")
 	}
 }

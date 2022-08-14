@@ -17,65 +17,31 @@
 <li><a href="/">Home</a></li>
 <li><a href="index.html">README</a></li>
 <li><a href="user-manual.html">User Manual</a></li>
-<li><a href="IDEAS.html">Ideas</a></li>
-<li><a href="TODO.html">Todo</a></li>
 <li><a href="license.html">LICENSE</a></li>
-<li><a href="about.html">About</a></li>
 <li><a href="https://github.com/rsdoiel/pdtk">GitHub</a></li>
+<li><a href="about.html">About</a></li>
 </ul>
 </nav>
 
 <section>
 <!--  <h1>stn: stnreport</h1> -->
 
-<h1 id="name">NAME</h1>
+<h1 id="name">Name</h1>
 <p>stnreport</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnreport <a href="#options">OPTIONS</a></p>
+<p>stnreport <a href="#options">OPTIONS</a> [INPUT_FILENAME] [OUTPUT_FILENAME]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnreport takes output from stnparse or stnfilter and renders a
-report.</p>
+<p>stnreport takes output from stnparse or stnfilter and renders a report.</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
-<dt>-c, -columns</dt>
-<dd>
-a comma delimited List of zero indexed columns to report
+<dt>-i</dt>
+<dd>Reading input from a file rather than standard input
 </dd>
-<dt>-examples</dt>
-<dd>
-display example(s)
+<dt>-o</dt>
+<dd>Write output to a file rather than standard output
 </dd>
 <dt>-format</dt>
-<dd>
-sets output format, text, csv or JSON
-</dd>
-<dt>-generate-markdown-docs</dt>
-<dd>
-generate markdown documentation
-</dd>
-<dt>-h, -help</dt>
-<dd>
-display help
-</dd>
-<dt>-i, -input</dt>
-<dd>
-input filename
-</dd>
-<dt>-l, -license</dt>
-<dd>
-display license
-</dd>
-<dt>-o, -output</dt>
-<dd>
-output filename
-</dd>
-<dt>-quiet</dt>
-<dd>
-suppress error messages
-</dd>
-<dt>-v, -version</dt>
-<dd>
-display version
+<dd>Render output as a CSV file or JSON
 </dd>
 </dl>
 <h1 id="examples">EXAMPLES</h1>
@@ -83,14 +49,6 @@ display version
 <pre class="shell"><code>    stnparse -i TimeSheet.txt | stnreport -columns 0,1</code></pre>
 <p>This renders columns zero (first column) and one as a CSV file.</p>
 <pre class="shell"><code>    stnparse -i TimeSheet.txt | stnreport -columns 0,1 -format csv</code></pre>
-<h1 id="also-see">ALSO SEE</h1>
-<ul>
-<li><a href="stn.html">simple timesheet notation</a></li>
-<li><a href="stnfilter.html">stnfilter</a></li>
-<li><a href="stnparse.html">stnparse</a></li>
-<li>Website: <a
-href="https://rsdoiel.github.io/stngo">https://rsdoiel.github.io/stngo</a></li>
-</ul>
 </section>
 
 <footer>

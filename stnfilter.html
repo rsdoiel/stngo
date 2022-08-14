@@ -17,11 +17,9 @@
 <li><a href="/">Home</a></li>
 <li><a href="index.html">README</a></li>
 <li><a href="user-manual.html">User Manual</a></li>
-<li><a href="IDEAS.html">Ideas</a></li>
-<li><a href="TODO.html">Todo</a></li>
 <li><a href="license.html">LICENSE</a></li>
-<li><a href="about.html">About</a></li>
 <li><a href="https://github.com/rsdoiel/pdtk">GitHub</a></li>
+<li><a href="about.html">About</a></li>
 </ul>
 </nav>
 
@@ -31,66 +29,36 @@
 <h1 id="name">NAME</h1>
 <p>stnfilter</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnfilter <a href="#options">OPTIONS</a></p>
+<p>stnfilter <a href="#options">OPTIONS</a> [INPUT_FILENAME] [OUTPUT_FILENAME]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnfilter will filter the output from stnparse based on date or
-matching text.</p>
+<p>stnfilter is a standard timesheet notation filter. stnfilter will filter the output from stnparse based on date or matching text.</p>
 <h1 id="options">OPTIONS</h1>
-<p>-e, -end: end of inclusive date range</p>
-<p>-examples: display examples(s)</p>
 <dl>
-<dt>-generate-markdown-docs</dt>
-<dd>
-generate markdown documentation
+<dt>-i</dt>
+<dd>Set input filename
 </dd>
-<dt>-h, -help</dt>
-<dd>
-display help
+<dt>-o</dt>
+<dd>Set output filename
 </dd>
-<dt>-i, -input</dt>
-<dd>
-input file name
+<dt>-start</dt>
+<dd>filter by start date
+</dd>
+<dt>-end</dt>
+<dd>filter by end date
+</dd>
+<dt>-json</dt>
+<dd>output as JSON
 </dd>
 </dl>
-<p>-j, -json: output JSON format</p>
-<p>-l, -license: display license</p>
-<p>-m, -match: Match text annotations</p>
-<dl>
-<dt>-o, -output</dt>
-<dd>
-output file name
-</dd>
-<dt>-quiet</dt>
-<dd>
-suppress error message
-</dd>
-<dt>-s, -start</dt>
-<dd>
-start of inclusive date range
-</dd>
-<dt>-v, -version</dt>
-<dd>
-display version
-</dd>
-</dl>
-<h1 id="examples">EXAMPLES</h1>
-<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and
-render a stream of JSON blobs.</p>
+<h1 id="example">EXAMPLE</h1>
+<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and render a stream of JSON blobs.</p>
 <pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 -json &lt; TimeSheet.tab</code></pre>
 <p>To render the same in a tab delimited output</p>
 <pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 &lt; TimeSheet.tab</code></pre>
 <p>Typical usage would be in a pipeline with Unix cat and stnparse</p>
 <pre class="shell"><code>   cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010</code></pre>
 <p>Matching a project name “Fred” for the same week would look like</p>
-<pre class="shell"><code>    cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010 -match Fred</code></pre>
-<h1 id="also-see">ALSO SEE</h1>
-<ul>
-<li><a href="stn.html">simple timesheet notation</a></li>
-<li><a href="stnparse.html">stnparse</a></li>
-<li><a href="stnreport.html">stnreport</a></li>
-<li>Website: <a
-href="https://rsdoiel.github.io/stngo">https://rsdoiel.github.io/stngo</a></li>
-</ul>
+<pre class="shell"><code>    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred</code></pre>
 </section>
 
 <footer>
