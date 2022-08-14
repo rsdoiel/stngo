@@ -30,6 +30,9 @@ or matching text.
 -end
 : filter by end date
 
+-match
+: Match a text against entries
+
 -json
 : output as JSON
 
@@ -39,25 +42,25 @@ Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
 and render a stream of JSON blobs.
 
 ~~~shell
-    stnfilter -start 2015-07-04 -end 2015-07-14 -json < TimeSheet.tab
+    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab
 ~~~
 
 To render the same in a tab delimited output
 
 ~~~shell
-    stnfilter -start 2015-07-04 -end 2015-07-14 < TimeSheet.tab
+    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab
 ~~~
 
-Typical usage would be in a pipeline with Unix cat and stnparse
+Typical usage would be in a pipeline with Unix stnparse
 
 ~~~shell
-   cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010
+   stnparse Time_Sheet.txt | stnfilter -start 2015-07-06 -end 2015-07-010
 ~~~
 
 Matching a project name "Fred" for the same week would look like
 
 ~~~shell
-    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
+    stnparse Time_Sheet.txt | stnfilter s -start 2015-07-06 -end 2015-07-010 -match Fred
 ~~~
 
 

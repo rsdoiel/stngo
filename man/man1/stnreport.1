@@ -27,7 +27,7 @@ This renders columns zero (first column) and one.
 .IP
 .nf
 \f[C]
-    stnparse -i TimeSheet.txt | stnreport -columns 0,1
+    stnparse TimeSheet.txt | stnreport -columns 0,1
 \f[R]
 .fi
 .PP
@@ -35,7 +35,7 @@ This renders columns zero (first column) and one as a CSV file.
 .IP
 .nf
 \f[C]
-    stnparse -i TimeSheet.txt | stnreport -columns 0,1 -format csv
+    stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv
 \f[R]
 .fi
 .SH AUTHORS
