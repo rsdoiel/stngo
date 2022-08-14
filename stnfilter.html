@@ -18,7 +18,7 @@
 <li><a href="index.html">README</a></li>
 <li><a href="user-manual.html">User Manual</a></li>
 <li><a href="license.html">LICENSE</a></li>
-<li><a href="https://github.com/rsdoiel/pdtk">GitHub</a></li>
+<li><a href="https://github.com/rsdoiel/stngo">GitHub</a></li>
 <li><a href="about.html">About</a></li>
 </ul>
 </nav>
@@ -46,19 +46,22 @@
 <dt>-end</dt>
 <dd>filter by end date
 </dd>
+<dt>-match</dt>
+<dd>Match a text against entries
+</dd>
 <dt>-json</dt>
 <dd>output as JSON
 </dd>
 </dl>
 <h1 id="example">EXAMPLE</h1>
 <p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and render a stream of JSON blobs.</p>
-<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 -json &lt; TimeSheet.tab</code></pre>
+<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab</code></pre>
 <p>To render the same in a tab delimited output</p>
-<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 &lt; TimeSheet.tab</code></pre>
-<p>Typical usage would be in a pipeline with Unix cat and stnparse</p>
-<pre class="shell"><code>   cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010</code></pre>
+<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab</code></pre>
+<p>Typical usage would be in a pipeline with Unix stnparse</p>
+<pre class="shell"><code>   stnparse Time_Sheet.txt | stnfilter -start 2015-07-06 -end 2015-07-010</code></pre>
 <p>Matching a project name “Fred” for the same week would look like</p>
-<pre class="shell"><code>    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred</code></pre>
+<pre class="shell"><code>    stnparse Time_Sheet.txt | stnfilter s -start 2015-07-06 -end 2015-07-010 -match Fred</code></pre>
 </section>
 
 <footer>

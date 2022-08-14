@@ -27,6 +27,9 @@ filter by start date
 -end
 filter by end date
 .TP
+-match
+Match a text against entries
+.TP
 -json
 output as JSON
 .SH EXAMPLE
@@ -36,7 +39,7 @@ a stream of JSON blobs.
 .IP
 .nf
 \f[C]
-    stnfilter -start 2015-07-04 -end 2015-07-14 -json < TimeSheet.tab
+    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab
 \f[R]
 .fi
 .PP
@@ -44,15 +47,15 @@ To render the same in a tab delimited output
 .IP
 .nf
 \f[C]
-    stnfilter -start 2015-07-04 -end 2015-07-14 < TimeSheet.tab
+    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab
 \f[R]
 .fi
 .PP
-Typical usage would be in a pipeline with Unix cat and stnparse
+Typical usage would be in a pipeline with Unix stnparse
 .IP
 .nf
 \f[C]
-   cat Time_Sheet.txt | stnparse | stnfilter -start 2015-07-06 -end 2015-07-010
+   stnparse Time_Sheet.txt | stnfilter -start 2015-07-06 -end 2015-07-010
 \f[R]
 .fi
 .PP
@@ -60,7 +63,7 @@ Matching a project name \[lq]Fred\[rq] for the same week would look like
 .IP
 .nf
 \f[C]
-    cat Time_Sheet.txt | stnparse | %s -start 2015-07-06 -end 2015-07-010 -match Fred
+    stnparse Time_Sheet.txt | stnfilter s -start 2015-07-06 -end 2015-07-010 -match Fred
 \f[R]
 .fi
 .SH AUTHORS

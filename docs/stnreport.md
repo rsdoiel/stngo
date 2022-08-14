@@ -32,13 +32,13 @@ report.
 This renders columns zero (first column) and one.
 
 ~~~shell
-    stnparse -i TimeSheet.txt | stnreport -columns 0,1
+    stnparse TimeSheet.txt | stnreport -columns 0,1
 ~~~
 
 This renders columns zero (first column) and one as a CSV file.
 
 ~~~shell
-    stnparse -i TimeSheet.txt | stnreport -columns 0,1 -format csv
+    stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv
 ~~~
 
 

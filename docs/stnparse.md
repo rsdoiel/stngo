@@ -21,13 +21,13 @@ parse them into a stream of JSON blobs.
 This will parse the TimeSheet.txt file into a table.
 
 ~~~shell
-	stnparse < TimeSheet.txt
+	stnparse TimeSheet.txt
 ~~~
 
 This will parse TimeSheet.txt file into a stream of JSON blobs.
 
 ~~~shell
-	stnparse -json < TimeSheet.txt
+	stnparse -json TimeSheet.txt
 ~~~
 
 
