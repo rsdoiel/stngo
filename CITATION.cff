@@ -8,7 +8,7 @@ authors:
 abstract: A set of command line tools and Go package for working with Standard Timesheet Notation.
 repository-code: "https://github.com/rsdoiel/stngo"
 type: software
-version: 0.0.12
+version: 0.0.13
 license-url: "https://rsdoiel.github.io/stngo/license.html"
 keywords:
   - text markup

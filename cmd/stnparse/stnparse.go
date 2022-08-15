@@ -94,7 +94,7 @@ func main() {
 		defer out.Close()
 	}
 
-	activeDate := time.Now().Format(DateFmt)
+	activeDate := time.Now().Format(stn.DateFmt)
 
 	reader := bufio.NewReader(in)
 
