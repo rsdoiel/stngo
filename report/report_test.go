@@ -10,14 +10,13 @@
 package report
 
 import (
-	"fmt"
 	"log"
 	"strings"
 	"testing"
 
 	// local packages
-	"github.com/rsdoiel/ok"
-	"github.com/rsdoiel/stngo"
+
+	stn "github.com/rsdoiel/stngo"
 )
 
 func TestAggregator(t *testing.T) {
@@ -47,5 +46,7 @@ func TestAggregator(t *testing.T) {
 	}
 	outText := aggregation.Summarize([]int{0}, "")
 	outLines := strings.Split(outText, "\n")
-	ok.Ok(t, len(outLines) == 8, fmt.Sprintf("lines %d: [%s]\n", linesTotal, outText))
+	if len(outLines) != 8 {
+		t.Errorf("lines %d: [%s]\n", linesTotal, outText)
+	}
 }
