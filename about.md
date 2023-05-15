@@ -5,14 +5,15 @@ title: stngo
 About this software
 ===================
 
-stngo 0.0.12
+stngo 0.0.13
 ----------------
 
 ### Authors
 
 - Robert Doiel
 
-A set of command line tools and Go package for working with Standard Timesheet Notation.
+A set of command line tools and Go package for working with Standard
+Timesheet Notation.
 
 
 - License: https://rsdoiel.github.io/stngo/license.html
@@ -23,6 +24,5 @@ A set of command line tools and Go package for working with Standard Timesheet N
 ### Programming languages
 
 - Go
-
 
 

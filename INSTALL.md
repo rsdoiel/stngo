@@ -5,6 +5,17 @@ Installation
 *stngo* is a set of command line programs run from a shell like Bash. You can find compiled
 version in the [releases](https://github.com/rsdoiel/stngo/releases/latest) 
 
+## Quick install with curl
+
+The following curl command can be used to run the installer on most
+POSIX systems. Programs are installed into `$HOME/bin`. `$HOME/bin` will
+need to be in your path. From a shell (or terminal session) run the
+following.
+
+~~~
+curl https://rsdoiel.github.io/stngo/installer.sh | sh
+~~~
+
 ## Compiled version
 
 This is generalized instructions for a release. 

@@ -6,7 +6,7 @@
 # Released under the BSD 2-Clause license
 # See: http://opensource.org/licenses/BSD-2-Clause
 #
-PROJECT = stn
+PROJECT = stngo
 
 VERSION = $(shell grep '"version":' codemeta.json | cut -d\"  -f 4)
 
@@ -36,7 +36,7 @@ endif
 
 DIST_FOLDERS = bin/*
 
-build: version.go $(PROGRAMS) CITATION.cff man
+build: version.go $(PROGRAMS) CITATION.cff man about.md installer.sh
 
 version.go: .FORCE
 	@echo "package $(PROJECT)" >version.go
@@ -50,8 +50,18 @@ CITATION.cff: .FORCE
 	@if [ -f $(CODEMETA2CFF) ]; then $(CODEMETA2CFF) codemeta.json CITATION.cff; fi
 
 about.md: codemeta.json $(PROGRAMS)
-	pdtk prep -i codemeta.json -- --template codemeta-md.tmpl >about.md
+	echo '' | pandoc --metadata title='About Project' \
+	                 --metadata-file codemeta.json \
+					 --template codemeta-md.tmpl \
+					 >about.md
 	
+installer.sh: .FORCE
+	echo '' | pandoc --metadata title='Installer' \
+	                 --metadata-file codemeta.json \
+					 --template codemeta-installer.tmpl \
+					 >installer.sh
+	chmod 775 installer.sh
+	git add -f installer.sh
 
 $(PROGRAMS): cmd/*/*.go $(PACKAGE)
 	@mkdir -p bin
@@ -165,6 +175,7 @@ distribute_docs:
 	cp -v LICENSE dist/
 	cp -vR man dist/
 	cp -v INSTALL.md dist/
+	cp -v installer.sh dist/
 
 update_version:
 	$(EDITOR) codemeta.json
