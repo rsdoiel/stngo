@@ -55,7 +55,7 @@ For all the released version go to the project page on Github and click latest r
 + Test
 
 
-### Mac OS X
+### macOS
 
 1. Download the zip file
 2. Unzip the zip file
@@ -157,5 +157,4 @@ Or clone the repstory and then compile
     make test
     make install
 ```
-
 

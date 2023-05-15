@@ -1,11 +1,11 @@
 ---
-title: stngo
+title: stn
 ---
 
 About this software
 ===================
 
-stngo 0.0.13
+stn 0.0.13
 ----------------
 
 ### Authors

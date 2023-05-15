@@ -3,10 +3,11 @@
 #
 # Set the package name and version to install
 #
+REPO_NAME="stngo"
+GIT_USER_OR_GROUP="rsdoiel"
 PACKAGE="$name$"
 VERSION="v$version$"
-GIT_USER_OR_GROUP="rsdoiel"
-RELEASE="https://github.com/$$GIT_USER_OR_GROUP/$$PACKAGE/releases/tag/$$VERSION"
+RELEASE="https://github.com/$$GIT_USER_OR_GROUP/$$REPO_NAME/releases/tag/$$VERSION"
 
 #
 # Get the name of this script.
@@ -28,7 +29,7 @@ ZIPFILE="$$PACKAGE-$$VERSION-$$OS_NAME-$$MACHINE.zip"
 #
 # Check to see if this zip file has been downloaded.
 #
-DOWNLOAD_URL="https://github.com/$$GIT_USER_OR_GROUP/$$PACKAGE/releases/download/$$VERSION/$$ZIPFILE"
+DOWNLOAD_URL="https://github.com/$$GIT_USER_OR_GROUP/$$REPO_NAME/releases/download/$$VERSION/$$ZIPFILE"
 if ! curl -L -o "$$HOME/Downloads/$$ZIPFILE" "$$DOWNLOAD_URL"; then
 	echo "Curl failed to get $$DOWNLOAD_URL"
 fi

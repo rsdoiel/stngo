@@ -1,17 +1,20 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: stngo
+type: software
+title: "stn"
+abstract: "A set of command line tools and Go package for working with
+Standard Timesheet Notation."
 authors:
   - family-names: Doiel
     given-names: Robert
-    orcid: https://orcid.org/0000-0003-0900-6903
-abstract: A set of command line tools and Go package for working with Standard Timesheet Notation.
+    orcid: ""
+
+maintainers:
+  - family-names: 
+    given-names: 
+    orcid: ""
+
 repository-code: "https://github.com/rsdoiel/stngo"
-type: software
 version: 0.0.13
 license-url: "https://rsdoiel.github.io/stngo/license.html"
-keywords:
-  - text markup
-  - golang
-  - timesheet
-date-released: 2022-10-03
+keywords: [ "text markup", "golang", "timesheet" ]
