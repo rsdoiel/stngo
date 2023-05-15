@@ -12,8 +12,6 @@ VERSION = $(shell grep '"version":' codemeta.json | cut -d\"  -f 4)
 
 BRANCH = $(shell git branch | grep '* ' | cut -d\  -f 2)
 
-CODEMETA2CFF = $(shell which codemeta2cff)
-
 PROGRAMS = $(shell ls -1 cmd)
 
 PACKAGE = $(shell ls -1 *.go | grep -v 'version.go')
@@ -36,7 +34,7 @@ endif
 
 DIST_FOLDERS = bin/*
 
-build: version.go $(PROGRAMS) CITATION.cff man
+build: version.go $(PROGRAMS) CITATION.cff man about.md installer.sh
 
 version.go: .FORCE
 	@echo "package $(PROJECT)" >version.go
@@ -47,11 +45,24 @@ version.go: .FORCE
 	@git add version.go
 
 CITATION.cff: .FORCE
-	@if [ -f $(CODEMETA2CFF) ]; then $(CODEMETA2CFF) codemeta.json CITATION.cff; fi
+	echo '' | pandoc --metadata title='Citation' \
+	                 --metadata-file codemeta.json \
+					 --template codemeta-cff.tmpl \
+					 >CITATION.cff
 
-about.md: codemeta.json $(PROGRAMS)
-	pdtk prep -i codemeta.json -- --template codemeta-md.tmpl >about.md
+about.md: .FORCE
+	echo '' | pandoc --metadata title='About Project' \
+	                 --metadata-file codemeta.json \
+					 --template codemeta-md.tmpl \
+					 >about.md
 	
+installer.sh: .FORCE
+	echo '' | pandoc --metadata title='Installer' \
+	                 --metadata-file codemeta.json \
+					 --template codemeta-installer.tmpl \
+					 >installer.sh
+	chmod 775 installer.sh
+	git add -f installer.sh
 
 $(PROGRAMS): cmd/*/*.go $(PACKAGE)
 	@mkdir -p bin
@@ -122,7 +133,7 @@ clean:
 
 dist/linux-amd64:
 	@mkdir -p dist/bin
-	@for FNAME in $(PROGRAMS); do env  GOOS=linux GOARCH=amd64 go build -o dist/bin/$$FNAME cmd/$$FNAME/*.go; done
+	@for FNAME in $(PROGRAMS); do env GOOS=linux GOARCH=amd64 go build -o dist/bin/$$FNAME cmd/$$FNAME/*.go; done
 	@cd dist && zip -r $(PROJECT)-v$(VERSION)-linux-amd64.zip LICENSE codemeta.json CITATION.cff *.md $(DIST_FOLDERS)
 	@rm -fR dist/bin
 
@@ -165,12 +176,9 @@ distribute_docs:
 	cp -v LICENSE dist/
 	cp -vR man dist/
 	cp -v INSTALL.md dist/
+	cp -v installer.sh dist/
 
-update_version:
-	$(EDITOR) codemeta.json
-	codemeta2cff codemeta.json CITATION.cff
-
-release: CITATION.cff clean version.go distribute_docs dist/linux-amd64 dist/windows-amd64 dist/windows-arm64 dist/macos-amd64 dist/macos-arm64 dist/raspbian-arm7
+release: clean CITATION.cff version.go installer.sh man website distribute_docs dist/linux-amd64 dist/windows-amd64 dist/windows-arm64 dist/macos-amd64 dist/macos-arm64 dist/raspbian-arm7
 
 status:
 	git status

@@ -27,12 +27,26 @@
 <!--  <h1>INSTALL</h1> -->
 
 <h1 id="installation">Installation</h1>
-<p><em>stngo</em> is a set of command line programs run from a shell like Bash. You can find compiled version in the <a href="https://github.com/rsdoiel/stngo/releases/latest">releases</a></p>
+<p><em>stngo</em> is a set of command line programs run from a shell
+like Bash. You can find compiled version in the <a
+href="https://github.com/rsdoiel/stngo/releases/latest">releases</a></p>
+<h2 id="quick-install-with-curl">Quick install with curl</h2>
+<p>The following curl command can be used to run the installer on most
+POSIX systems. Programs are installed into <code>$HOME/bin</code>.
+<code>$HOME/bin</code> will need to be in your path. From a shell (or
+terminal session) run the following.</p>
+<pre><code>curl https://rsdoiel.github.io/stngo/installer.sh | sh</code></pre>
 <h2 id="compiled-version">Compiled version</h2>
 <p>This is generalized instructions for a release.</p>
-<p>Compiled versions are available for Mac OS X (amd64 and M1 processors, macos-amd64, macos-arm64), Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)</p>
-<p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version number</a> (e.g. v0.1.2)</p>
-<p>For all the released version go to the project page on Github and click latest release</p>
+<p>Compiled versions are available for Mac OS X (amd64 and M1
+processors, macos-amd64, macos-arm64), Linux (amd64 process,
+linux-amd64), Windows (amd64 processor, windows-amd64), Rapsberry Pi
+(arm7 processor, raspbian-arm7) and Pine64 (arm64 processor,
+linux-arm64)</p>
+<p>VERSION_NUMBER is a <a href="http://semver.org/">symantic version
+number</a> (e.g. v0.1.2)</p>
+<p>For all the released version go to the project page on Github and
+click latest release</p>
 <blockquote>
 <p>https://github.com/rsdoiel/stngo/releases/latest</p>
 </blockquote>
@@ -72,23 +86,27 @@
 </table>
 <h2 id="the-basic-recipe">The basic recipe</h2>
 <ul>
-<li>Find the Zip file listed matching the architecture you’re running and download it
+<li>Find the Zip file listed matching the architecture you’re running
+and download it
 <ul>
-<li>(e.g. if you’re on a Windows 10 laptop/Surface with a amd64 style CPU you’d choose the Zip file with “windows-amd64” in the name).</li>
+<li>(e.g. if you’re on a Windows 10 laptop/Surface with a amd64 style
+CPU you’d choose the Zip file with “windows-amd64” in the name).</li>
 </ul></li>
 <li>Download the zip file and unzip the file.<br />
 </li>
-<li>Copy the contents of the folder named “bin” to a folder that is in your path
+<li>Copy the contents of the folder named “bin” to a folder that is in
+your path
 <ul>
 <li>(e.g. “$HOME/bin” is common).</li>
 </ul></li>
 <li>Adjust your PATH if needed
 <ul>
-<li>(e.g. export PATH=“<span class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em><em>n</em>:</span>PATH”)</li>
+<li>(e.g. export PATH=“<span
+class="math inline"><em>H</em><em>O</em><em>M</em><em>E</em>/<em>b</em><em>i</em><em>n</em>:</span>PATH”)</li>
 </ul></li>
 <li>Test</li>
 </ul>
-<h3 id="mac-os-x">Mac OS X</h3>
+<h3 id="macos">macOS</h3>
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
@@ -96,7 +114,8 @@
 <li>Make sure the new location in in our path</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in the Terminal App after downloading the zip file.</p>
+<p>Here’s an example of the commands run in the Terminal App after
+downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip stngo-*-macos-amd64.zip
     mkdir -p $HOME/bin
@@ -110,7 +129,8 @@
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell on Windows 10 after downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell on
+Windows 10 after downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip stngo-*-windows-amd64.zip
     mkdir -p $HOME/bin
@@ -124,7 +144,8 @@
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell after
+downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip stngo-*-linux-amd64.zip
     mkdir -p $HOME/bin
@@ -132,14 +153,16 @@
     export PATH=$HOME/bin:$PATH
     stnparse -version</code></pre>
 <h3 id="raspberry-pi">Raspberry Pi</h3>
-<p>Released version is for a Raspberry Pi 2 or later use (i.e. requires ARM 7 support).</p>
+<p>Released version is for a Raspberry Pi 2 or later use (i.e. requires
+ARM 7 support).</p>
 <ol type="1">
 <li>Download the zip file</li>
 <li>Unzip the zip file</li>
 <li>Copy the executables to $HOME/bin (or a folder in your path)</li>
 <li>Test</li>
 </ol>
-<p>Here’s an example of the commands run in from the Bash shell after downloading the zip file.</p>
+<p>Here’s an example of the commands run in from the Bash shell after
+downloading the zip file.</p>
 <pre class="shell"><code>    cd Downloads/
     unzip stngo-*-raspbian-arm7.zip
     mkdir -p $HOME/bin
@@ -147,7 +170,8 @@
     export PATH=$HOME/bin:$PATH
     stnparse -version</code></pre>
 <h2 id="compiling-from-source">Compiling from source</h2>
-<p><em>stngo</em> is “go gettable”. Use the “go get” command to download the dependant packages as well as <em>stngo</em>’s source code.</p>
+<p><em>stngo</em> is “go gettable”. Use the “go get” command to download
+the dependant packages as well as <em>stngo</em>’s source code.</p>
 <pre class="shell"><code>    go get -u github.com/rsdoiel/stngo/...</code></pre>
 <p>Or clone the repstory and then compile</p>
 <pre class="shell"><code>    cd

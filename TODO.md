@@ -2,6 +2,11 @@
 Action items
 ============
 
+Next
+----
+
+- [ ] Extend parsing to support ISO 8601 date/time standard this would increase flexibility in notating a log file
+
 Bugs
 ----
 
