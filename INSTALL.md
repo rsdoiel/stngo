@@ -20,9 +20,9 @@ curl https://rsdoiel.github.io/stngo/installer.sh | sh
 
 This is generalized instructions for a release. 
 
-Compiled versions are available for Mac OS X (amd64 and M1 processors, macos-amd64, macos-arm64), 
-Linux (amd64 process, linux-amd64), Windows (amd64 processor, windows-amd64), 
-Rapsberry Pi (arm7 processor, raspbian-arm7) and Pine64 (arm64 processor, linux-arm64)
+Compiled versions are available for Mac OS X (Intel and M1 processors, macOS-x86_64, macOS-arm64), 
+Linux (Intel process, Linux-x86_64), Windows (Intel processor, Windows-x86_64), 
+Rapsberry Pi (arm7 processor, RaspberryPiOS-arm7) and Pine64 (arm64 processor, Linux-aarch64)
 
 
 VERSION_NUMBER is a [symantic version number](http://semver.org/) (e.g. v0.1.2)
