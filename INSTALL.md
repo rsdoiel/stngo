@@ -35,12 +35,12 @@ For all the released version go to the project page on Github and click latest r
 
 | Platform    | Zip Filename                           |
 |-------------|----------------------------------------|
-| Windows     | stngo-VERSION_NUMBER-windows-amd64.zip |
-| Mac OS X    | stngo-VERSION_NUMBER-macos-amd64.zip  |
-| Mac OS X    | stngo-VERSION_NUMBER-macos-arm64.zip  |
-| Linux/Intel | stngo-VERSION_NUMBER-linux-amd64.zip   |
-| Raspbery Pi | stngo-VERSION_NUMBER-raspbian-arm7.zip |
-| Pine64      | stngo-VERSION_NUMBER-linux-arm64.zip   |
+| Windows     | stn-VERSION_NUMBER-Windows-x86_64.zip |
+| Mac OS X    | stn-VERSION_NUMBER-macOS-x86_64.zip  |
+| Mac OS X    | stn-VERSION_NUMBER-macos-arm64.zip  |
+| Linux/Intel | stn-VERSION_NUMBER-Linux-x86_64.zip   |
+| Raspbery Pi | stn-VERSION_NUMBER-RaspberryPiOS-arm7.zip |
+| Pine64      | stn-VERSION_NUMBER-Linux-aarch64.zip   |
 
 
 ## The basic recipe
