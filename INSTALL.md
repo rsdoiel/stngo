@@ -68,7 +68,7 @@ zip file.
 
 ```shell
     cd Downloads/
-    unzip stngo-*-macos-amd64.zip
+    unzip stngo-*-macOS-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -87,7 +87,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip stngo-*-windows-amd64.zip
+    unzip stngo-*-Windows-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -107,7 +107,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip stngo-*-linux-amd64.zip
+    unzip stngo-*-Linux-x86_64.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
@@ -129,7 +129,7 @@ downloading the zip file.
 
 ```shell
     cd Downloads/
-    unzip stngo-*-raspbian-arm7.zip
+    unzip stngo-*-RaspberryPiOS-arm7.zip
     mkdir -p $HOME/bin
     cp -v bin/* $HOME/bin/
     export PATH=$HOME/bin:$PATH
