@@ -4,7 +4,7 @@
 # Set the package name and version to install
 #
 PACKAGE="stn"
-VERSION="0.0.13"
+VERSION="0.0.12"
 GIT_GROUP="rsdoiel"
 RELEASE="https://github.com/$GIT_GROUP/${PACKAGE}go/releases/tag/v$VERSION"
 
