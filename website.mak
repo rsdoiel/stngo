@@ -3,28 +3,19 @@
 #
 PROJECT = stn
 
-MD_PAGES = $(shell ls -1 *.md | grep -v "nav.md")
+MD_PAGES = $(shell ls -1 *.md | grep -v 'nav.md')
 
-HTML_PAGES = $(shell ls -1 *.md | grep -v "nav.md" | sed -E 's/.md/.html/g')
+HTML_PAGES = $(shell ls -1 *.md | grep -v 'nav.md' | sed -E 's/.md/.html/g')
 
-build: $(HTML_PAGES) $(MD_PAGES)
+build: $(HTML_PAGES) $(MD_PAGES) pagefind
 
 $(HTML_PAGES): $(MD_PAGES) .FORCE
-	pandoc --metadata title=$(basename $@) -s --to html5 $(basename $@).md -o $(basename $@).html \
-	    --template=page.tmpl
-	@if [ $@ = "README.html" ]; then mv README.html index.html; fi
+	pandoc --metadata title=$(basename $@) -s --to html5 $(basename $@).md -o $(basename $@).html --lua-filter=links-to-html.lua --template=page.tmpl
+	@if [ "$(basename $@)" = "README" ]; then mv README.html index.html; git add index.html; else git add "$(basename $@).html"; fi
 
-stn.html: docs/stn.md
-	pandoc --metadata title="$(PROJECT): simple timesheet notation" -s --from Markdown --to html5 docs/stn.md -o stn.html --template page.tmpl
-	
-stnfilter.html: docs/stnfilter.md
-	pandoc --metadata title="$(PROJECT): stnfilter" -s --from Markdown --to html5 docs/stnfilter.md -o stnfilter.html --template page.tmpl
-
-stnparse.html: docs/stnparse.md
-	pandoc --metadata title="$(PROJECT): stnparse" -s --from Markdown --to html5 docs/stnparse.md -o stnparse.html --template page.tmpl
-
-stnreport.html: docs/stnreport.md
-	pandoc --metadata title="$(PROJECT): stnreport" -s --from Markdown --to html5 docs/stnreport.md -o stnreport.html --template page.tmpl
+pagefind: .FORCE
+	pagefind --verbose --exclude-selectors="nav,header,footer" --bundle-dir ./pagefind --source .
+	git add pagefind
 
 clean:
 	@if [ -f index.html ]; then rm *.html; fi
