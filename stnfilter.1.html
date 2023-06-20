@@ -30,41 +30,32 @@
 <h1 id="name">NAME</h1>
 <p>stnfilter</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnfilter <a href="#options">OPTIONS</a> [INPUT_FILENAME]
-[OUTPUT_FILENAME]</p>
+<p>stnfilter <a href="#options">OPTIONS</a> [INPUT_FILENAME] [OUTPUT_FILENAME]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnfilter is a standard timesheet notation filter. stnfilter will
-filter the output from stnparse based on date or matching text.</p>
+<p>stnfilter is a standard timesheet notation filter. stnfilter will filter the output from stnparse based on date or matching text.</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
 <dt>-i</dt>
-<dd>
-Set input filename
+<dd>Set input filename
 </dd>
 <dt>-o</dt>
-<dd>
-Set output filename
+<dd>Set output filename
 </dd>
 <dt>-start</dt>
-<dd>
-filter by start date
+<dd>filter by start date
 </dd>
 <dt>-end</dt>
-<dd>
-filter by end date
+<dd>filter by end date
 </dd>
 <dt>-match</dt>
-<dd>
-Match a text against entries
+<dd>Match a text against entries
 </dd>
 <dt>-json</dt>
-<dd>
-output as JSON
+<dd>output as JSON
 </dd>
 </dl>
 <h1 id="example">EXAMPLE</h1>
-<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and
-render a stream of JSON blobs.</p>
+<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and render a stream of JSON blobs.</p>
 <pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab</code></pre>
 <p>To render the same in a tab delimited output</p>
 <pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab</code></pre>
