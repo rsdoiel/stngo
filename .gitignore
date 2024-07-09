@@ -30,6 +30,7 @@ _testmain.go
 .DS_Store
 bin/*
 dist/*
+man/*
 *.zip
 *~
 *.swp
