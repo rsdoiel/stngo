@@ -5,6 +5,7 @@
 # Set the package name and version to install
 #
 $$PACKAGE = "$name$"
+$$REPO = "$name$go"
 $$VERSION = "$version$"
 $$GIT_GROUP = "$git_org_or_person$"
 $$RELEASE = "https://github.com/$${GIT_GROUP}/$${PACKAGE}/releases/tag/v$${VERSION}"
@@ -27,7 +28,7 @@ $$ZIPFILE = "$${PACKAGE}-v$${VERSION}-Windows-$${MACHINE}.zip"
 #
 # Check to see if this zip file has been downloaded.
 #
-$$DOWNLOAD_URL = "https://github.com/$${GIT_GROUP}/$${PACKAGE}/releases/download/v$${VERSION}/$${ZIPFILE}"
+$$DOWNLOAD_URL = "https://github.com/$${GIT_GROUP}/$${REPO}/releases/download/v$${VERSION}/$${ZIPFILE}"
 
 if (!(Test-Path $$BIN_DIR)) {
   New-Item $$BIN_DIR -ItemType Directory | Out-Null
