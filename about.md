@@ -11,7 +11,7 @@ authors:
     orcid: "https://orcid.org/0000-0003-0900-6903"
 
 repository-code: "https://github.com/rsdoiel/stngo"
-version: 0.0.12
+version: 0.0.13
 license-url: "https://rsdoiel.github.io/stngo/license.html"
 keywords: [ "text markup", "golang", "timesheet" ]
 
@@ -20,7 +20,7 @@ keywords: [ "text markup", "golang", "timesheet" ]
 About this software
 ===================
 
-## stn 0.0.12
+## stn 0.0.13
 
 ### Authors
 
