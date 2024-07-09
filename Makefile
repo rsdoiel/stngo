@@ -192,6 +192,7 @@ dist/RaspberryPiOS-arm7: $(PROGRAMS)
 	@rm -fR dist/bin
 
 distribute_docs:
+	@rm -fR dist/ >/dev/null
 	@mkdir -p dist/
 	@cp -v codemeta.json dist/
 	@cp -v CITATION.cff dist/
