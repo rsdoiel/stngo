@@ -37,7 +37,7 @@ curl.exe -Lo "${ZIPFILE}" "${DOWNLOAD_URL}"
 
 tar.exe xf "${ZIPFILE}" -C "${Home}"
 
-Remove-Item $ZIPFILE
+#Remove-Item $ZIPFILE
 
 $User = [System.EnvironmentVariableTarget]::User
 $Path = [System.Environment]::GetEnvironmentVariable('Path', $User)
