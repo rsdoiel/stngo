@@ -35,3 +35,4 @@ man/*
 *~
 *.swp
 __pycache__
+*.bak
