@@ -20,7 +20,7 @@
     "golang",
     "timesheet"
   ],
-  "name": "stn",
+  "name": "stngo",
   "license": "https://opensource.org/licenses/BSD-2-Clause",
   "programmingLanguage": [
     "Go >= 1.26.4"

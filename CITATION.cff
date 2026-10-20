@@ -2,7 +2,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: stn
+title: stngo
 abstract: |-
   A set of command line tools and Go package for working with Standard Timesheet Notation.
 authors:

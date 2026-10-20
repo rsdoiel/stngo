@@ -1,5 +1,5 @@
 ---
-title: stn
+title: stngo
 abstract: |-
   A set of command line tools and Go package for working with Standard Timesheet Notation.
 authors:
@@ -27,7 +27,7 @@ date_released: 2026-10-20
 About this software
 ===================
 
-## stn 0.0.14
+## stngo 0.0.14
 
 Maintenance release
 

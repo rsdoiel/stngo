@@ -1,7 +1,7 @@
 Installation for development of **stngo**
 ===========================================
 
-**stn** A set of command line tools and Go package for working with Standard Timesheet Notation.
+**stngo** A set of command line tools and Go package for working with Standard Timesheet Notation.
 
 Quick install with curl or irm
 ------------------------------

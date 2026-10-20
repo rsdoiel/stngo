@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# generated with CMTools 0.0.14 3f78026
+# generated with CMTools 0.0.14 c44bc55
 
 #
 # Set the package name and version to install
@@ -14,7 +14,7 @@ if ($PKG_VERSION) {
 	Write-Output "Using '${PKG_VERSION}' for version value '${VERSION}'"
 }
 
-$PACKAGE = "stn"
+$PACKAGE = "stngo"
 $GIT_GROUP = "rsdoiel"
 $RELEASE = "https://github.com/${GIT_GROUP}/${PACKAGE}/releases/tag/v${VERSION}"
 $SYSTEM_TYPE = Get-ComputerInfo -Property CsSystemType

@@ -1,10 +1,10 @@
 #!/bin/sh
-# generated with CMTools 0.0.14 3f78026
+# generated with CMTools 0.0.14 c44bc55
 
 #
 # Set the package name and version to install
 #
-PACKAGE="stn"
+PACKAGE="stngo"
 VERSION="0.0.14"
 GIT_GROUP="rsdoiel"
 RELEASE="https://github.com/$GIT_GROUP/$PACKAGE/releases/tag/v$VERSION"

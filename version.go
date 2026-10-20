@@ -1,4 +1,4 @@
-package stn
+package stngo
 
 import (
 	"strings"
@@ -12,7 +12,7 @@ const (
     ReleaseDate = "2026-10-20"
 
     // ReleaseHash, the Git hash when version.go was generated
-    ReleaseHash = "3f78026"
+    ReleaseHash = "c44bc55"
     LicenseText = `
 Copyright (c) 2021, R. S. Doiel
 All rights reserved.

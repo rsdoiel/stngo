@@ -5,7 +5,7 @@ package main
 import "C"
 
 import (
-	"github.com/rsdoiel/stngo"
+	stn "github.com/rsdoiel/stngo"
 )
 
 //export version

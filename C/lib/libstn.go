@@ -8,7 +8,7 @@ import "C"
 import "unsafe"
 
 import (
-	"github.com/rsdoiel/stngo"
+	stn "github.com/rsdoiel/stngo"
 )
 
 //export Version

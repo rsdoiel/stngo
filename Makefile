@@ -4,7 +4,7 @@
 #
 # Simple Makefile for Golang based Projects built under POSIX.
 #
-PROJECT = stn
+PROJECT = stngo
 
 GIT_GROUP = rsdoiel
 
