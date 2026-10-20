@@ -1,11 +1,9 @@
-//
 // stnparse.go - Simple Timesheet Notation parser.
 //
 // @author R. S. Doiel, <rsdoiel@gmail.com>
 // copyright (c) 2021 all rights reserved.
 // Released under the BSD 2-Clause license.
 // See: http://opensource.org/licenses/BSD-2-Clause
-//
 package main
 
 import (
@@ -40,8 +38,11 @@ func main() {
 
 	// Standard Options
 	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showHelp, "h", false, "display help")
 	flag.BoolVar(&showLicense, "license", false, "display license")
+	flag.BoolVar(&showLicense, "l", false, "display license")
 	flag.BoolVar(&showVersion, "version", false, "display version")
+	flag.BoolVar(&showVersion, "v", false, "display version")
 	flag.StringVar(&inputFName, "i", "", "input filename")
 	flag.StringVar(&outputFName, "o", "", "output filename")
 
@@ -81,7 +82,7 @@ func main() {
 		in, err = os.Open(inputFName)
 		if err != nil {
 			fmt.Fprintf(eout, "%s\n", err)
-			os.Exit(1)
+			os.Exit(66)
 		}
 		defer in.Close()
 	}
@@ -89,7 +90,7 @@ func main() {
 		out, err = os.Create(outputFName)
 		if err != nil {
 			fmt.Fprintf(eout, "%s\n", err)
-			os.Exit(1)
+			os.Exit(73)
 		}
 		defer out.Close()
 	}

@@ -25,6 +25,15 @@ or matching text.
 
 # OPTIONS
 
+-h, -help
+: display help
+
+-l, -license
+: display license
+
+-v, -version
+: display version
+
 -i
 : Set input filename
 
@@ -42,6 +51,23 @@ or matching text.
 
 -json
 : output as JSON
+
+# EXIT STATUS
+
+0
+: success
+
+2
+: bad command line, or a bad -start or -end date
+
+65
+: an input line is not parsed output
+
+66
+: input file cannot be opened
+
+73
+: output file cannot be created
 
 # EXAMPLE
 

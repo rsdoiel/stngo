@@ -1,4 +1,3 @@
-//
 // stn.go - is a shared library to make the stn package available
 // as a Python3 module via ctypes.
 package main

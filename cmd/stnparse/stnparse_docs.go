@@ -23,6 +23,31 @@ const (
 it parse them into a tabular format but can also optionally
 parse them into a stream of JSON blobs.
 
+# OPTIONS
+
+-h, -help
+: display help
+
+-l, -license
+: display license
+
+-v, -version
+: display version
+
+# EXIT STATUS
+
+0
+: success
+
+2
+: bad command line
+
+66
+: input file cannot be opened
+
+73
+: output file cannot be created
+
 # EXAMPLES
 
 This will parse the TimeSheet.txt file into a table.

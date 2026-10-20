@@ -43,8 +43,11 @@ func main() {
 
 	// Standard Options
 	flag.BoolVar(&showHelp, "help", false, "display help")
+	flag.BoolVar(&showHelp, "h", false, "display help")
 	flag.BoolVar(&showLicense, "license", false, "display license")
+	flag.BoolVar(&showLicense, "l", false, "display license")
 	flag.BoolVar(&showVersion, "version", false, "display version")
+	flag.BoolVar(&showVersion, "v", false, "display version")
 	flag.BoolVar(&itemize, "itemize", false, "report details, for JSON and CSV formats duration is in fractional hours")
 	flag.StringVar(&inputFName, "i", "", "input filename")
 	flag.StringVar(&outputFName, "o", "", "output filename")
@@ -86,7 +89,7 @@ func main() {
 		in, err = os.Open(inputFName)
 		if err != nil {
 			fmt.Fprintf(eout, "%s\n", err)
-			os.Exit(1)
+			os.Exit(66)
 		}
 		defer in.Close()
 	}
@@ -95,7 +98,7 @@ func main() {
 		out, err = os.Create(outputFName)
 		if err != nil {
 			fmt.Fprintf(eout, "%s\n", err)
-			os.Exit(1)
+			os.Exit(73)
 		}
 		defer out.Close()
 	}
@@ -114,18 +117,18 @@ func main() {
 		lineNo++
 		if entry.FromString(line) != true {
 			fmt.Fprintf(eout, "line no. %d: can't filter [%s]\n", lineNo, line)
-			os.Exit(1)
+			os.Exit(65)
 		} else {
 			aggregation.Aggregate(entry)
 		}
 	}
 	var cols []int
-	s := strings.Split(columns, ",")
-	for _, val := range s {
+	s := strings.SplitSeq(columns, ",")
+	for val := range s {
 		i, err := strconv.Atoi(val)
 		if err != nil {
 			fmt.Fprintf(eout, "Column number error: %s, %s", columns, err)
-			os.Exit(1)
+			os.Exit(2)
 		}
 		cols = append(cols, i)
 	}

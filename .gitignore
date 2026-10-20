@@ -36,3 +36,10 @@ man/*
 *.swp
 __pycache__
 *.bak
+*.db
+*.db-shm
+*.db-wal
+.env
+*.log
+testout
+release_notes.tmp

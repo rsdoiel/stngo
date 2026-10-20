@@ -1,7 +1,5 @@
-//
 // libstn.go - is a shared library to make the stn package available
 // to other programming languages such as Python3 and Julia.
-//
 package main
 
 import "C"

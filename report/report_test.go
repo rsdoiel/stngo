@@ -1,4 +1,3 @@
-//
 // Package report provides basic report rendering for Simple Timesheet Notation.
 //
 // report_test.go test the stn/report package.
@@ -6,7 +5,6 @@
 // copyright (c) 2015 all rights reserved.
 // Released under the BSD 2-Clause license
 // See: http://opensource.org/licenses/BSD-2-Clause
-//
 package report
 
 import (

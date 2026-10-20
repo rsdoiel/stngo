@@ -18,7 +18,6 @@ import (
 
 // Version of stn.go package.
 const (
-
 	DateFmt = `2006-01-02`
 )
 

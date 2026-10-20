@@ -9,7 +9,7 @@ const (
 % R. S. Doiel
 % August 14, 2022
 
-# Name
+# NAME
 
 {app_name}
 
@@ -24,6 +24,15 @@ report.
 
 # OPTIONS
 
+-h, -help
+: display help
+
+-l, -license
+: display license
+
+-v, -version
+: display version
+
 -i
 : Reading input from a file rather than standard input
 
@@ -33,6 +42,23 @@ report.
 -format
 : Render output as a CSV file or JSON
 
+
+# EXIT STATUS
+
+0
+: success
+
+2
+: bad command line, or a bad column list
+
+65
+: an input line is not parsed output
+
+66
+: input file cannot be opened
+
+73
+: output file cannot be created
 
 # EXAMPLES
 

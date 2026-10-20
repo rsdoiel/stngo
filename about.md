@@ -1,30 +1,27 @@
 ---
 title: stn
-abstract: "A set of command line tools and Go package for working with Standard Timesheet Notation."
+abstract: |-
+  A set of command line tools and Go package for working with Standard Timesheet Notation.
 authors:
-  - family_name: Doiel
-    given_name: Robert
-    id: https://orcid.org/0000-0003-0900-6903
-
-
-maintainer:
   - family_name: Doiel
     given_name: R. S.
     id: https://orcid.org/0000-0003-0900-6903
 
+
+
 repository_code: https://github.com/rsdoiel/stngo
 version: 0.0.14
-license_url: https://rsdoiel.github.io/stngo/license.html
+license_url: https://opensource.org/licenses/BSD-2-Clause
 
 programming_language:
-  - Go
+  - Go >= 1.26.4
 
 keywords:
   - text markup
   - golang
   - timesheet
 
-date_released: 2025-12-03
+date_released: 2026-10-20
 ---
 
 About this software
@@ -34,40 +31,37 @@ About this software
 
 Maintenance release
 
-### Authors
+## Authors
 
-- Robert Doiel, <https://orcid.org/0000-0003-0900-6903>
-
-
+- [R. S. Doiel](https://orcid.org/0000-0003-0900-6903)
 
 
-### Maintainers
 
-- R. S. Doiel, <https://orcid.org/0000-0003-0900-6903>
+
 
 
 A set of command line tools and Go package for working with Standard Timesheet Notation.
 
-- License: <https://rsdoiel.github.io/stngo/license.html>
-- GitHub: <https://github.com/rsdoiel/stngo>
-- Issues: <https://github.com/rsdoiel/stngo/issues>
+- [License](https://opensource.org/licenses/BSD-2-Clause)
+- [Code Repository](https://github.com/rsdoiel/stngo)
+  - [Issue Tracker](https://github.com/rsdoiel/stngo/issues)
 
-### Programming languages
+## Programming languages
 
-- Go
-
-
+- Go >= 1.26.4
 
 
-### Software Requirements
-
-- Go >= 1.25.5
-- CMTools >= 0.0.49
 
 
-### Software Suggestions
+## Software Requirements
 
-- Pandoc &gt;&#x3D; 3.1
-- GNU Make &gt;&#x3D; 3
+- Go >= 1.26.4
+
+
+## Software Suggestions
+
+- CMTools >= 0.0.45b
+- Pandoc >= 3.9
+- GNU Make >= 3
 
 
