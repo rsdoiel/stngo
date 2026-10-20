@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden">skip to main content</a>
 <nav>
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="index.html">README</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="LICENSE">LICENSE</a></li>
     <li><a href="INSTALL.html">INSTALL</a></li>
     <li><a href="user_manual.html">User Manual</a></li>
@@ -17,44 +17,75 @@
     <li><a href="https://github.com/rsdoiel/stngo">GitHub</a></li>
 </ul>
 </nav>
-<section>
+<section id="main-content">
 <h1 id="about-this-software">About this software</h1>
-<h2 id="stn-0.0.14">stn 0.0.14</h2>
-<p>Maintenance release</p>
-<h3 id="authors">Authors</h3>
+<h2 id="stngo-0.0.15">stngo 0.0.15</h2>
+<p>Maintenance release. Brought up to current workspace practice. Times
+are now handled as local time, the clock the timesheet was written on:
+an entry gets the UTC offset in force on its own date, so winter entries
+are no longer shifted an hour when the tools run in daylight time (a log
+line of 8:00 printed as 07:00), and the <code>stnfilter</code> day range
+is whole local days, so an entry after 5pm is no longer reported on the
+next day. <code>stnparse</code> warns on standard error about a line
+that starts like an entry but has a typo (a missing or wrong semicolon,
+an extra space) instead of silently dropping its hours.
+<code>stnparse</code> now works out morning and afternoon start times
+from the order of the day: the start times of a day ascend, so
+<code>1:00 - 4:00</code> after an entry that started at 8:00 is 13:00 to
+16:00 (on the author’s logs this corrects about 28% of the displayed
+start times and changes no duration or report), while
+<code>8:00 - 4:00</code> is still 8:00 to 16:00. Fixed: the
+<code>stnparse</code> segfault on a <code>24:00</code> end time
+(<code>24:00</code> is now midnight at the end of the day, and a line
+that cannot be parsed is reported and skipped, with exit 65 at the end);
+an entry with no notes left a newline in its last cell, which printed a
+stray blank line in <code>stnreport</code> and split one activity into
+two rows; <code>stnreport -itemize</code> dropped the first entry; a
+last line with no newline was dropped; <code>stnfilter -end</code>
+without <code>-start</code> was ignored. The Go package is now named
+<code>stngo</code>, matching its import path, so code that imports
+<code>github.com/rsdoiel/stngo</code> without an alias must refer to it
+as <code>stngo</code> (or alias it as <code>stn</code>), and the
+generated installers now download from <code>rsdoiel/stngo</code>
+instead of the non-existent <code>rsdoiel/stn</code>. The programs take
+<code>-h</code>, <code>-l</code> and <code>-v</code> beside the long
+options, exit with the workspace codes (2 usage, 65 data, 66 missing
+input, 73 cannot create output, 74 I/O), and their command line code
+moved to <code>internal/cli</code> with help text as constants in
+<code>helptext.go</code> that now document every option. Snap packaging
+is dropped; use the curl installer. Requires Go 1.26.4.</p>
+<h2 id="authors">Authors</h2>
 <ul>
-<li>Robert Doiel, <a href="https://orcid.org/0000-0003-0900-6903"
-class="uri">https://orcid.org/0000-0003-0900-6903</a></li>
-</ul>
-<h3 id="maintainers">Maintainers</h3>
-<ul>
-<li>R. S. Doiel, <a href="https://orcid.org/0000-0003-0900-6903"
-class="uri">https://orcid.org/0000-0003-0900-6903</a></li>
+<li><a href="https://orcid.org/0000-0003-0900-6903">R. S. Doiel</a></li>
 </ul>
 <p>A set of command line tools and Go package for working with Standard
 Timesheet Notation.</p>
 <ul>
-<li>License: <a href="https://rsdoiel.github.io/stngo/license.html"
-class="uri">https://rsdoiel.github.io/stngo/license.html</a></li>
-<li>GitHub: <a href="https://github.com/rsdoiel/stngo"
-class="uri">https://github.com/rsdoiel/stngo</a></li>
-<li>Issues: <a href="https://github.com/rsdoiel/stngo/issues"
-class="uri">https://github.com/rsdoiel/stngo/issues</a></li>
-</ul>
-<h3 id="programming-languages">Programming languages</h3>
+<li><a
+href="https://opensource.org/licenses/BSD-2-Clause">License</a></li>
+<li><a href="https://github.com/rsdoiel/stngo">Code Repository</a>
 <ul>
-<li>Go</li>
+<li><a href="https://github.com/rsdoiel/stngo/issues">Issue
+Tracker</a></li>
+</ul></li>
 </ul>
-<h3 id="software-requirements">Software Requirements</h3>
+<h2 id="programming-languages">Programming languages</h2>
 <ul>
-<li>Go &gt;= 1.25.5</li>
-<li>CMTools &gt;= 0.0.49</li>
+<li>Go &gt;= 1.26.4</li>
 </ul>
-<h3 id="software-suggestions">Software Suggestions</h3>
+<h2 id="software-requirements">Software Requirements</h2>
 <ul>
-<li>Pandoc &gt;= 3.1</li>
+<li>Go &gt;= 1.26.4</li>
+</ul>
+<h2 id="software-suggestions">Software Suggestions</h2>
+<ul>
+<li>CMTools &gt;= 0.0.45b</li>
+<li>Pandoc &gt;= 3.9</li>
 <li>GNU Make &gt;= 3</li>
 </ul>
 </section>
+<footer>
+<p>stngo</p>
+</footer>
 </body>
 </html>

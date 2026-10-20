@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden">skip to main content</a>
 <nav>
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="index.html">README</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="LICENSE">LICENSE</a></li>
     <li><a href="INSTALL.html">INSTALL</a></li>
     <li><a href="user_manual.html">User Manual</a></li>
@@ -17,35 +17,96 @@
     <li><a href="https://github.com/rsdoiel/stngo">GitHub</a></li>
 </ul>
 </nav>
-<section>
-<h1 id="name">Name</h1>
-<p>stnreport</p>
+<section id="main-content">
+<h1 id="name">NAME</h1>
+<p>stnreport — total the hours in the output of stnparse or
+stnfilter</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnreport <a href="#options">OPTIONS</a> [INPUT_FILENAME]
-[OUTPUT_FILENAME]</p>
+<p>stnreport <a href="#options">OPTIONS</a> [INPUT_FILENAME
+[OUTPUT_FILENAME]]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnreport takes output from stnparse or stnfilter and renders a
-report.</p>
+<p>stnreport reads the lines written by stnparse or stnfilter, adds up
+the hours for each distinct set of cells and writes a report with the
+total. The cells are numbered from zero, and -columns chooses which ones
+identify a row. Rows are sorted by their cells.</p>
+<p>By default the report is a text table. -format csv and -format json
+write those formats, and -itemize writes one row for each entry rather
+than one for each set of cells; in the CSV and JSON forms the duration
+is in fractional hours.</p>
+<p>The input and output are standard input and output unless a file is
+named. A file name of - means standard input or output.</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
-<dt>-i</dt>
+<dt>-h, -help</dt>
 <dd>
-Reading input from a file rather than standard input
+display this help page
 </dd>
-<dt>-o</dt>
+<dt>-l, -license</dt>
 <dd>
-Write output to a file rather than standard output
+display the license
 </dd>
-<dt>-format</dt>
+<dt>-v, -version</dt>
 <dd>
-Render output as a CSV file or JSON
+display the program name, version and release hash
+</dd>
+<dt>-i FILENAME</dt>
+<dd>
+read from FILENAME
+</dd>
+<dt>-o FILENAME</dt>
+<dd>
+write to FILENAME
+</dd>
+<dt>-columns LIST</dt>
+<dd>
+comma separated, zero indexed cells that identify a row (default 0)
+</dd>
+<dt>-format NAME</dt>
+<dd>
+text (the default), csv or json
+</dd>
+<dt>-itemize</dt>
+<dd>
+report each entry rather than totals
+</dd>
+</dl>
+<h1 id="exit-status">EXIT STATUS</h1>
+<dl>
+<dt>0</dt>
+<dd>
+success
+</dd>
+<dt>2</dt>
+<dd>
+bad command line, or a -columns list that is not numbers
+</dd>
+<dt>65</dt>
+<dd>
+an input line is not output of stnparse
+</dd>
+<dt>66</dt>
+<dd>
+the input file cannot be opened
+</dd>
+<dt>73</dt>
+<dd>
+the output file cannot be created
+</dd>
+<dt>74</dt>
+<dd>
+reading or writing failed part way
 </dd>
 </dl>
 <h1 id="examples">EXAMPLES</h1>
-<p>This renders columns zero (first column) and one.</p>
-<pre class="shell"><code>    stnparse TimeSheet.txt | stnreport -columns 0,1</code></pre>
-<p>This renders columns zero (first column) and one as a CSV file.</p>
-<pre class="shell"><code>    stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv</code></pre>
+<p>Hours by client and activity for one day:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt | stnfilter -start=2026-10-16 -end=2026-10-16 | stnreport -columns=0,1</code></pre>
+<p>The same as CSV:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv</code></pre>
+<h1 id="see-also">SEE ALSO</h1>
+<p>stnparse(1), stnfilter(1), stn(5)</p>
 </section>
+<footer>
+<p>stngo</p>
+</footer>
 </body>
 </html>

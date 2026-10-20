@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden">skip to main content</a>
 <nav>
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="index.html">README</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="LICENSE">LICENSE</a></li>
     <li><a href="INSTALL.html">INSTALL</a></li>
     <li><a href="user_manual.html">User Manual</a></li>
@@ -17,20 +17,107 @@
     <li><a href="https://github.com/rsdoiel/stngo">GitHub</a></li>
 </ul>
 </nav>
-<section>
+<section id="main-content">
 <h1 id="name">NAME</h1>
-<p>stnparse</p>
+<p>stnparse — parse Simple Timesheet Notation</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnparse [OPTIONS] [INPUT_FILENAME] [OUTPUT_FILENAME]</p>
+<p>stnparse <a href="#options">OPTIONS</a> [INPUT_FILENAME
+[OUTPUT_FILENAME]]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnparse parses content in “Standard Timesheet Notation”. By default
-it parse them into a tabular format but can also optionally parse them
-into a stream of JSON blobs.</p>
+<p>stnparse reads a timesheet written in Simple Timesheet Notation and
+writes one line for each entry: the start and end time as RFC 3339
+timestamps, then the cells of the entry, separated by tabs. With -json
+it writes a JSON array instead. Pipe the result to stnfilter and
+stnreport.</p>
+<p>Times are local time. The hours in a timesheet are the hours on the
+clock where it was written, so 8:00 is 8:00 whatever the date, and each
+entry gets the UTC offset in force on its own day, summer or winter.</p>
+<p>Times are written without am or pm, so stnparse works them out from
+the order of the day. The entries of a day are in order, so their start
+times ascend: if a start such as 1:00 would be earlier than the entry
+before it, it is 13:00. After an entry that started at 8:00, “1:00 -
+4:00” is 13:00 to 16:00. The first entry of a day, and a start that is
+not earlier than the one before it, is taken as written, so two entries
+that both start at 10:00 overlap. An end time earlier than the start is
+the afternoon, so “8:00 - 4:00” is 8:00 to 16:00 and “8:00 - 1:00” is
+8:00 to 13:00. 24:00 is midnight at the end of the day. A time of 12:00
+or later is never moved.</p>
+<p>Lines that are not entries or dates (headings, notes, blank lines)
+are ignored. A line that starts like an entry, a time and a dash, but is
+not one is skipped with a warning on standard error, because its hours
+would otherwise go uncounted. The usual causes are a missing semicolon
+after the end time, a colon where the semicolon belongs and an extra
+space.</p>
+<p>The input and output are standard input and output unless a file is
+named. A file name of - means standard input or output.</p>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt>-h, -help</dt>
+<dd>
+display this help page
+</dd>
+<dt>-l, -license</dt>
+<dd>
+display the license
+</dd>
+<dt>-v, -version</dt>
+<dd>
+display the program name, version and release hash
+</dd>
+<dt>-i FILENAME</dt>
+<dd>
+read the timesheet from FILENAME
+</dd>
+<dt>-o FILENAME</dt>
+<dd>
+write the result to FILENAME
+</dd>
+<dt>-json</dt>
+<dd>
+write a JSON array of entries instead of tab delimited lines
+</dd>
+</dl>
+<h1 id="exit-status">EXIT STATUS</h1>
+<dl>
+<dt>0</dt>
+<dd>
+success, including when lines were skipped with a warning
+</dd>
+<dt>2</dt>
+<dd>
+bad command line
+</dd>
+<dt>65</dt>
+<dd>
+an entry line could not be parsed, for example an hour of 25. It is
+reported and skipped, the rest of the timesheet is parsed, and the exit
+status is 65
+</dd>
+<dt>66</dt>
+<dd>
+the input file cannot be opened
+</dd>
+<dt>73</dt>
+<dd>
+the output file cannot be created
+</dd>
+<dt>74</dt>
+<dd>
+reading or writing failed part way
+</dd>
+</dl>
 <h1 id="examples">EXAMPLES</h1>
-<p>This will parse the TimeSheet.txt file into a table.</p>
-<pre class="shell"><code>    stnparse TimeSheet.txt</code></pre>
-<p>This will parse TimeSheet.txt file into a stream of JSON blobs.</p>
-<pre class="shell"><code>    stnparse -json TimeSheet.txt</code></pre>
+<p>Parse a timesheet into a table:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt</code></pre>
+<p>Parse it into JSON:</p>
+<pre class="shell"><code>stnparse -json TimeSheet.txt</code></pre>
+<p>Report the hours for one day:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt | stnfilter -start=2026-10-16 -end=2026-10-16 | stnreport -columns=0,1</code></pre>
+<h1 id="see-also">SEE ALSO</h1>
+<p>stnfilter(1), stnreport(1), stn(5)</p>
 </section>
+<footer>
+<p>stngo</p>
+</footer>
 </body>
 </html>

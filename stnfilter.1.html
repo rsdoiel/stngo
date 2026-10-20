@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+<a href="#main-content" class="visually-hidden">skip to main content</a>
 <nav>
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="index.html">README</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="LICENSE">LICENSE</a></li>
     <li><a href="INSTALL.html">INSTALL</a></li>
     <li><a href="user_manual.html">User Manual</a></li>
@@ -17,52 +17,100 @@
     <li><a href="https://github.com/rsdoiel/stngo">GitHub</a></li>
 </ul>
 </nav>
-<section>
+<section id="main-content">
 <h1 id="name">NAME</h1>
-<p>stnfilter</p>
+<p>stnfilter — filter the output of stnparse by date or text</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>stnfilter <a href="#options">OPTIONS</a> [INPUT_FILENAME]
-[OUTPUT_FILENAME]</p>
+<p>stnfilter <a href="#options">OPTIONS</a> [INPUT_FILENAME
+[OUTPUT_FILENAME]]</p>
 <h1 id="description">DESCRIPTION</h1>
-<p>stnfilter is a standard timesheet notation filter. stnfilter will
-filter the output from stnparse based on date or matching text.</p>
+<p>stnfilter reads the lines written by stnparse and writes the ones
+that match. An entry is kept when it starts inside the date range, and,
+if -match is given, when any of its cells contains the text. Lines are
+passed through unchanged.</p>
+<p>A date range is whole days in local time, the zone the timesheet was
+written in. -start 2026-10-12 -end 2026-10-12 is the day from 00:00 to
+24:00 on the wall clock, whatever the time zone offset was that day. If
+only -start is given the range runs to the present moment, and if only
+-end is given it runs from the beginning.</p>
+<p>The input and output are standard input and output unless a file is
+named. A file name of - means standard input or output.</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
-<dt>-i</dt>
+<dt>-h, -help</dt>
 <dd>
-Set input filename
+display this help page
 </dd>
-<dt>-o</dt>
+<dt>-l, -license</dt>
 <dd>
-Set output filename
+display the license
 </dd>
-<dt>-start</dt>
+<dt>-v, -version</dt>
 <dd>
-filter by start date
+display the program name, version and release hash
 </dd>
-<dt>-end</dt>
+<dt>-i FILENAME</dt>
 <dd>
-filter by end date
+read from FILENAME
 </dd>
-<dt>-match</dt>
+<dt>-o FILENAME</dt>
 <dd>
-Match a text against entries
+write to FILENAME
+</dd>
+<dt>-start DATE</dt>
+<dd>
+first day to keep, as YYYY-MM-DD
+</dd>
+<dt>-end DATE</dt>
+<dd>
+last day to keep, as YYYY-MM-DD, inclusive
+</dd>
+<dt>-match TEXT</dt>
+<dd>
+keep entries with TEXT in any cell
 </dd>
 <dt>-json</dt>
 <dd>
-output as JSON
+accepted and ignored; the lines are passed through unchanged
 </dd>
 </dl>
-<h1 id="example">EXAMPLE</h1>
-<p>Filter TimeSheet.tab from July 4, 2015 through July 14, 2015 and
-render a stream of JSON blobs.</p>
-<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab</code></pre>
-<p>To render the same in a tab delimited output</p>
-<pre class="shell"><code>    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab</code></pre>
-<p>Typical usage would be in a pipeline with Unix stnparse</p>
-<pre class="shell"><code>   stnparse Time_Sheet.txt | stnfilter -start 2015-07-06 -end 2015-07-010</code></pre>
-<p>Matching a project name “Fred” for the same week would look like</p>
-<pre class="shell"><code>    stnparse Time_Sheet.txt | stnfilter s -start 2015-07-06 -end 2015-07-010 -match Fred</code></pre>
+<h1 id="exit-status">EXIT STATUS</h1>
+<dl>
+<dt>0</dt>
+<dd>
+success
+</dd>
+<dt>2</dt>
+<dd>
+bad command line, or a -start or -end that is not a date
+</dd>
+<dt>65</dt>
+<dd>
+an input line is not output of stnparse
+</dd>
+<dt>66</dt>
+<dd>
+the input file cannot be opened
+</dd>
+<dt>73</dt>
+<dd>
+the output file cannot be created
+</dd>
+<dt>74</dt>
+<dd>
+reading or writing failed part way
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<p>One day:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt | stnfilter -start=2026-10-16 -end=2026-10-16</code></pre>
+<p>A week, Sunday through Saturday, mentioning one project:</p>
+<pre class="shell"><code>stnparse TimeSheet.txt | stnfilter -start 2026-10-11 -end 2026-10-17 -match Widgets</code></pre>
+<h1 id="see-also">SEE ALSO</h1>
+<p>stnparse(1), stnreport(1), stn(5)</p>
 </section>
+<footer>
+<p>stngo</p>
+</footer>
 </body>
 </html>
