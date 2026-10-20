@@ -332,3 +332,22 @@ func TestFilter(t *testing.T) {
 		}
 	}
 }
+
+/** TestParseEntryEndOfDay checks that 24:00 is accepted as midnight at the
+ * end of the day, e.g. "23:30 - 24:00; DLD; Misc; shutdown systems".
+ *
+ * Example:
+ *   go test -run TestParseEntryEndOfDay
+ */
+func TestParseEntryEndOfDay(t *testing.T) {
+	entry, err := ParseEntry("2015-07-04", "23:30 - 24:00; DLD; Misc; shutdown systems")
+	if err != nil {
+		t.Fatalf("23:30 - 24:00 should parse, got %v", err)
+	}
+	if got := entry.End.Sub(entry.Start); got != 30*time.Minute {
+		t.Errorf("duration is %s, expected 30m", got)
+	}
+	if entry.End.Day() != 5 || entry.End.Hour() != 0 || entry.End.Minute() != 0 {
+		t.Errorf("end is %s, expected midnight starting 2015-07-05", entry.End)
+	}
+}

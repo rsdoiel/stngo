@@ -100,6 +100,7 @@ func main() {
 	reader := bufio.NewReader(in)
 
 	entryCnt := 0
+	badLines := 0
 	lineNo := 1
 	if asJSON == true {
 		fmt.Fprint(out, "[")
@@ -115,6 +116,9 @@ func main() {
 			entry, perr := stn.ParseEntry(activeDate, line)
 			if perr != nil {
 				fmt.Fprintf(eout, "line %d: %v\n", lineNo, perr)
+				badLines++
+				lineNo++
+				continue
 			}
 			if asJSON == true {
 				if entryCnt > 0 {
@@ -130,5 +134,9 @@ func main() {
 	}
 	if asJSON == true {
 		fmt.Fprint(out, "]")
+	}
+	if badLines > 0 {
+		fmt.Fprintf(eout, "%d line(s) could not be parsed\n", badLines)
+		os.Exit(65)
 	}
 }

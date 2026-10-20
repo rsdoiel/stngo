@@ -80,20 +80,35 @@ func splitRangeElements(timeRange string) (string, string, error) {
 	return "", "", errors.New("[" + timeRange + "] is not a valid time range string. ")
 }
 
-func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
-	startTime, err1 := time.Parse("2006-01-02 15:04 MST", start)
-	endTime, err2 := time.Parse("2006-01-02 15:04 MST", end)
-	//NOTE: need to handle the case where someone has entered an end time ran
-	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
-	if startTime.Unix() > endTime.Unix() {
-		plus12hr, _ := time.ParseDuration("+12h")
-		endTime = endTime.Add(plus12hr)
+// parseClock parses "YYYY-MM-DD HH:MM ZONE". A clock of 24:00 is accepted as
+// midnight at the end of that day, so "23:30 - 24:00" works.
+func parseClock(value string) (time.Time, error) {
+	const layout = "2006-01-02 15:04 MST"
+	parts := strings.SplitN(value, " ", 3)
+	if len(parts) == 3 && parts[1] == "24:00" {
+		t, err := time.Parse(layout, parts[0]+" 00:00 "+parts[2])
+		if err != nil {
+			return t, err
+		}
+		return t.AddDate(0, 0, 1), nil
 	}
+	return time.Parse(layout, value)
+}
+
+func parseRangeElements(start string, end string) (time.Time, time.Time, error) {
+	startTime, err1 := parseClock(start)
+	endTime, err2 := parseClock(end)
 	if err1 != nil {
 		return startTime, endTime, err1
 	}
 	if err2 != nil {
 		return startTime, endTime, err2
+	}
+	//NOTE: need to handle the case where someone has entered an end time ran
+	// smaller than start (e.g. 8:00 - 1:00 meaning 1pm should become 13:00)
+	if startTime.Unix() > endTime.Unix() {
+		plus12hr, _ := time.ParseDuration("+12h")
+		endTime = endTime.Add(plus12hr)
 	}
 	return startTime, endTime, nil
 }

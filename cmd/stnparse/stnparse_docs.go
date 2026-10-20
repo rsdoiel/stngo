@@ -42,6 +42,9 @@ parse them into a stream of JSON blobs.
 2
 : bad command line
 
+65
+: an entry line could not be parsed (it is reported and skipped, the rest are still parsed)
+
 66
 : input file cannot be opened
 
