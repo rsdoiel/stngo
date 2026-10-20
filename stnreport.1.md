@@ -1,4 +1,4 @@
-%stnreport(1) user manual | version 0.0.15 9c12c25
+%stnreport(1) user manual | version 0.0.15 82f8419
 % R. S. Doiel
 % 2026-10-20
 
