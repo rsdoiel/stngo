@@ -1,40 +1,54 @@
-%stnreport(1) stnreport user manual
+%stnreport(1) user manual | version 0.0.15 9c12c25
 % R. S. Doiel
-% August 14, 2022
+% 2026-10-20
 
 # NAME
 
-stnreport
+stnreport — total the hours in the output of stnparse or stnfilter
 
 # SYNOPSIS
 
-stnreport [OPTIONS] [INPUT_FILENAME] [OUTPUT_FILENAME]
+stnreport [OPTIONS] [INPUT_FILENAME [OUTPUT_FILENAME]]
 
 # DESCRIPTION
 
-stnreport takes output from stnparse or stnfilter and renders a
-report.
+stnreport reads the lines written by stnparse or stnfilter, adds up the hours
+for each distinct set of cells and writes a report with the total. The cells are
+numbered from zero, and -columns chooses which ones identify a row. Rows are
+sorted by their cells.
+
+By default the report is a text table. -format csv and -format json write those
+formats, and -itemize writes one row for each entry rather than one for each
+set of cells; in the CSV and JSON forms the duration is in fractional hours.
+
+The input and output are standard input and output unless a file is named. A
+file name of - means standard input or output.
 
 # OPTIONS
 
 -h, -help
-: display help
+: display this help page
 
 -l, -license
-: display license
+: display the license
 
 -v, -version
-: display version
+: display the program name, version and release hash
 
--i
-: Reading input from a file rather than standard input
+-i FILENAME
+: read from FILENAME
 
--o
-: Write output to a file rather than standard output
+-o FILENAME
+: write to FILENAME
 
--format
-: Render output as a CSV file or JSON
+-columns LIST
+: comma separated, zero indexed cells that identify a row (default 0)
 
+-format NAME
+: text (the default), csv or json
+
+-itemize
+: report each entry rather than totals
 
 # EXIT STATUS
 
@@ -42,30 +56,35 @@ report.
 : success
 
 2
-: bad command line, or a bad column list
+: bad command line, or a -columns list that is not numbers
 
 65
-: an input line is not parsed output
+: an input line is not output of stnparse
 
 66
-: input file cannot be opened
+: the input file cannot be opened
 
 73
-: output file cannot be created
+: the output file cannot be created
+
+74
+: reading or writing failed part way
 
 # EXAMPLES
 
-This renders columns zero (first column) and one.
+Hours by client and activity for one day:
 
 ~~~shell
-    stnparse TimeSheet.txt | stnreport -columns 0,1
+stnparse TimeSheet.txt | stnfilter -start=2026-10-16 -end=2026-10-16 | stnreport -columns=0,1
 ~~~
 
-This renders columns zero (first column) and one as a CSV file.
+The same as CSV:
 
 ~~~shell
-    stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv
+stnparse TimeSheet.txt | stnreport -columns 0,1 -format csv
 ~~~
 
+# SEE ALSO
 
+stnparse(1), stnfilter(1), stn(5)
 

@@ -1,49 +1,59 @@
-%stnfilter(1) stnfilter user manual
+%stnfilter(1) user manual | version 0.0.15 9c12c25
 % R. S. Doiel
-% August 14, 2022
+% 2026-10-20
 
 # NAME
 
-stnfilter
+stnfilter — filter the output of stnparse by date or text
 
 # SYNOPSIS
 
-stnfilter [OPTIONS] [INPUT_FILENAME] [OUTPUT_FILENAME]
+stnfilter [OPTIONS] [INPUT_FILENAME [OUTPUT_FILENAME]]
 
 # DESCRIPTION
 
-stnfilter is a standard timesheet notation filter.
-stnfilter will filter the output from stnparse based on date
-or matching text.
+stnfilter reads the lines written by stnparse and writes the ones that match.
+An entry is kept when it starts inside the date range, and, if -match is
+given, when any of its cells contains the text. Lines are passed through
+unchanged.
+
+A date range is whole days in local time, the zone the timesheet was written
+in. -start 2026-10-12 -end 2026-10-12 is the day from 00:00 to 24:00 on the
+wall clock, whatever the time zone offset was that day. If only -start is given
+the range runs to the present moment, and if only -end is given it runs from
+the beginning.
+
+The input and output are standard input and output unless a file is named. A
+file name of - means standard input or output.
 
 # OPTIONS
 
 -h, -help
-: display help
+: display this help page
 
 -l, -license
-: display license
+: display the license
 
 -v, -version
-: display version
+: display the program name, version and release hash
 
--i
-: Set input filename
+-i FILENAME
+: read from FILENAME
 
--o
-: Set output filename
+-o FILENAME
+: write to FILENAME
 
--start
-: filter by start date
+-start DATE
+: first day to keep, as YYYY-MM-DD
 
--end
-: filter by end date
+-end DATE
+: last day to keep, as YYYY-MM-DD, inclusive
 
--match
-: Match a text against entries
+-match TEXT
+: keep entries with TEXT in any cell
 
 -json
-: output as JSON
+: accepted and ignored; the lines are passed through unchanged
 
 # EXIT STATUS
 
@@ -51,42 +61,35 @@ or matching text.
 : success
 
 2
-: bad command line, or a bad -start or -end date
+: bad command line, or a -start or -end that is not a date
 
 65
-: an input line is not parsed output
+: an input line is not output of stnparse
 
 66
-: input file cannot be opened
+: the input file cannot be opened
 
 73
-: output file cannot be created
+: the output file cannot be created
 
-# EXAMPLE
+74
+: reading or writing failed part way
 
-Filter TimeSheet.tab from July 4, 2015 through July 14, 2015
-and render a stream of JSON blobs.
+# EXAMPLES
 
-~~~shell
-    stnfilter -start 2015-07-04 -end 2015-07-14 -json TimeSheet.tab
-~~~
-
-To render the same in a tab delimited output
+One day:
 
 ~~~shell
-    stnfilter -start 2015-07-04 -end 2015-07-14 TimeSheet.tab
+stnparse TimeSheet.txt | stnfilter -start=2026-10-16 -end=2026-10-16
 ~~~
 
-Typical usage would be in a pipeline with Unix stnparse
+A week, Sunday through Saturday, mentioning one project:
 
 ~~~shell
-   stnparse Time_Sheet.txt | stnfilter -start 2015-07-06 -end 2015-07-010
+stnparse TimeSheet.txt | stnfilter -start 2026-10-11 -end 2026-10-17 -match Widgets
 ~~~
 
-Matching a project name "Fred" for the same week would look like
+# SEE ALSO
 
-~~~shell
-    stnparse Time_Sheet.txt | stnfilter s -start 2015-07-06 -end 2015-07-010 -match Fred
-~~~
-
+stnparse(1), stnreport(1), stn(5)
 

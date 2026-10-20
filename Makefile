@@ -26,7 +26,7 @@ DOCS = $(shell ls -1 *.?.md)
 
 # version.go is left out: it has a rule (cmt, under generate), and listing it
 # here would make every build run cmt through that rule.
-PACKAGE = $(filter-out version.go,$(shell ls -1 *.go))
+PACKAGE = $(filter-out version.go,$(shell find . -name '*.go' -not -name '*_test.go' -not -path './cmd/*' | sed 's#^\./##'))
 
 VERSION = $(shell grep '"version":' codemeta.json | cut -d\"  -f 4)
 
@@ -100,7 +100,7 @@ installer.ps1: .FORCE
 
 
 test: $(PACKAGE)
-	go test
+	go test ./...
 
 website: clean-website .FORCE
 	make -f website.mak

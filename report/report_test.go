@@ -48,3 +48,68 @@ func TestAggregator(t *testing.T) {
 		t.Errorf("lines %d: [%s]\n", linesTotal, outText)
 	}
 }
+
+func aggregateOf(t *testing.T, lines ...string) *EntryAggregation {
+	t.Helper()
+	aggregation := new(EntryAggregation)
+	for i, line := range lines {
+		entry := new(stn.Entry)
+		if !entry.FromString(line) {
+			t.Fatalf("can't read line %d: %q", i+1, line)
+		}
+		aggregation.Aggregate(entry)
+	}
+	return aggregation
+}
+
+const (
+	itemizeFirst  = "2026-10-13T08:00:00-07:00\t2026-10-13T09:00:00-07:00\tAcme\tWidgets\tfirst\n"
+	itemizeSecond = "2026-10-13T09:00:00-07:00\t2026-10-13T09:30:00-07:00\tAcme\tLunch\n"
+)
+
+/** TestItemizeKeepsEveryEntry checks that the header row is added to the
+ * entries and does not replace the first one.
+ *
+ * Example:
+ *   go test -run TestItemizeKeepsEveryEntry ./report
+ */
+func TestItemizeKeepsEveryEntry(t *testing.T) {
+	a := aggregateOf(t, itemizeFirst, itemizeSecond)
+	want := "Duration\tPrimary\tSecondary\n" +
+		" 1.00\tAcme\tWidgets\n" +
+		" 0.50\tAcme\tLunch"
+	if got := a.Itemize([]int{0, 1}, ""); got != want {
+		t.Errorf("text\n got: %q\nwant: %q", got, want)
+	}
+	wantCSV := "Duration,Primary,Secondary\n1.00,Acme,Widgets\n0.50,Acme,Lunch\n"
+	if got := a.Itemize([]int{0, 1}, "csv"); got != wantCSV {
+		t.Errorf("csv\n got: %q\nwant: %q", got, wantCSV)
+	}
+	if got := a.Itemize([]int{0, 1}, "json"); strings.Count(got, "Widgets") != 1 || strings.Count(got, "Lunch") != 1 {
+		t.Errorf("json is missing an entry: %s", got)
+	}
+}
+
+func TestItemizeOneEntry(t *testing.T) {
+	a := aggregateOf(t, itemizeFirst)
+	want := "Duration\tPrimary\n 1.00\tAcme"
+	if got := a.Itemize([]int{0}, ""); got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
+}
+
+func TestSummarizeMissingColumnAndFormats(t *testing.T) {
+	a := aggregateOf(t, itemizeFirst, itemizeSecond)
+	if got := a.Summarize([]int{0, 1}, "csv"); !strings.Contains(got, "1.00,Acme: Widgets") || !strings.Contains(got, "1.50,Total Hours") {
+		t.Errorf("csv summary: %q", got)
+	}
+	if got := a.Itemize([]int{5}, ""); !strings.Contains(got, "N/A") {
+		t.Errorf("a column that is not there should be N/A: %q", got)
+	}
+	if got := a.Summarize([]int{5}, ""); !strings.Contains(got, "1.50\tTotal Hours") {
+		t.Errorf("a column that is not there should not lose the hours: %q", got)
+	}
+	if got := a.Summarize([]int{0}, "json"); !strings.Contains(got, "Total Hours") {
+		t.Errorf("json summary: %q", got)
+	}
+}

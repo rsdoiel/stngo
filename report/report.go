@@ -122,7 +122,7 @@ func (e *EntryAggregation) Summarize(columns []int, format string) string {
 			summary[key] = duration.Hours()
 		}
 	}
-	keys := make([]string, len(summary))
+	keys := make([]string, 0, len(summary))
 	for k := range summary {
 		keys = append(keys, k)
 	}
@@ -177,16 +177,13 @@ func (e *EntryAggregation) Summarize(columns []int, format string) string {
 // in detail for use in other tools. Supports plain text, JSON
 // and CSV output.
 func (e *EntryAggregation) Itemize(columns []int, format string) string {
-	cols := []string{}
 	records := [][]string{}
 	for i, item := range e.Entries {
 		if i == 0 {
-			cols = composeHeaders(&item, columns)
-		} else {
-			// Columns to include
-			cols = composeColumns(&item, columns, format)
+			// The header row comes before the first entry, it is not the first entry.
+			records = append(records, composeHeaders(&item, columns))
 		}
-		records = append(records, cols)
+		records = append(records, composeColumns(&item, columns, format))
 	}
 
 	// Now output an appropriate format, default is text,

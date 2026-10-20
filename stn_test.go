@@ -351,3 +351,86 @@ func TestParseEntryEndOfDay(t *testing.T) {
 		t.Errorf("end is %s, expected midnight starting 2015-07-05", entry.End)
 	}
 }
+
+/** TestFromStringDropsTheLineEnding checks that the newline read with a line
+ * does not end up inside the last annotation, which made an entry with no
+ * notes ("8:00 - 9:00; Acme; Lunch") a different report row from the same
+ * activity written with notes.
+ *
+ * Example:
+ *   go test -run TestFromStringDropsTheLineEnding
+ */
+func TestFromStringDropsTheLineEnding(t *testing.T) {
+	for _, ending := range []string{"\n", "\r\n", ""} {
+		e := new(Entry)
+		line := "2026-10-13T12:30:00Z\t2026-10-13T13:00:00Z\tAcme\tLunch" + ending
+		if !e.FromString(line) {
+			t.Fatalf("FromString(%q) = false", line)
+		}
+		if last := e.Annotations[len(e.Annotations)-1]; last != "Lunch" {
+			t.Errorf("last annotation is %q for line ending %q, expected \"Lunch\"", last, ending)
+		}
+	}
+}
+
+/** TestParseEntryAfterResolvesMorningAndAfternoon checks that a start time
+ * written without am/pm takes the reading, morning or afternoon,
+ * that keeps the start times of the day ascending.
+ *
+ * Example:
+ *   go test -run TestParseEntryAfterResolvesMorningAndAfternoon
+ */
+func TestParseEntryAfterResolvesMorningAndAfternoon(t *testing.T) {
+	day := "2026-10-13"
+	at := func(clock string) time.Time {
+		d, err := time.ParseInLocation("2006-01-02 15:04", day+" "+clock, time.Local)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return d
+	}
+	// prev is an entry of the day that started at start and ended at end.
+	prev := func(start, end string) *Entry { return &Entry{Start: at(start), End: at(end)} }
+	cases := []struct {
+		name       string
+		prev       *Entry
+		line       string
+		start, end string
+	}{
+		{"first entry of the day is as written", nil, "1:00 - 5:00; A; b", "01:00", "05:00"},
+		{"first entry before 7am is as written", nil, "6:30 - 8:00; A; b", "06:30", "08:00"},
+		{"crossing noon after a morning entry", prev("08:00", "08:30"), "1:00 - 4:00; A; b", "13:00", "16:00"},
+		{"later in the morning stays in the morning", prev("08:00", "08:30"), "9:00 - 10:00; A; b", "09:00", "10:00"},
+		{"lunch hour: 12:15 is noon", prev("10:00", "11:45"), "12:15 - 1:15; A; b", "12:15", "13:15"},
+		{"an overlap stays where it was written", prev("10:00", "10:30"), "10:00 - 11:00; A; b", "10:00", "11:00"},
+		{"the same start as the entry before stays", prev("08:30", "14:45"), "8:30 - 5:30; A; b", "08:30", "17:30"},
+		{"an afternoon entry follows an afternoon entry", prev("13:00", "14:00"), "2:00 - 3:00; A; b", "14:00", "15:00"},
+		{"an evening session", prev("13:00", "17:00"), "7:00 - 10:00; A; b", "19:00", "22:00"},
+		{"8:00 - 4:00 is 8:00 - 16:00 as the first entry", nil, "8:00 - 4:00; A; b", "08:00", "16:00"},
+		{"8:00 - 4:00 is 8:00 - 16:00 after an earlier start", prev("07:00", "08:00"), "8:00 - 4:00; A; b", "08:00", "16:00"},
+		{"8:00 - 4:00 is 8:00 - 16:00 after the same start", prev("08:00", "08:30"), "8:00 - 4:00; A; b", "08:00", "16:00"},
+		{"8:30 - 1:00 ends at 13:00", nil, "8:30 - 1:00; A; b", "08:30", "13:00"},
+		{"12:30 - 1:00 ends at 13:00", nil, "12:30 - 1:00; A; b", "12:30", "13:00"},
+		{"an afternoon start keeps its end: 1:00 - 5:00", prev("08:00", "12:00"), "1:00 - 5:00; A; b", "13:00", "17:00"},
+		{"an entry added out of order is not moved to 9pm", prev("09:15", "09:30"), "9:00 - 3:00; A; b", "09:00", "15:00"},
+		{"a start that leaves no room for the end is not moved", prev("13:30", "15:15"), "3:15 - 3:00; A; b", "03:15", "15:00"},
+		{"24 hour notation is never moved", prev("08:00", "08:30"), "13:00 - 15:00; A; b", "13:00", "15:00"},
+		{"an entry from another day is no guide", &Entry{Start: at("08:00").AddDate(0, 0, 1), End: at("08:30").AddDate(0, 0, 1)}, "1:00 - 4:00; A; b", "01:00", "04:00"},
+	}
+	for _, c := range cases {
+		entry, err := ParseEntryAfter(day, c.line, c.prev)
+		if err != nil {
+			t.Errorf("%s: %v", c.name, err)
+			continue
+		}
+		if !entry.Start.Equal(at(c.start)) || !entry.End.Equal(at(c.end)) {
+			t.Errorf("%s: %q gave %s - %s, want %s - %s", c.name, c.line,
+				entry.Start.Format("15:04"), entry.End.Format("15:04"), c.start, c.end)
+		}
+	}
+	// ParseEntry has no previous entry to go by.
+	entry, _ := ParseEntry(day, "1:00 - 4:00; A; b")
+	if entry.Start.Hour() != 1 {
+		t.Errorf("ParseEntry should read as written, got %s", entry.Start.Format("15:04"))
+	}
+}

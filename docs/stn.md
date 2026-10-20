@@ -1,4 +1,4 @@
-% stn(1) stngo user manual
+% stn(5) stngo user manual
 % R. S. Doiel
 % August, 3, 2022
 
@@ -96,9 +96,19 @@ If could also look like this
 
 If you not using a twelve hour clock it is assume the first time before the dash is the start time and the second entry is the end time.  Calculating hours then evolves looking at the relationship of those two times to each other.  If the start time is smaller then the end time then simple subtraction of the start from the end calculates hours spent.  If that is not the case (i.e. you have crossed the noon boundary) then you will need to normalize the values before subtracting the start from end time. A time range of "8:00 - 1:00" would normalize to "8:00 - 13:00".
 
+#### Morning and afternoon
+
+Times are written without am or pm, and the tools work out which is meant from the order of the day. The entries of a day are in order, so their start times ascend. If a start time such as 1:00 would be earlier than the entry before it, it is 13:00: after an entry "8:00 - 8:30", the entry "1:00 - 4:00" is 13:00 to 16:00. The first entry of a day, and a start time that is not earlier than the one before it, is taken as written, so two entries that both start at 10:00 overlap. An end time that is earlier than the start time is the afternoon, so "8:00 - 4:00" is 8:00 to 16:00. A time of 12:00 or later is never changed. If the afternoon reading would leave no room for the end time (an entry written out of order, such as "9:00 - 3:00" after one that started at 9:15), the time is taken as written.
+
+#### Local time and the end of the day
+
+The times in a timesheet are local time, the time on the clock where it was written. 8:00 is 8:00 on every date, and the tools give each entry the time zone offset that was in force on its own day, so a timesheet that runs through the changes to and from daylight time keeps its hours. A date range given to *stnfilter* is whole days on that same clock. The time 24:00 is allowed as the end of a range and means midnight at the end of the day (e.g. "23:30 - 24:00").
+
 ### Embedding extra text
 
 If the line is not a date or time entry it is ignored.  This allows pre-processors like *shorthand* to integrate easily with a simple timesheet notation file. It also lets you add notes to self or extended descriptions without worry they will get pushed to whatever is down the pipeline after the stn parse is done its job.
+
+There is one exception. A line that starts like a time range, a time and then a hyphen, but is not a valid entry is almost certainly a typo, and its hours would not be counted. *stnparse* skips it and prints a warning on standard error with the line number. The usual typos are a missing semi-colon after the end time (`9:30 - 10:00 Misc; notes`), a colon in place of the semi-colon (`12:30 - 5:45: Misc`) and an extra space before the hyphen (`3:45  - 6:00;`).
 
 ### Example timesheet entries for a day
 
@@ -125,8 +135,8 @@ The lines starting with "//" and "{" are ignored since they are not recognized a
 
 # ALSO SEE
 
-- [stnparse](stnparse.html)
-- [stnfilter](stnfilter.html)
-- [stnreport](stnreport.html)
+- [stnparse](stnparse.1.md)
+- [stnfilter](stnfilter.1.md)
+- [stnreport](stnreport.1.md)
 - Website: [https://rsdoiel.github.io/stngo](https://rsdoiel.github.io/stngo)
 
