@@ -43,3 +43,6 @@ __pycache__
 *.log
 testout
 release_notes.tmp
+
+# PageFind output is generated, large and changes on every build; never commit it.
+pagefind/
