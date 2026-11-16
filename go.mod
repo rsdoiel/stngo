@@ -1,3 +1,3 @@
 module github.com/rsdoiel/stngo
 
-go 1.26.4
+go 1.27.3

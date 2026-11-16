@@ -14,7 +14,7 @@ version: 0.0.15
 license_url: https://opensource.org/licenses/BSD-2-Clause
 
 programming_language:
-  - Go >= 1.26.4
+  - Go >= 1.27.3
 
 keywords:
   - text markup
@@ -48,14 +48,14 @@ A set of command line tools and Go package for working with Standard Timesheet N
 
 ## Programming languages
 
-- Go >= 1.26.4
+- Go >= 1.27.3
 
 
 
 
 ## Software Requirements
 
-- Go >= 1.26.4
+- Go >= 1.27.3
 
 
 ## Software Suggestions
